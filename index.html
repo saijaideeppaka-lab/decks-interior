@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decks Interior — Interior design, fit-out &amp; carpentry, Dublin</title>
+<meta name="description" content="Decks Interior is a Dublin-based carpentry, interior design and construction studio working across Ireland. Bespoke media walls, kitchens and bedrooms, designed and fitted by one team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+/* ─────────────────────────────────────────────
+   DECKS INTERIOR — drawing-set direction
+   ink · blueprint indigo · plaster · brass
+   ───────────────────────────────────────────── */
+:root{
+  --bg:#FAF9F7;
+  --panel:#E7E4DE;
+  --fg:#131820;
+  --fg-soft:rgba(19,24,32,.64);
+  --fg-faint:rgba(19,24,32,.44);
+  --line:rgba(19,24,32,.17);
+  --line-soft:rgba(19,24,32,.09);
+  --deep:#17324F;
+  --accent:#9A6F35;
+  --deep-bg:#131820;
+  --deep-fg:#FAF9F7;
+  --deep-fg-soft:rgba(250,249,247,.52);
+  --deep-line:rgba(250,249,247,.26);
+  --deep-accent:#C79B5B;
+
+  --display:"Archivo","Helvetica Neue",system-ui,sans-serif;
+  --body:"Source Serif 4","Iowan Old Style",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+  --pad:clamp(1.25rem,5vw,5rem);
+  --gap:clamp(1.5rem,3vw,2.75rem);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0F1319;
+    --panel:#191E26;
+    --fg:#ECEAE5;
+    --fg-soft:rgba(236,234,229,.66);
+    --fg-faint:rgba(236,234,229,.44);
+    --line:rgba(236,234,229,.18);
+    --line-soft:rgba(236,234,229,.10);
+    --deep:#8FB4DC;
+    --accent:#D4A468;
+    --deep-bg:#070A0E;
+    --deep-fg:#ECEAE5;
+    --deep-fg-soft:rgba(236,234,229,.52);
+    --deep-line:rgba(236,234,229,.22);
+    --deep-accent:#D4A468;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1319;
+  --panel:#191E26;
+  --fg:#ECEAE5;
+  --fg-soft:rgba(236,234,229,.66);
+  --fg-faint:rgba(236,234,229,.44);
+  --line:rgba(236,234,229,.18);
+  --line-soft:rgba(236,234,229,.10);
+  --deep:#8FB4DC;
+  --accent:#D4A468;
+  --deep-bg:#070A0E;
+  --deep-fg:#ECEAE5;
+  --deep-fg-soft:rgba(236,234,229,.52);
+  --deep-line:rgba(236,234,229,.22);
+  --deep-accent:#D4A468;
+}
+:root[data-theme="light"]{
+  --bg:#FAF9F7;
+  --panel:#E7E4DE;
+  --fg:#131820;
+  --fg-soft:rgba(19,24,32,.64);
+  --fg-faint:rgba(19,24,32,.44);
+  --line:rgba(19,24,32,.17);
+  --line-soft:rgba(19,24,32,.09);
+  --deep:#17324F;
+  --accent:#9A6F35;
+  --deep-bg:#131820;
+  --deep-fg:#FAF9F7;
+  --deep-fg-soft:rgba(250,249,247,.52);
+  --deep-line:rgba(250,249,247,.26);
+  --deep-accent:#C79B5B;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--body);
+  font-size:clamp(1rem,.95rem + .25vw,1.1rem);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.mono{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.display{
+  font-family:var(--display);
+  font-weight:700;
+  font-stretch:112%;
+  line-height:.94;
+  letter-spacing:-.028em;
+  margin:0;
+  text-wrap:balance;
+}
+
+/* ── signature: the dimension line ── */
+.dim{display:flex;align-items:center;gap:.85rem;width:100%}
+.dim::before,.dim::after{
+  content:"";flex:1;height:9px;
+  background:linear-gradient(var(--line),var(--line)) center/100% 1px no-repeat;
+}
+.dim::before{border-left:1px solid var(--line)}
+.dim::after{border-right:1px solid var(--line)}
+.dim span{color:var(--fg-faint);white-space:nowrap}
+
+/* ── photo slots ── */
+.slot{
+  position:relative;margin:0;
+  aspect-ratio:var(--ar,4/3);
+  background:
+    repeating-linear-gradient(0deg,var(--line-soft) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(90deg,var(--line-soft) 0 1px,transparent 1px 26px),
+    var(--panel);
+  outline:1px solid var(--line-soft);
+  overflow:hidden;
+}
+.slot img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
+.slot figcaption{
+  position:absolute;inset:0;z-index:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--fg-faint);padding:1rem;text-align:center;
+}
+
+/* ── header ── */
+.head{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.85rem var(--pad);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.wordmark{
+  font-family:var(--display);font-weight:700;
+  font-size:.88rem;letter-spacing:.15em;text-transform:uppercase;
+  text-decoration:none;
+}
+.nav{display:flex;gap:clamp(.85rem,2vw,1.9rem);align-items:center}
+.nav a{text-decoration:none;color:var(--fg-soft);transition:color .18s}
+.nav a:hover{color:var(--fg)}
+.nav .nav-wa{color:var(--accent)}
+
+/* ── buttons ── */
+.btn{
+  display:inline-block;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.85rem 1.5rem;text-decoration:none;
+  border:1px solid var(--fg);
+  transition:background .18s,color .18s;
+}
+.btn-solid{background:var(--fg);color:var(--bg)}
+.btn-solid:hover{background:transparent;color:var(--fg)}
+.btn-ghost{background:transparent;color:var(--fg)}
+.btn-ghost:hover{background:var(--fg);color:var(--bg)}
+
+/* ── layout ── */
+.section{padding:clamp(3.5rem,8vw,7rem) var(--pad)}
+[id]{scroll-margin-top:4.5rem}
+.section-panel{background:var(--panel)}
+.section-deep{background:var(--deep-bg);color:var(--deep-fg)}
+.head-row{display:flex;align-items:baseline;gap:1.25rem;margin-bottom:clamp(2rem,4vw,3.25rem)}
+.head-row .mono{color:var(--fg-faint);flex:none}
+
+/* ── hero ── */
+.hero{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:end;
+  padding:clamp(2.75rem,6vw,5rem) var(--pad) clamp(2.75rem,5vw,4rem);
+}
+.hero-eyebrow{color:var(--fg-faint);margin:0 0 clamp(1.25rem,3.5vw,2.25rem)}
+.hero-title{font-size:clamp(2.5rem,7.6vw,7rem)}
+.hero-title em{font-style:normal;color:var(--deep)}
+.hero-measure{margin:clamp(.5rem,1.2vw,.9rem) 0}
+.hero-lede{
+  max-width:36ch;margin:clamp(1.5rem,3.5vw,2.25rem) 0 0;
+  font-size:clamp(1.02rem,.98rem + .35vw,1.28rem);color:var(--fg-soft);
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(1.5rem,3vw,2rem)}
+
+/* ── credentials bar ── */
+.creds{
+  display:flex;flex-wrap:wrap;gap:.6rem clamp(1.25rem,4vw,3rem);
+  padding:1.1rem var(--pad);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  color:var(--fg-faint);
+}
+.creds b{color:var(--fg);font-weight:400}
+
+/* ── services ── */
+.strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.strip div{padding:clamp(1.4rem,3vw,2.25rem) clamp(.9rem,2vw,1.6rem);border-left:1px solid var(--line)}
+.strip div:first-child{border-left:0}
+.strip b{
+  display:block;font-family:var(--display);font-weight:700;
+  font-size:clamp(1rem,1.5vw,1.25rem);letter-spacing:-.018em;margin-bottom:.5rem;
+}
+.strip p{margin:0;font-size:.92rem;color:var(--fg-soft);line-height:1.48}
+
+/* ── work ── */
+.work{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap)}
+.project{grid-column:span 3;margin:0}
+.project-wide{grid-column:span 4}
+.project-slim{grid-column:span 2}
+.project h3{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.08rem,1.7vw,1.45rem);letter-spacing:-.018em;margin:.75rem 0 .3rem;
+}
+.spec{display:flex;flex-wrap:wrap;gap:.3rem 1rem;color:var(--fg-faint);margin:0}
+
+/* ── process ── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.step{border-top:1px solid var(--line);padding-top:1rem}
+.step span{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;color:var(--deep);margin-bottom:.85rem}
+.step h3{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,1.6vw,1.32rem);letter-spacing:-.018em;margin:0 0 .45rem}
+.step p{margin:0;font-size:.94rem;color:var(--fg-soft);line-height:1.5}
+
+/* ── studio ── */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.about h2{font-size:clamp(1.8rem,4vw,3rem);margin-bottom:1.1rem}
+.about p{color:var(--fg-soft);max-width:48ch}
+
+/* ── contact (deep block) ── */
+.section-deep .dim::before,.section-deep .dim::after{background:linear-gradient(var(--deep-line),var(--deep-line)) center/100% 1px no-repeat}
+.section-deep .dim::before{border-left-color:var(--deep-line)}
+.section-deep .dim::after{border-right-color:var(--deep-line)}
+.section-deep .dim span{color:var(--deep-fg-soft)}
+.contact h2{font-size:clamp(2.1rem,6vw,5rem);margin:0 0 clamp(1.25rem,3vw,2rem)}
+.contact-lede{color:var(--deep-fg-soft);max-width:44ch;margin:0 0 clamp(1.75rem,4vw,2.5rem)}
+.contact-list{display:flex;flex-wrap:wrap;gap:clamp(1.4rem,4vw,3.5rem)}
+.contact-list div span{display:block;color:var(--deep-fg-soft);margin-bottom:.5rem}
+.contact-list a,.contact-list p{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1rem,1.8vw,1.35rem);letter-spacing:-.018em;
+  margin:0;text-decoration:none;color:var(--deep-accent);
+  border-bottom:1px solid transparent;transition:border-color .18s;
+}
+.contact-list a:hover{border-bottom-color:var(--deep-accent)}
+.contact-list p{color:var(--deep-fg)}
+
+.foot{
+  display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;justify-content:space-between;
+  padding:1.35rem var(--pad);border-top:1px solid var(--line);color:var(--fg-faint);
+}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--fg)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;align-items:start}
+  .hero-slot{--ar:4/3}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .strip div:nth-child(odd){border-left:0}
+  .strip div:not(:nth-last-child(-n+1)){border-bottom:1px solid var(--line)}
+  .work{grid-template-columns:repeat(2,1fr)}
+  .project,.project-wide,.project-slim{grid-column:span 2}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .strip{grid-template-columns:1fr}
+  .strip div{border-left:0;border-bottom:1px solid var(--line)}
+  .strip div:last-child{border-bottom:0}
+  .steps{grid-template-columns:1fr}
+  .head-row{flex-direction:column;gap:.5rem}
+  .nav{gap:.85rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<header class="head">
+  <a class="wordmark" href="#top">Decks Interior</a>
+  <nav class="nav mono" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#studio">Studio</a>
+    <a class="nav-wa" href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">WhatsApp</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div>
+      <p class="mono hero-eyebrow">Interior design · fit-out · carpentry — Dublin</p>
+      <h1 class="display hero-title">We design,</h1>
+      <div class="dim hero-measure"><span class="mono">one team</span></div>
+      <h1 class="display hero-title"><em>we fit out.</em></h1>
+      <p class="hero-lede">
+        Timeless and intentional interiors — bespoke media walls, kitchens and
+        bedrooms, drawn and installed by the same people.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn btn-ghost" href="#work">See the work</a>
+      </div>
+    </div>
+    <figure class="slot hero-slot" style="--ar:4/5">
+      <img src="images/hero.jpg" alt="" onerror="this.remove()">
+      <figcaption class="mono">Photo to come · hero · 4:5</figcaption>
+    </figure>
+  </section>
+
+  <section class="creds mono" aria-label="At a glance">
+    <span><b>Dublin</b> based</span>
+    <span>Covering <b>all Ireland</b></span>
+    <span><b>4,000+</b> on Instagram</span>
+    <span>Open <b>09:00 — 18:00</b></span>
+  </section>
+
+  <section class="strip" aria-label="Services">
+    <div>
+      <b>Design</b>
+      <p>Layouts, materials and drawings for the room you actually have.</p>
+    </div>
+    <div>
+      <b>Fit-out</b>
+      <p>Our own carpenters on site, first fix to final finish.</p>
+    </div>
+    <div>
+      <b>Bespoke media walls</b>
+      <p>Slatted timber, marble and stone, with fire and lighting built in.</p>
+    </div>
+    <div>
+      <b>Kitchens &amp; bedrooms</b>
+      <p>Fitted kitchens, wardrobes and bedroom joinery, wall to wall.</p>
+    </div>
+    <div>
+      <b>Project management</b>
+      <p>Installers and managers running the job end to end.</p>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="head-row">
+      <p class="mono">Selected work</p>
+      <div class="dim"><span class="mono">Dublin &amp; nationwide</span></div>
+    </div>
+
+    <div class="work">
+      <figure class="project project-wide">
+        <div class="slot" style="--ar:3/2">
+          <img src="images/work-01.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-01 · 3:2</figcaption>
+        </div>
+        <h3>Marble media wall</h3>
+        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+
+      <figure class="project project-slim">
+        <div class="slot" style="--ar:3/4">
+          <img src="images/work-02.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-02 · 3:4</figcaption>
+        </div>
+        <h3>Slatted timber wall</h3>
+        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+
+      <figure class="project project-slim">
+        <div class="slot" style="--ar:3/4">
+          <img src="images/work-03.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-03 · 3:4</figcaption>
+        </div>
+        <h3>Fitted kitchen</h3>
+        <p class="spec mono"><span>Kitchen</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+
+      <figure class="project project-wide">
+        <div class="slot" style="--ar:3/2">
+          <img src="images/work-04.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-04 · 3:2</figcaption>
+        </div>
+        <h3>Feature wall with integrated fire</h3>
+        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+
+      <figure class="project">
+        <div class="slot" style="--ar:1/1">
+          <img src="images/work-05.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-05 · 1:1</figcaption>
+        </div>
+        <h3>Fitted wardrobes</h3>
+        <p class="spec mono"><span>Bedroom</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+
+      <figure class="project">
+        <div class="slot" style="--ar:1/1">
+          <img src="images/work-06.jpg" alt="" onerror="this.remove()">
+          <figcaption class="mono">Photo to come · work-06 · 1:1</figcaption>
+        </div>
+        <h3>Full fit-out</h3>
+        <p class="spec mono"><span>Fit-out</span><span>[Location]</span><span>[Year]</span></p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-panel" id="process">
+    <div class="head-row">
+      <p class="mono">How a job runs</p>
+      <div class="dim"><span class="mono">first message to handover</span></div>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <span>Step 01</span>
+        <h3>Talk</h3>
+        <p>Send photos of the room on WhatsApp. We come back with a budget range.</p>
+      </article>
+      <article class="step">
+        <span>Step 02</span>
+        <h3>Design</h3>
+        <p>Layouts and material choices, revised until you're happy to sign them off.</p>
+      </article>
+      <article class="step">
+        <span>Step 03</span>
+        <h3>Fit-out</h3>
+        <p>Our own carpenters on site, working to an agreed schedule.</p>
+      </article>
+      <article class="step">
+        <span>Step 04</span>
+        <h3>Handover</h3>
+        <p>Snags cleared, site cleaned, room ready to use.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="studio">
+    <div class="about">
+      <div>
+        <p class="mono" style="color:var(--fg-faint);margin:0 0 1.1rem">Studio</p>
+        <h2 class="display">Carpenters first, designers too.</h2>
+        <p>
+          Decks Interior is a Dublin-based carpentry, interior design and
+          construction studio working across Ireland. We design the space, make
+          the joinery and fit it out ourselves — so the drawing that gets
+          approved is the room that gets handed over.
+        </p>
+        <p>
+          Best known for bespoke media walls: slatted timber, marble and stone,
+          with the fire, screen and lighting built in rather than added on.
+        </p>
+      </div>
+      <figure class="slot" style="--ar:4/5">
+        <img src="images/studio.jpg" alt="" onerror="this.remove()">
+        <figcaption class="mono">Photo to come · studio · 4:5</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-deep" id="contact">
+    <div class="contact">
+      <div class="dim" style="margin-bottom:clamp(1.25rem,3vw,2rem)"><span class="mono">Start a project</span></div>
+      <h2 class="display">Tell us about the room.</h2>
+      <p class="contact-lede">
+        Photos and rough measurements are enough to start. WhatsApp is quickest.
+      </p>
+      <div class="contact-list mono">
+        <div>
+          <span>WhatsApp</span>
+          <a href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">Send a message</a>
+        </div>
+        <div>
+          <span>Email</span>
+          <a href="mailto:decksandfurnitures@gmail.com">decksandfurnitures@gmail.com</a>
+        </div>
+        <div>
+          <span>Instagram</span>
+          <a href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">@decksinterior</a>
+        </div>
+        <div>
+          <span>Facebook</span>
+          <a href="https://www.facebook.com/share/1BxT58RJzt/" target="_blank" rel="noopener">Decks Interior</a>
+        </div>
+        <div>
+          <span>Reviews</span>
+          <a href="https://g.page/r/CdnZMsI4PBhWEBM/review" target="_blank" rel="noopener">Leave one on Google</a>
+        </div>
+        <div>
+          <span>Hours</span>
+          <p>09:00 — 18:00</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot mono">
+  <span>Decks Interior — interior design, fit-out &amp; carpentry · Dublin, covering all Ireland</span>
+  <a href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">@decksinterior</a>
+</footer>
+
+</body>
+</html>
