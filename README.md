@@ -63,22 +63,25 @@ Before the site goes live, remove this line from `<head>` so Google can list it:
 `images/` holds two photos, both taken out of the client's flyer PDF, and both
 genuinely his own work:
 
-| File | Used for |
-|---|---|
-| `hero.jpg` | Hero background + first gallery slot |
-| `media-walls.jpg` | Second gallery slot |
+| File | Used for | Resolution |
+|---|---|---|
+| `hero.jpg` | Hero background + first gallery slot | 1200 × 1200 |
+| `media-walls.jpg` | Second gallery slot | 342 × 342 |
+
+⚠ **This is as sharp as these two can get.** They were pulled out of the flyer
+PDF, and 1200px and 342px are the full size of the files the flyer designer
+embedded — there is no larger version to recover. They've been re-saved at high
+JPEG quality, but `media-walls.jpg` in particular is soft, which is why it sits
+in the smaller gallery slot.
+
+**The only real fix is originals from the client** — straight off his phone, not
+Instagram downloads and not screenshots of the flyer. Ask for the full camera
+roll of finished jobs. When they land, drop them into `images/` and add a
+`<figure>` to `<section id="work">`, copying the two already there.
 
 The flyer's kitchen, bedroom and panelling images were **stock renders the
 flyer designer used, not his work**, so they aren't on the site — the services
 section is typographic instead of illustrated.
-
-**Ask the client for real photos of his own kitchens, bedrooms, wardrobes and
-panelling.** When they arrive, drop them in `images/` and add a `<figure>` to
-the gallery in `<section id="work">`, copying the two that are already there.
-Roughly square or landscape, at least 1200px wide, originals from his phone
-rather than Instagram downloads.
-
----
 
 ## 4. Turning the form on
 
@@ -192,19 +195,56 @@ point anywhere — you just change its DNS records.
 | Section | Notes |
 |---|---|
 | Hero | Flyer headline + **the enquiry form, above the fold** |
-| Why choose us | The 70% stat and four assurances, straight off the flyer |
+| Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
+| Why choose us | The 70% stat (counts up on scroll) and four assurances |
 | Services | Four categories, typographic — no stock photography |
 | Work | The two real photos, links out to Instagram |
 | How it works | Enquire → we call you back → consultation → build and fit |
-| Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + a closing CTA |
+| **Founder** | **Placeholder — see below** |
+| Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + closing CTA |
+
+### The founder box needs filling in
+
+`<section id="founder">` is a placeholder. Every bit of copy waiting on the
+client is wrapped in square brackets — search `index.html` for `[` or for the
+class `tbd` and you'll find all of them:
+
+- a one-line quote from him
+- his name
+- three or four sentences of background
+- the three pills: years' experience, based in, specialises in
+
+There's also a dashed photo slot. When he sends a headshot, save it as
+`images/founder.jpg` and swap the placeholder div for a real image — the exact
+line to paste is in an HTML comment directly above that section.
+
+Until it's filled in the brackets are visible on the page, which is deliberate:
+it's obvious at a glance that it's unfinished, so it can't be published by
+accident looking half-done.
+
+## 8. Motion
+
+Animations are plain CSS plus one `IntersectionObserver` — no library. Anything
+with `data-reveal` springs in when it scrolls into view; `--i` on a child
+staggers it. The bounce comes from one variable, `--spring`, at the top of the
+stylesheet — turn the `1.35` down towards `1` for a calmer feel, up for more.
+
+All of it is switched off automatically for visitors who have "reduce motion"
+turned on in their operating system.
+
+## 9. Checking the page
+
+Open <http://localhost:4321/#selftest> and look at the browser console. It
+verifies every phone/email/social link got wired up, the ticker filled, the
+service dropdown matches `CONFIG`, the measurements block is open by default,
+the scroll reveals are attached, and that no image is missing its `alt` text.
+It logs `✓ page self-check passed` or lists what's wrong.
 
 **Unverified — confirm with the client before launch:**
 
 - Hours show `09:00 – 18:00` with no days. Ask which days he actually works.
 - "70% of builds completed in a single day" is the flyer's own claim, reused.
-- "Free consultation within Dublin" is the flyer's wording. The form doesn't
-  ask about outside Dublin — he can raise it on the call back.
+- "Free consultation within Dublin" is the flyer's wording.
 - "Covering all Ireland" came from his Instagram/WhatsApp profile.
 - Delivery of products was on his wish-list but nothing on the page promises
-  it yet, because the terms were never specified. Add it once he says what
-  they are.
+  it yet, because the terms were never specified.
