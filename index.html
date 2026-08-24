@@ -3,520 +3,755 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Decks Interior — Interior design, fit-out &amp; carpentry, Dublin</title>
-<meta name="description" content="Decks Interior is a Dublin-based carpentry, interior design and construction studio working across Ireland. Bespoke media walls, kitchens and bedrooms, designed and fitted by one team.">
-<!-- DRAFT: delete this line before launch so the site can be found on Google -->
-<meta name="robots" content="noindex, nofollow">
+<title>Decks Interior — Bespoke Interiors, Built Around You | Dublin</title>
+<meta name="description" content="Dublin studio building bespoke media walls, kitchens, bedrooms and wall panelling. Free consultation within Dublin. Instant quote online.">
+<meta name="robots" content="noindex">
+<!-- ↑ REMOVE the line above when the site goes live, so Google can list it. -->
+
+<meta property="og:title" content="Decks Interior — Bespoke Interiors, Built Around You">
+<meta property="og:description" content="Bespoke media walls, kitchens, bedrooms and wall panelling. Dublin based, all Ireland.">
+<meta property="og:image" content="images/hero.jpg">
+<meta property="og:type" content="website">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300..600&display=swap" rel="stylesheet">
-</head>
-<body>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@1,8..60,300..400&display=swap" rel="stylesheet">
+
 <style>
-/* ─────────────────────────────────────────────
-   DECKS INTERIOR — drawing-set direction
-   ink · blueprint indigo · plaster · brass
-   ───────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   DECKS INTERIOR
+   Colours taken straight from the flyer:
+   ink #091624 · mint #7ee3ab · deep green #154d34 · paper #eff1ef
+   ══════════════════════════════════════════════════════════════ */
 :root{
-  --bg:#FAF9F7;
-  --panel:#E7E4DE;
-  --fg:#131820;
-  --fg-soft:rgba(19,24,32,.64);
-  --fg-faint:rgba(19,24,32,.44);
-  --line:rgba(19,24,32,.17);
-  --line-soft:rgba(19,24,32,.09);
-  --deep:#17324F;
-  --accent:#9A6F35;
-  --deep-bg:#131820;
-  --deep-fg:#FAF9F7;
-  --deep-fg-soft:rgba(250,249,247,.52);
-  --deep-line:rgba(250,249,247,.26);
-  --deep-accent:#C79B5B;
-
-  --display:"Archivo","Helvetica Neue",system-ui,sans-serif;
-  --body:"Source Serif 4","Iowan Old Style",Georgia,serif;
-  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
-
-  --pad:clamp(1.25rem,5vw,5rem);
-  --gap:clamp(1.5rem,3vw,2.75rem);
+  --ink:#091624;
+  --ink-2:#0d1e30;
+  --ink-3:#122839;
+  --mint:#7ee3ab;
+  --mint-dim:#59a381;
+  --green-1:#154d34;
+  --green-2:#13432d;
+  --paper:#eff1ef;
+  --muted:#9aabb6;
+  --line:rgba(126,227,171,.16);
+  --line-soft:rgba(239,241,239,.10);
+  --max:1180px;
+  --pad:clamp(20px,5vw,56px);
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:#0F1319;
-    --panel:#191E26;
-    --fg:#ECEAE5;
-    --fg-soft:rgba(236,234,229,.66);
-    --fg-faint:rgba(236,234,229,.44);
-    --line:rgba(236,234,229,.18);
-    --line-soft:rgba(236,234,229,.10);
-    --deep:#8FB4DC;
-    --accent:#D4A468;
-    --deep-bg:#070A0E;
-    --deep-fg:#ECEAE5;
-    --deep-fg-soft:rgba(236,234,229,.52);
-    --deep-line:rgba(236,234,229,.22);
-    --deep-accent:#D4A468;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0F1319;
-  --panel:#191E26;
-  --fg:#ECEAE5;
-  --fg-soft:rgba(236,234,229,.66);
-  --fg-faint:rgba(236,234,229,.44);
-  --line:rgba(236,234,229,.18);
-  --line-soft:rgba(236,234,229,.10);
-  --deep:#8FB4DC;
-  --accent:#D4A468;
-  --deep-bg:#070A0E;
-  --deep-fg:#ECEAE5;
-  --deep-fg-soft:rgba(236,234,229,.52);
-  --deep-line:rgba(236,234,229,.22);
-  --deep-accent:#D4A468;
-}
-:root[data-theme="light"]{
-  --bg:#FAF9F7;
-  --panel:#E7E4DE;
-  --fg:#131820;
-  --fg-soft:rgba(19,24,32,.64);
-  --fg-faint:rgba(19,24,32,.44);
-  --line:rgba(19,24,32,.17);
-  --line-soft:rgba(19,24,32,.09);
-  --deep:#17324F;
-  --accent:#9A6F35;
-  --deep-bg:#131820;
-  --deep-fg:#FAF9F7;
-  --deep-fg-soft:rgba(250,249,247,.52);
-  --deep-line:rgba(250,249,247,.26);
-  --deep-accent:#C79B5B;
-}
-
-*,*::before,*::after{box-sizing:border-box}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:var(--body);
-  font-size:clamp(1rem,.95rem + .25vw,1.1rem);
-  line-height:1.62;
-  -webkit-font-smoothing:antialiased;
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3,h4{margin:0;line-height:1.02;letter-spacing:-.02em;font-weight:800}
+p{margin:0 0 1em}
 
-.mono{
-  font-family:var(--mono);
-  font-size:.7rem;
-  letter-spacing:.13em;
-  text-transform:uppercase;
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mint-dim);margin:0 0 20px
 }
-.display{
-  font-family:var(--display);
-  font-weight:700;
-  font-stretch:112%;
-  line-height:.94;
-  letter-spacing:-.028em;
-  margin:0;
-  text-wrap:balance;
-}
+.serif{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:300}
+section{padding:clamp(56px,9vw,110px) 0;border-top:1px solid var(--line-soft)}
+section:first-of-type{border-top:0}
 
-/* ── signature: the dimension line ── */
-.dim{display:flex;align-items:center;gap:.85rem;width:100%}
-.dim::before,.dim::after{
-  content:"";flex:1;height:9px;
-  background:linear-gradient(var(--line),var(--line)) center/100% 1px no-repeat;
+/* ── header ─────────────────────────────────────────────── */
+header{
+  position:sticky;top:0;z-index:50;background:rgba(9,22,36,.86);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)
 }
-.dim::before{border-left:1px solid var(--line)}
-.dim::after{border-right:1px solid var(--line)}
-.dim span{color:var(--fg-faint);white-space:nowrap}
-
-/* ── photo slots ── */
-.slot{
-  position:relative;margin:0;
-  aspect-ratio:var(--ar,4/3);
-  background:
-    repeating-linear-gradient(0deg,var(--line-soft) 0 1px,transparent 1px 26px),
-    repeating-linear-gradient(90deg,var(--line-soft) 0 1px,transparent 1px 26px),
-    var(--panel);
-  outline:1px solid var(--line-soft);
-  overflow:hidden;
+.bar{display:flex;align-items:center;gap:24px;height:66px}
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto}
+.mark-dot{width:14px;height:14px;border-radius:50%;background:var(--mint);flex:0 0 auto}
+.mark-txt{font-weight:800;letter-spacing:.2em;font-size:14px;text-transform:uppercase;white-space:nowrap}
+.mark-city{font-size:11px;letter-spacing:.22em;color:var(--mint-dim);font-weight:700;margin-left:2px}
+nav{margin-left:auto;display:flex;gap:26px;align-items:center}
+nav a{
+  text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted);transition:color .18s
 }
-.slot img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
-.slot figcaption{
-  position:absolute;inset:0;z-index:0;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--fg-faint);padding:1rem;text-align:center;
-}
-
-/* ── header ── */
-.head{
-  position:sticky;top:0;z-index:20;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:.85rem var(--pad);
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
-}
-.wordmark{
-  font-family:var(--display);font-weight:700;
-  font-size:.88rem;letter-spacing:.15em;text-transform:uppercase;
-  text-decoration:none;
-}
-.nav{display:flex;gap:clamp(.85rem,2vw,1.9rem);align-items:center}
-.nav a{text-decoration:none;color:var(--fg-soft);transition:color .18s}
-.nav a:hover{color:var(--fg)}
-.nav .nav-wa{color:var(--accent)}
-
-/* ── buttons ── */
+nav a:hover{color:var(--mint)}
 .btn{
-  display:inline-block;
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;
-  padding:.85rem 1.5rem;text-decoration:none;
-  border:1px solid var(--fg);
-  transition:background .18s,color .18s;
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:13px 22px;border-radius:2px;border:1px solid transparent;cursor:pointer;
+  font-family:inherit;transition:.18s
 }
-.btn-solid{background:var(--fg);color:var(--bg)}
-.btn-solid:hover{background:transparent;color:var(--fg)}
-.btn-ghost{background:transparent;color:var(--fg)}
-.btn-ghost:hover{background:var(--fg);color:var(--bg)}
+.btn-solid{background:var(--mint);color:var(--ink)}
+.btn-solid:hover{background:#9df0c1}
+.btn-ghost{border-color:var(--line);color:var(--paper)}
+.btn-ghost:hover{border-color:var(--mint);color:var(--mint)}
+.nav-cta{padding:11px 18px}
+.burger{display:none;margin-left:auto;background:none;border:0;color:var(--paper);font-size:22px;cursor:pointer;padding:6px}
+@media(max-width:900px){
+  nav{
+    position:fixed;inset:66px 0 auto;background:var(--ink);flex-direction:column;
+    align-items:stretch;gap:0;padding:12px var(--pad) 26px;
+    border-bottom:1px solid var(--line-soft);display:none
+  }
+  nav.open{display:flex}
+  nav a{padding:14px 0;font-size:15px;border-bottom:1px solid var(--line-soft)}
+  nav .btn{margin-top:16px;justify-content:center}
+  .burger{display:block}
+}
 
-/* ── layout ── */
-.section{padding:clamp(3.5rem,8vw,7rem) var(--pad)}
-[id]{scroll-margin-top:4.5rem}
-.section-panel{background:var(--panel)}
-.section-deep{background:var(--deep-bg);color:var(--deep-fg)}
-.head-row{display:flex;align-items:baseline;gap:1.25rem;margin-bottom:clamp(2rem,4vw,3.25rem)}
-.head-row .mono{color:var(--fg-faint);flex:none}
+/* ── hero ───────────────────────────────────────────────── */
+.hero{position:relative;padding:0;border:0;min-height:min(88vh,760px);display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(9,22,36,.55) 0%,rgba(9,22,36,.35) 35%,rgba(9,22,36,.94) 100%)
+}
+.hero-in{position:relative;z-index:2;width:100%;padding-block:clamp(40px,7vw,80px)}
+.hero h1{font-size:clamp(38px,7.4vw,82px);text-transform:uppercase;max-width:15ch}
+.hero h1 .g{color:var(--mint);display:block}
+.hero p.lede{max-width:46ch;color:#cfd8d5;margin:22px 0 30px;font-size:clamp(15px,1.6vw,18px)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-meta{
+  display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;padding-top:22px;
+  border-top:1px solid var(--line-soft);font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);font-weight:600
+}
+.hero-meta b{color:var(--paper);font-weight:700}
 
-/* ── hero ── */
-.hero{
-  display:grid;grid-template-columns:1.05fr .95fr;
-  gap:clamp(1.5rem,4vw,3.5rem);align-items:end;
-  padding:clamp(2.75rem,6vw,5rem) var(--pad) clamp(2.75rem,5vw,4rem);
+/* ── assurance band ─────────────────────────────────────── */
+.band{background:var(--ink-2);border-top:1px solid var(--line)}
+.band-grid{display:grid;grid-template-columns:minmax(230px,1fr) 1.4fr;gap:clamp(30px,5vw,70px);align-items:center}
+.stat{font-size:clamp(58px,10vw,104px);font-weight:800;color:var(--mint);line-height:.86;letter-spacing:-.045em}
+.stat span{font-size:.5em}
+.stat-cap{color:var(--muted);font-size:15px;margin-top:14px;max-width:26ch}
+.ticks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px 30px}
+.tick{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.tick i{
+  flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--mint);
+  color:var(--ink);font-style:normal;font-size:12px;font-weight:800;
+  display:grid;place-items:center;margin-top:2px
 }
-.hero-eyebrow{color:var(--fg-faint);margin:0 0 clamp(1.25rem,3.5vw,2.25rem)}
-.hero-title{font-size:clamp(2.5rem,7.6vw,7rem)}
-.hero-title em{font-style:normal;color:var(--deep)}
-.hero-measure{margin:clamp(.5rem,1.2vw,.9rem) 0}
-.hero-lede{
-  max-width:36ch;margin:clamp(1.5rem,3.5vw,2.25rem) 0 0;
-  font-size:clamp(1.02rem,.98rem + .35vw,1.28rem);color:var(--fg-soft);
-}
-.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:clamp(1.5rem,3vw,2rem)}
+@media(max-width:800px){.band-grid{grid-template-columns:1fr}}
 
-/* ── credentials bar ── */
-.creds{
-  display:flex;flex-wrap:wrap;gap:.6rem clamp(1.25rem,4vw,3rem);
-  padding:1.1rem var(--pad);
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  color:var(--fg-faint);
-}
-.creds b{color:var(--fg);font-weight:400}
+/* ── section heads ──────────────────────────────────────── */
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:42px;flex-wrap:wrap}
+.head h2{font-size:clamp(28px,4.6vw,50px);text-transform:uppercase;max-width:18ch}
+.head p{color:var(--muted);max-width:44ch;margin:0}
 
-/* ── services ── */
-.strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
-.strip div{padding:clamp(1.4rem,3vw,2.25rem) clamp(.9rem,2vw,1.6rem);border-left:1px solid var(--line)}
-.strip div:first-child{border-left:0}
-.strip b{
-  display:block;font-family:var(--display);font-weight:700;
-  font-size:clamp(1rem,1.5vw,1.25rem);letter-spacing:-.018em;margin-bottom:.5rem;
+/* ── cards / work ───────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px}
+.card{
+  text-decoration:none;background:var(--ink-2);border:1px solid var(--line-soft);
+  border-radius:3px;overflow:hidden;transition:.2s;display:block
 }
-.strip p{margin:0;font-size:.92rem;color:var(--fg-soft);line-height:1.48}
+.card:hover{border-color:var(--mint);transform:translateY(-3px)}
+.card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.card-b{padding:16px 18px 20px}
+.card-b h3{font-size:16px;text-transform:uppercase;letter-spacing:.06em}
+.card-b p{margin:8px 0 0;font-size:13.5px;color:var(--muted);line-height:1.5}
 
-/* ── work ── */
-.work{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap)}
-.project{grid-column:span 3;margin:0}
-.project-wide{grid-column:span 4}
-.project-slim{grid-column:span 2}
-.project h3{
-  font-family:var(--display);font-weight:700;
-  font-size:clamp(1.08rem,1.7vw,1.45rem);letter-spacing:-.018em;margin:.75rem 0 .3rem;
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:3px;background:var(--ink-2)}
+.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;transition:transform .5s}
+.gallery figure:hover img{transform:scale(1.04)}
+.gallery .tall{grid-row:span 2}
+.gallery .tall img{aspect-ratio:1/2}
+.gallery figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:22px 18px 14px;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  background:linear-gradient(transparent,rgba(9,22,36,.9))
 }
-.spec{display:flex;flex-wrap:wrap;gap:.3rem 1rem;color:var(--fg-faint);margin:0}
+@media(max-width:700px){.gallery .tall{grid-row:span 1}.gallery .tall img{aspect-ratio:1}}
 
-/* ── process ── */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
-.step{border-top:1px solid var(--line);padding-top:1rem}
-.step span{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;color:var(--deep);margin-bottom:.85rem}
-.step h3{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,1.6vw,1.32rem);letter-spacing:-.018em;margin:0 0 .45rem}
-.step p{margin:0;font-size:.94rem;color:var(--fg-soft);line-height:1.5}
+/* ── pricing ────────────────────────────────────────────── */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
+.price{
+  background:var(--ink-2);border:1px solid var(--line-soft);border-radius:3px;
+  padding:26px 24px 24px;display:flex;flex-direction:column
+}
+.price h3{font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--mint-dim)}
+.price .fig{font-size:clamp(28px,4vw,38px);font-weight:800;margin:14px 0 2px;letter-spacing:-.03em}
+.price .fig small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0}
+.price ul{list-style:none;margin:18px 0 0;padding:0;font-size:14px;color:var(--muted)}
+.price li{padding:8px 0;border-top:1px solid var(--line-soft)}
+.note{
+  margin-top:26px;padding:16px 18px;border-left:2px solid var(--mint);
+  background:var(--ink-2);color:var(--muted);font-size:14px
+}
 
-/* ── studio ── */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
-.about h2{font-size:clamp(1.8rem,4vw,3rem);margin-bottom:1.1rem}
-.about p{color:var(--fg-soft);max-width:48ch}
+/* ── forms ──────────────────────────────────────────────── */
+.panel{
+  background:linear-gradient(135deg,var(--green-1),var(--green-2));
+  border-radius:4px;padding:clamp(26px,4.5vw,52px)
+}
+.field{margin-bottom:18px}
+label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+input,select,textarea{
+  width:100%;font-family:inherit;font-size:15.5px;color:var(--paper);
+  background:rgba(9,22,36,.42);border:1px solid rgba(239,241,239,.2);
+  border-radius:2px;padding:13px 14px
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--mint);outline-offset:-1px;border-color:transparent}
+textarea{min-height:110px;resize:vertical}
+select option{background:var(--ink);color:var(--paper)}
+input[type=file]{padding:11px;font-size:13.5px}
+input[type=file]::file-selector-button{
+  font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--mint);color:var(--ink);border:0;border-radius:2px;padding:8px 13px;margin-right:12px;cursor:pointer
+}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:640px){.row,.row-3{grid-template-columns:1fr}}
+.hint{font-size:12.5px;color:rgba(239,241,239,.62);margin:-8px 0 0}
+.hp{position:absolute;left:-9999px}
 
-/* ── contact (deep block) ── */
-.section-deep .dim::before,.section-deep .dim::after{background:linear-gradient(var(--deep-line),var(--deep-line)) center/100% 1px no-repeat}
-.section-deep .dim::before{border-left-color:var(--deep-line)}
-.section-deep .dim::after{border-right-color:var(--deep-line)}
-.section-deep .dim span{color:var(--deep-fg-soft)}
-.contact h2{font-size:clamp(2.1rem,6vw,5rem);margin:0 0 clamp(1.25rem,3vw,2rem)}
-.contact-lede{color:var(--deep-fg-soft);max-width:44ch;margin:0 0 clamp(1.75rem,4vw,2.5rem)}
-.contact-list{display:flex;flex-wrap:wrap;gap:clamp(1.4rem,4vw,3.5rem)}
-.contact-list div span{display:block;color:var(--deep-fg-soft);margin-bottom:.5rem}
-.contact-list a,.contact-list p{
-  font-family:var(--display);font-weight:700;
-  font-size:clamp(1rem,1.8vw,1.35rem);letter-spacing:-.018em;
-  margin:0;text-decoration:none;color:var(--deep-accent);
-  border-bottom:1px solid transparent;transition:border-color .18s;
+/* quote */
+.quote-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(22px,3.5vw,44px);align-items:start}
+@media(max-width:860px){.quote-grid{grid-template-columns:1fr}}
+.quote-out{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:30px 28px;position:sticky;top:86px
 }
-.contact-list a:hover{border-bottom-color:var(--deep-accent)}
-.contact-list p{color:var(--deep-fg)}
+.quote-out .amt{font-size:clamp(32px,5.5vw,46px);font-weight:800;color:var(--mint);letter-spacing:-.03em;line-height:1}
+.quote-out .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.quote-lines{list-style:none;margin:22px 0;padding:0;font-size:14px;color:var(--muted)}
+.quote-lines li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line-soft)}
+.quote-lines b{color:var(--paper);font-weight:600;text-align:right}
 
-.foot{
-  display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;justify-content:space-between;
-  padding:1.35rem var(--pad);border-top:1px solid var(--line);color:var(--fg-faint);
-}
-.foot a{text-decoration:none}
-.foot a:hover{color:var(--fg)}
+/* ── contact ────────────────────────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:28px}
+.contact-grid h3{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-dim);margin-bottom:12px}
+.contact-grid a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--line);display:inline-block}
+.contact-grid a:hover{color:var(--mint);border-color:var(--mint)}
 
-@media (max-width:900px){
-  .hero{grid-template-columns:1fr;align-items:start}
-  .hero-slot{--ar:4/3}
-  .strip{grid-template-columns:repeat(2,1fr)}
-  .strip div:nth-child(odd){border-left:0}
-  .strip div:not(:nth-last-child(-n+1)){border-bottom:1px solid var(--line)}
-  .work{grid-template-columns:repeat(2,1fr)}
-  .project,.project-wide,.project-slim{grid-column:span 2}
-  .steps{grid-template-columns:repeat(2,1fr)}
-  .about{grid-template-columns:1fr}
+footer{border-top:1px solid var(--line-soft);padding:44px 0;text-align:center}
+footer .mark{justify-content:center;display:inline-flex}
+footer .tag{color:var(--muted);margin:14px 0 0;font-size:15px}
+footer .fine{color:rgba(154,171,182,.55);font-size:12px;margin-top:22px;letter-spacing:.04em}
+
+/* floating whatsapp */
+.wa-float{
+  position:fixed;right:18px;bottom:18px;z-index:60;width:54px;height:54px;border-radius:50%;
+  background:var(--mint);color:var(--ink);display:grid;place-items:center;text-decoration:none;
+  box-shadow:0 8px 26px rgba(0,0,0,.45)
 }
-@media (max-width:560px){
-  .strip{grid-template-columns:1fr}
-  .strip div{border-left:0;border-bottom:1px solid var(--line)}
-  .strip div:last-child{border-bottom:0}
-  .steps{grid-template-columns:1fr}
-  .head-row{flex-direction:column;gap:.5rem}
-  .nav{gap:.85rem}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-}
+.wa-float svg{width:27px;height:27px}
 </style>
+</head>
+<body>
 
-<header class="head">
-  <a class="wordmark" href="#top">Decks Interior</a>
-  <nav class="nav mono" aria-label="Primary">
-    <a href="#work">Work</a>
-    <a href="#process">Process</a>
-    <a href="#studio">Studio</a>
-    <a class="nav-wa" href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">WhatsApp</a>
-  </nav>
+<!-- ══════════════════════════════════════════════════════════════
+     EDIT ME — everything the owner is likely to change lives here.
+     Prices are GUIDE RATES and are currently placeholders.
+     ══════════════════════════════════════════════════════════════ -->
+<script id="site-config">
+const CONFIG = {
+  phone:     "+353 89 976 0153",
+  phoneRaw:  "+353899760153",
+  email:     "decksandfurnitures@gmail.com",
+  whatsapp:  "https://wa.me/message/4G7BTPDAHQ4GO1",
+  instagram: "https://www.instagram.com/decksinterior",
+  facebook:  "https://www.facebook.com/share/1BxT58RJzt/",
+
+  // ── Instant quote maths ──────────────────────────────────
+  // estimate = (width m × height m) × rate + extras, then ± spread
+  // ⚠ PLACEHOLDER RATES — replace with your real €/m² before going live.
+  rates: {
+    "Media wall":       650,
+    "Fitted kitchen":   900,
+    "Fitted wardrobe":  700,
+    "Wall panelling":   280,
+    "Bedroom fit-out":  600
+  },
+  finishes: {            // multiplier on the rate
+    "Standard":  1,
+    "Premium":   1.3,
+    "Luxury":    1.6
+  },
+  extras: {              // flat add-ons, €
+    fireplace: 900,
+    led:       350,
+    tvmount:   150
+  },
+  spread: 0.15,          // ± shown as a range
+  minimum: 750,          // smallest job we quote
+  currency: "€"
+};
+</script>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top">
+      <span class="mark-dot"></span>
+      <span class="mark-txt">Decks Interior</span>
+      <span class="mark-city">Dublin</span>
+    </a>
+    <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#quote">Instant quote</a>
+      <a href="#book">Book</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-solid nav-cta" href="#book">Free consultation</a>
+    </nav>
+  </div>
 </header>
 
 <main id="top">
 
-  <section class="hero">
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+  <img class="hero-img" src="images/hero.jpg" alt="Slatted timber media wall with marble TV panel, integrated fire and concealed LED lighting">
+  <div class="wrap hero-in">
+    <h1>Bespoke interiors.<span class="g">Built around you.</span></h1>
+    <p class="lede">Media walls, kitchens, bedrooms and wall panelling — designed, built and
+      fitted by one team. Dublin based, covering all Ireland.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#book">Book free consultation</a>
+      <a class="btn btn-ghost" href="#quote">Get an instant quote</a>
+    </div>
+    <div class="hero-meta">
+      <span>Free consultation <b>within Dublin</b></span>
+      <span>Most builds fitted in <b>one day</b></span>
+      <span>Delivery <b>nationwide</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── ASSURANCE BAND ───────────────────────────────────── -->
+<section class="band">
+  <div class="wrap band-grid">
     <div>
-      <p class="mono hero-eyebrow">Interior design · fit-out · carpentry — Dublin</p>
-      <h1 class="display hero-title">We design,</h1>
-      <div class="dim hero-measure"><span class="mono">one team</span></div>
-      <h1 class="display hero-title"><em>we fit out.</em></h1>
-      <p class="hero-lede">
-        Timeless and intentional interiors — bespoke media walls, kitchens and
-        bedrooms, drawn and installed by the same people.
-      </p>
-      <div class="hero-cta">
-        <a class="btn btn-solid" href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">Message on WhatsApp</a>
-        <a class="btn btn-ghost" href="#work">See the work</a>
-      </div>
+      <p class="eyebrow">Why choose Decks Interior</p>
+      <div class="stat">70<span>%</span></div>
+      <p class="stat-cap">of our builds are completed in a single day.</p>
     </div>
-    <figure class="slot hero-slot" style="--ar:4/5">
-      <img src="images/hero.jpg" alt="" onerror="this.remove()">
-      <figcaption class="mono">Photo to come · hero · 4:5</figcaption>
-    </figure>
-  </section>
-
-  <section class="creds mono" aria-label="At a glance">
-    <span><b>Dublin</b> based</span>
-    <span>Covering <b>all Ireland</b></span>
-    <span><b>4,000+</b> on Instagram</span>
-    <span>Open <b>09:00 — 18:00</b></span>
-  </section>
-
-  <section class="strip" aria-label="Services">
-    <div>
-      <b>Design</b>
-      <p>Layouts, materials and drawings for the room you actually have.</p>
+    <div class="ticks">
+      <div class="tick"><i>✓</i><span>Bespoke designs, drawn to your room</span></div>
+      <div class="tick"><i>✓</i><span>Quality craftsmanship, made to last</span></div>
+      <div class="tick"><i>✓</i><span>Clean, professional installation</span></div>
+      <div class="tick"><i>✓</i><span>Built to suit your space and budget</span></div>
     </div>
-    <div>
-      <b>Fit-out</b>
-      <p>Our own carpenters on site, first fix to final finish.</p>
-    </div>
-    <div>
-      <b>Bespoke media walls</b>
-      <p>Slatted timber, marble and stone, with fire and lighting built in.</p>
-    </div>
-    <div>
-      <b>Kitchens &amp; bedrooms</b>
-      <p>Fitted kitchens, wardrobes and bedroom joinery, wall to wall.</p>
-    </div>
-    <div>
-      <b>Project management</b>
-      <p>Installers and managers running the job end to end.</p>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" id="work">
-    <div class="head-row">
-      <p class="mono">Selected work</p>
-      <div class="dim"><span class="mono">Dublin &amp; nationwide</span></div>
-    </div>
-
-    <div class="work">
-      <figure class="project project-wide">
-        <div class="slot" style="--ar:3/2">
-          <img src="images/work-01.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-01 · 3:2</figcaption>
-        </div>
-        <h3>Marble media wall</h3>
-        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-
-      <figure class="project project-slim">
-        <div class="slot" style="--ar:3/4">
-          <img src="images/work-02.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-02 · 3:4</figcaption>
-        </div>
-        <h3>Slatted timber wall</h3>
-        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-
-      <figure class="project project-slim">
-        <div class="slot" style="--ar:3/4">
-          <img src="images/work-03.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-03 · 3:4</figcaption>
-        </div>
-        <h3>Fitted kitchen</h3>
-        <p class="spec mono"><span>Kitchen</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-
-      <figure class="project project-wide">
-        <div class="slot" style="--ar:3/2">
-          <img src="images/work-04.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-04 · 3:2</figcaption>
-        </div>
-        <h3>Feature wall with integrated fire</h3>
-        <p class="spec mono"><span>Media wall</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-
-      <figure class="project">
-        <div class="slot" style="--ar:1/1">
-          <img src="images/work-05.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-05 · 1:1</figcaption>
-        </div>
-        <h3>Fitted wardrobes</h3>
-        <p class="spec mono"><span>Bedroom</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-
-      <figure class="project">
-        <div class="slot" style="--ar:1/1">
-          <img src="images/work-06.jpg" alt="" onerror="this.remove()">
-          <figcaption class="mono">Photo to come · work-06 · 1:1</figcaption>
-        </div>
-        <h3>Full fit-out</h3>
-        <p class="spec mono"><span>Fit-out</span><span>[Location]</span><span>[Year]</span></p>
-      </figure>
-    </div>
-  </section>
-
-  <section class="section section-panel" id="process">
-    <div class="head-row">
-      <p class="mono">How a job runs</p>
-      <div class="dim"><span class="mono">first message to handover</span></div>
-    </div>
-
-    <div class="steps">
-      <article class="step">
-        <span>Step 01</span>
-        <h3>Talk</h3>
-        <p>Send photos of the room on WhatsApp. We come back with a budget range.</p>
-      </article>
-      <article class="step">
-        <span>Step 02</span>
-        <h3>Design</h3>
-        <p>Layouts and material choices, revised until you're happy to sign them off.</p>
-      </article>
-      <article class="step">
-        <span>Step 03</span>
-        <h3>Fit-out</h3>
-        <p>Our own carpenters on site, working to an agreed schedule.</p>
-      </article>
-      <article class="step">
-        <span>Step 04</span>
-        <h3>Handover</h3>
-        <p>Snags cleared, site cleaned, room ready to use.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section" id="studio">
-    <div class="about">
+<!-- ── SERVICES ─────────────────────────────────────────── -->
+<section id="services">
+  <div class="wrap">
+    <div class="head">
       <div>
-        <p class="mono" style="color:var(--fg-faint);margin:0 0 1.1rem">Studio</p>
-        <h2 class="display">Carpenters first, designers too.</h2>
-        <p>
-          Decks Interior is a Dublin-based carpentry, interior design and
-          construction studio working across Ireland. We design the space, make
-          the joinery and fit it out ourselves — so the drawing that gets
-          approved is the room that gets handed over.
-        </p>
-        <p>
-          Best known for bespoke media walls: slatted timber, marble and stone,
-          with the fire, screen and lighting built in rather than added on.
-        </p>
+        <p class="eyebrow">We specialise in bespoke</p>
+        <h2>Four things, done properly</h2>
       </div>
-      <figure class="slot" style="--ar:4/5">
-        <img src="images/studio.jpg" alt="" onerror="this.remove()">
-        <figcaption class="mono">Photo to come · studio · 4:5</figcaption>
+      <p>Every job is measured, drawn and built for the room it goes in — nothing is off the shelf.</p>
+    </div>
+    <div class="cards">
+      <a class="card" href="#quote">
+        <img src="images/media-walls.jpg" alt="Bespoke media wall with slatted panelling, recessed TV and electric fire">
+        <div class="card-b"><h3>Media walls</h3>
+          <p>Slatted or marble-faced, with integrated fire, concealed lighting and hidden cable runs.</p></div>
+      </a>
+      <a class="card" href="#quote">
+        <img src="images/kitchens.jpg" alt="Fitted kitchen in sage green with timber splashback and island seating">
+        <div class="card-b"><h3>Kitchens</h3>
+          <p>Full fitted kitchens — design, supply and installation, handled start to finish.</p></div>
+      </a>
+      <a class="card" href="#quote">
+        <img src="images/bedrooms.jpg" alt="Bedroom with panelled walls and fitted furniture">
+        <div class="card-b"><h3>Bedrooms</h3>
+          <p>Fitted wardrobes, headboard walls and storage that uses every inch of the room.</p></div>
+      </a>
+      <a class="card" href="#quote">
+        <img src="images/panelling.jpg" alt="Living room with white moulded wall panelling">
+        <div class="card-b"><h3>Wall panelling</h3>
+          <p>Moulded, slatted or fluted panelling for living rooms, halls and stairwells.</p></div>
+      </a>
+    </div>
+
+    <div class="note">
+      <strong>Delivery of products.</strong> Prefer to fit it yourself? We build to your
+      measurements and deliver anywhere in Ireland — free within Dublin, delivery quoted
+      by county elsewhere. Tick “delivery only” on the booking form below.
+    </div>
+  </div>
+</section>
+
+<!-- ── WORK ─────────────────────────────────────────────── -->
+<section id="work">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Recent work</p>
+        <h2>See the finish up close</h2>
+      </div>
+      <p>More on Instagram — new builds go up most weeks.</p>
+    </div>
+    <div class="gallery">
+      <figure class="tall">
+        <img src="images/hero.jpg" alt="Slatted media wall with marble panel and integrated fire, Dublin">
+        <figcaption>Media wall · Dublin</figcaption>
+      </figure>
+      <figure>
+        <img src="images/media-walls.jpg" alt="Oak slatted media wall with recessed display niches">
+        <figcaption>Slatted media wall</figcaption>
+      </figure>
+      <figure>
+        <img src="images/kitchens.jpg" alt="Sage green fitted kitchen">
+        <figcaption>Fitted kitchen</figcaption>
+      </figure>
+      <figure>
+        <img src="images/bedrooms.jpg" alt="Panelled bedroom in green with fitted units">
+        <figcaption>Bedroom fit-out</figcaption>
+      </figure>
+      <figure>
+        <img src="images/panelling.jpg" alt="White moulded wall panelling in a period living room">
+        <figcaption>Wall panelling</figcaption>
       </figure>
     </div>
-  </section>
+    <p style="margin-top:26px">
+      <a class="btn btn-ghost" href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">See more on Instagram</a>
+    </p>
+  </div>
+</section>
 
-  <section class="section section-deep" id="contact">
-    <div class="contact">
-      <div class="dim" style="margin-bottom:clamp(1.25rem,3vw,2rem)"><span class="mono">Start a project</span></div>
-      <h2 class="display">Tell us about the room.</h2>
-      <p class="contact-lede">
-        Photos and rough measurements are enough to start. WhatsApp is quickest.
-      </p>
-      <div class="contact-list mono">
-        <div>
-          <span>WhatsApp</span>
-          <a href="https://wa.me/message/4G7BTPDAHQ4GO1" target="_blank" rel="noopener">Send a message</a>
-        </div>
-        <div>
-          <span>Email</span>
-          <a href="mailto:decksandfurnitures@gmail.com">decksandfurnitures@gmail.com</a>
-        </div>
-        <div>
-          <span>Instagram</span>
-          <a href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">@decksinterior</a>
-        </div>
-        <div>
-          <span>Facebook</span>
-          <a href="https://www.facebook.com/share/1BxT58RJzt/" target="_blank" rel="noopener">Decks Interior</a>
-        </div>
-        <div>
-          <span>Reviews</span>
-          <a href="https://g.page/r/CdnZMsI4PBhWEBM/review" target="_blank" rel="noopener">Leave one on Google</a>
-        </div>
-        <div>
-          <span>Hours</span>
-          <p>09:00 — 18:00</p>
-        </div>
+<!-- ── PRICING ──────────────────────────────────────────── -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Price tags</p>
+        <h2>What things cost</h2>
+      </div>
+      <p>Guide prices, supplied and fitted. Your exact figure depends on size, finish and extras —
+        use the instant quote below.</p>
+    </div>
+    <div class="prices">
+      <div class="price">
+        <h3>Media wall</h3>
+        <div class="fig">from €2,400 <small>fitted</small></div>
+        <ul>
+          <li>Slatted or marble-effect face</li>
+          <li>Recessed TV + cable management</li>
+          <li>Fire and LED optional</li>
+        </ul>
+      </div>
+      <div class="price">
+        <h3>Wall panelling</h3>
+        <div class="fig">from €55 <small>per m², fitted</small></div>
+        <ul>
+          <li>Moulded, slatted or fluted</li>
+          <li>Painted to your colour</li>
+          <li>Most rooms in one day</li>
+        </ul>
+      </div>
+      <div class="price">
+        <h3>Fitted wardrobes</h3>
+        <div class="fig">from €1,900 <small>fitted</small></div>
+        <ul>
+          <li>Floor to ceiling, wall to wall</li>
+          <li>Internal shelving and rails</li>
+          <li>Handleless or handled doors</li>
+        </ul>
+      </div>
+      <div class="price">
+        <h3>Fitted kitchen</h3>
+        <div class="fig">from €6,500 <small>fitted</small></div>
+        <ul>
+          <li>Design, supply and installation</li>
+          <li>Worktops and splashbacks</li>
+          <li>Appliance integration</li>
+        </ul>
       </div>
     </div>
-  </section>
+    <div class="note">
+      ⚠ <strong>Placeholder figures.</strong> These prices and the instant-quote rates are
+      examples so the page reads correctly — replace them with your real numbers before the
+      site goes live. See <em>README.md</em> for exactly where.
+    </div>
+  </div>
+</section>
 
+<!-- ── INSTANT QUOTE ────────────────────────────────────── -->
+<section id="quote">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Instant quote</p>
+        <h2>Fill in the details, see a price</h2>
+      </div>
+      <p>An indicative range, worked out from your measurements. No details needed and nothing is sent
+        until you choose to book.</p>
+    </div>
+
+    <div class="quote-grid">
+      <form id="quoteForm" class="panel" novalidate>
+        <div class="field">
+          <label for="q-type">What are you building?</label>
+          <select id="q-type" name="type"></select>
+        </div>
+        <div class="row-3">
+          <div class="field">
+            <label for="q-w">Width (m)</label>
+            <input id="q-w" name="w" type="number" min="0.2" max="20" step="0.1" value="3.5">
+          </div>
+          <div class="field">
+            <label for="q-h">Height (m)</label>
+            <input id="q-h" name="h" type="number" min="0.2" max="6" step="0.1" value="2.4">
+          </div>
+          <div class="field">
+            <label for="q-finish">Finish</label>
+            <select id="q-finish" name="finish"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Extras</label>
+          <div class="ticks" style="gap:10px 22px">
+            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
+              <input type="checkbox" id="x-fireplace" style="width:18px;height:18px;accent-color:#7ee3ab"> Electric fireplace</label>
+            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
+              <input type="checkbox" id="x-led" style="width:18px;height:18px;accent-color:#7ee3ab"> Concealed LED lighting</label>
+            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
+              <input type="checkbox" id="x-tvmount" style="width:18px;height:18px;accent-color:#7ee3ab"> TV mounting</label>
+          </div>
+        </div>
+      </form>
+
+      <aside class="quote-out">
+        <div class="lbl">Estimated range</div>
+        <div class="amt" id="q-amount">—</div>
+        <ul class="quote-lines" id="q-lines"></ul>
+        <a class="btn btn-solid" id="q-book" href="#book" style="width:100%;justify-content:center">
+          Book a free consultation</a>
+        <p class="hint" style="margin-top:14px">Indicative only. The final price is confirmed after a
+          site visit or once we see photos of the wall.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ──────────────────────────────────────────── -->
+<section id="book">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Book a consultation</p>
+        <h2>Free within Dublin</h2>
+      </div>
+      <p>Send your measurements and a photo of the wall — you'll get a written quote back by email.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FORM DELIVERY — set up once, see README.md § "Turning the
+         forms on". Currently wired for Netlify Forms (free, handles
+         the photo uploads and emails you every enquiry).
+         ═══════════════════════════════════════════════════════════ -->
+    <form class="panel" name="consultation" method="POST" action="/thanks.html"
+          enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="consultation">
+      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1"></label></p>
+
+      <div class="row">
+        <div class="field"><label for="f-name">Your name</label>
+          <input id="f-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="f-phone">Phone number</label>
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="f-eircode">Location / Eircode</label>
+          <input id="f-eircode" name="eircode" placeholder="e.g. D15 XY72" required autocomplete="postal-code"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-service">What do you need?</label>
+          <select id="f-service" name="service"></select></div>
+        <div class="field"><label for="f-visit">Consultation or delivery only?</label>
+          <select id="f-visit" name="visit_type">
+            <option>Site visit — free within Dublin</option>
+            <option>Site visit — outside Dublin</option>
+            <option>Delivery only (I'll fit it myself)</option>
+          </select></div>
+      </div>
+      <div class="field">
+        <label for="f-dims">Dimensions</label>
+        <input id="f-dims" name="dimensions" placeholder="Width × height × depth, e.g. 3.5m × 2.4m × 0.35m">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="f-wall">Photo of the wall</label>
+          <input id="f-wall" name="wall_photo" type="file" accept="image/*">
+        </div>
+        <div class="field">
+          <label for="f-design">Photo of a design you like</label>
+          <input id="f-design" name="design_photo" type="file" accept="image/*">
+        </div>
+      </div>
+      <p class="hint" style="margin-bottom:18px">One photo each, up to 8&nbsp;MB. Or send them on WhatsApp — whichever is easier.</p>
+
+      <div class="field">
+        <label for="f-msg">Anything else</label>
+        <textarea id="f-msg" name="message" placeholder="Colours, timings, budget, anything you've already been quoted…"></textarea>
+      </div>
+
+      <input type="hidden" name="quote_estimate" id="f-quote">
+
+      <button class="btn btn-solid" type="submit" style="padding:16px 30px">Send enquiry</button>
+      <p class="hint" style="margin-top:16px">
+        Prefer to talk? <a href="#contact" style="color:#fff">Call or WhatsApp us</a> — we usually reply the same day.
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ── CONTACT ──────────────────────────────────────────── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <h2>Talk to us</h2>
+      </div>
+      <p>Dublin based, covering all Ireland. Open 09:00–18:00.</p>
+    </div>
+    <div class="contact-grid">
+      <div><h3>Phone / WhatsApp</h3>
+        <p><a href="#" data-link="tel"></a></p>
+        <p><a href="#" data-link="wa" target="_blank" rel="noopener">Message on WhatsApp</a></p></div>
+      <div><h3>Email</h3>
+        <p><a href="#" data-link="mail"></a></p></div>
+      <div><h3>Social</h3>
+        <p><a href="#" data-link="ig" target="_blank" rel="noopener">@decksinterior</a></p>
+        <p><a href="#" data-link="fb" target="_blank" rel="noopener">Facebook</a></p></div>
+      <div><h3>Hours</h3>
+        <p style="color:var(--muted);margin:0">Monday – Saturday<br>09:00 – 18:00</p></div>
+    </div>
+  </div>
+</section>
 </main>
 
-<footer class="foot mono">
-  <span>Decks Interior — interior design, fit-out &amp; carpentry · Dublin, covering all Ireland</span>
-  <a href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">@decksinterior</a>
+<footer>
+  <div class="wrap">
+    <span class="mark"><span class="mark-dot"></span><span class="mark-txt">Decks Interior</span></span>
+    <p class="tag serif">Luxury is in the details.</p>
+    <p class="fine">© <span id="yr"></span> Decks Interior · Dublin, Ireland</p>
+  </div>
 </footer>
 
+<a class="wa-float" data-link="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp us">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 8.24 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z"/></svg>
+</a>
+
+<script>
+/* ── wire config into the page ─────────────────────────── */
+const $ = (s,r=document)=>r.querySelector(s);
+const money = n => CONFIG.currency + Math.round(n/50)*50;
+
+const links = {
+  tel:  ["tel:"+CONFIG.phoneRaw, CONFIG.phone],
+  mail: ["mailto:"+CONFIG.email, CONFIG.email],
+  wa:   [CONFIG.whatsapp],
+  ig:   [CONFIG.instagram],
+  fb:   [CONFIG.facebook]
+};
+document.querySelectorAll("[data-link]").forEach(a=>{
+  const [href,text] = links[a.dataset.link];
+  a.href = href;
+  if (text) a.textContent = text;
+});
+$("#yr").textContent = new Date().getFullYear();
+
+/* ── mobile nav ────────────────────────────────────────── */
+const nav = $("#nav"), burger = $(".burger");
+burger.addEventListener("click", ()=>{
+  const open = nav.classList.toggle("open");
+  burger.setAttribute("aria-expanded", open);
+  burger.textContent = open ? "✕" : "☰";
+});
+nav.addEventListener("click", e=>{
+  if (e.target.tagName === "A"){ nav.classList.remove("open"); burger.textContent="☰"; }
+});
+
+/* ── populate the two service dropdowns from CONFIG ────── */
+const types = Object.keys(CONFIG.rates);
+$("#q-type").innerHTML = types.map(t=>`<option>${t}</option>`).join("");
+$("#q-finish").innerHTML = Object.keys(CONFIG.finishes).map(f=>`<option>${f}</option>`).join("");
+$("#f-service").innerHTML = types.concat("Something else").map(t=>`<option>${t}</option>`).join("");
+
+/* ── instant quote ─────────────────────────────────────── */
+const extraIds = { fireplace:"#x-fireplace", led:"#x-led", tvmount:"#x-tvmount" };
+
+function estimate(){
+  const type   = $("#q-type").value;
+  const finish = $("#q-finish").value;
+  const w = parseFloat($("#q-w").value);
+  const h = parseFloat($("#q-h").value);
+
+  if (!(w > 0) || !(h > 0)) return null;                 // blank or nonsense input
+
+  const area  = w * h;
+  const base  = area * CONFIG.rates[type] * CONFIG.finishes[finish];
+  const addOn = Object.entries(extraIds)
+    .filter(([k,sel]) => $(sel).checked)
+    .reduce((s,[k]) => s + CONFIG.extras[k], 0);
+
+  const total = Math.max(base + addOn, CONFIG.minimum);
+  return { type, finish, area, base, addOn, total,
+           low: total*(1-CONFIG.spread), high: total*(1+CONFIG.spread) };
+}
+
+function render(){
+  const q = estimate();
+  const amount = $("#q-amount"), lines = $("#q-lines");
+
+  if (!q){
+    amount.textContent = "—";
+    lines.innerHTML = "<li>Enter a width and height</li>";
+    $("#f-quote").value = "";
+    return;
+  }
+  amount.textContent = money(q.low) + " – " + money(q.high);
+  lines.innerHTML = `
+    <li><span>${q.type}</span><b>${q.finish}</b></li>
+    <li><span>Area</span><b>${q.area.toFixed(1)} m²</b></li>
+    <li><span>Build</span><b>${money(q.base)}</b></li>
+    ${q.addOn ? `<li><span>Extras</span><b>${money(q.addOn)}</b></li>` : ""}`;
+
+  // carried into the booking form so the enquiry email has it
+  $("#f-quote").value = `${q.type} · ${q.finish} · ${q.area.toFixed(1)}m² · ${money(q.low)}–${money(q.high)}`;
+}
+
+$("#quoteForm").addEventListener("input", render);
+$("#q-book").addEventListener("click", ()=>{
+  const q = estimate();
+  if (q) $("#f-service").value = q.type;                  // prefill the booking form
+});
+render();
+
+/* ── self-check: open the page with #selftest to run it ── */
+if (location.hash === "#selftest"){
+  const set = (sel,v) => { $(sel).value = v; };
+  set("#q-type","Media wall"); set("#q-finish","Standard");
+  set("#q-w","2"); set("#q-h","2");
+  ["#x-fireplace","#x-led","#x-tvmount"].forEach(s=>$(s).checked=false);
+  console.assert(estimate().total === 4*650, "base maths", estimate().total);
+
+  $("#x-fireplace").checked = true;
+  console.assert(estimate().total === 4*650 + 900, "extras add on");
+
+  set("#q-finish","Premium");
+  console.assert(Math.abs(estimate().base - 4*650*1.3) < 0.01, "finish multiplier");
+
+  set("#q-w","0.2"); set("#q-h","0.2"); $("#x-fireplace").checked=false;
+  console.assert(estimate().total === CONFIG.minimum, "minimum floor");
+
+  set("#q-w","");
+  console.assert(estimate() === null, "blank input returns null");
+
+  console.log("%c✓ quote self-check passed", "color:#7ee3ab;font-weight:700");
+  set("#q-w","3.5"); set("#q-h","2.4"); set("#q-finish","Standard"); render();
+}
+</script>
 </body>
 </html>
