@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Decks Interior — Bespoke Interiors, Built Around You | Dublin</title>
-<meta name="description" content="Dublin studio building bespoke media walls, kitchens, bedrooms and wall panelling. Free consultation within Dublin. Instant quote online.">
+<meta name="description" content="Dublin studio building bespoke media walls, kitchens, bedrooms and wall panelling. Free consultation within Dublin. Send your details and we'll call you back with a price.">
 <meta name="robots" content="noindex">
 <!-- ↑ REMOVE the line above when the site goes live, so Google can list it. -->
 
 <meta property="og:title" content="Decks Interior — Bespoke Interiors, Built Around You">
-<meta property="og:description" content="Bespoke media walls, kitchens, bedrooms and wall panelling. Dublin based, all Ireland.">
+<meta property="og:description" content="Bespoke media walls, kitchens, bedrooms and wall panelling. Dublin based, covering all Ireland.">
 <meta property="og:image" content="images/hero.jpg">
 <meta property="og:type" content="website">
 
@@ -20,17 +20,19 @@
 <style>
 /* ══════════════════════════════════════════════════════════════
    DECKS INTERIOR
-   Colours taken straight from the flyer:
-   ink #091624 · mint #7ee3ab · deep green #154d34 · paper #eff1ef
+   Colours sampled from the flyer:
+   ink #091624 · deep green #154d34→#13432d · mint #7ee3ab · paper #eff1ef
+   Deep green does the heavy lifting (panels, buttons) exactly as the
+   flyer does. Mint is only ever an accent — headline, stat, ticks.
    ══════════════════════════════════════════════════════════════ */
 :root{
   --ink:#091624;
   --ink-2:#0d1e30;
-  --ink-3:#122839;
-  --mint:#7ee3ab;
-  --mint-dim:#59a381;
   --green-1:#154d34;
   --green-2:#13432d;
+  --green-lift:#1b6243;   /* hover only */
+  --mint:#7ee3ab;
+  --mint-dim:#59a381;
   --paper:#eff1ef;
   --muted:#9aabb6;
   --line:rgba(126,227,171,.16);
@@ -57,11 +59,10 @@ p{margin:0 0 1em}
 }
 .serif{font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:300}
 section{padding:clamp(56px,9vw,110px) 0;border-top:1px solid var(--line-soft)}
-section:first-of-type{border-top:0}
 
 /* ── header ─────────────────────────────────────────────── */
 header{
-  position:sticky;top:0;z-index:50;background:rgba(9,22,36,.86);
+  position:sticky;top:0;z-index:50;background:rgba(9,22,36,.9);
   backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)
 }
 .bar{display:flex;align-items:center;gap:24px;height:66px}
@@ -76,18 +77,18 @@ nav a{
 }
 nav a:hover{color:var(--mint)}
 .btn{
-  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;
   font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  padding:13px 22px;border-radius:2px;border:1px solid transparent;cursor:pointer;
+  padding:14px 24px;border-radius:2px;border:1px solid transparent;cursor:pointer;
   font-family:inherit;transition:.18s
 }
-.btn-solid{background:var(--mint);color:var(--ink)}
-.btn-solid:hover{background:#9df0c1}
-.btn-ghost{border-color:var(--line);color:var(--paper)}
+.btn-solid{background:linear-gradient(135deg,var(--green-1),var(--green-2));color:var(--paper)}
+.btn-solid:hover{background:var(--green-lift)}
+.btn-ghost{border-color:var(--line);color:var(--paper);background:none}
 .btn-ghost:hover{border-color:var(--mint);color:var(--mint)}
 .nav-cta{padding:11px 18px}
 .burger{display:none;margin-left:auto;background:none;border:0;color:var(--paper);font-size:22px;cursor:pointer;padding:6px}
-@media(max-width:900px){
+@media(max-width:960px){
   nav{
     position:fixed;inset:66px 0 auto;background:var(--ink);flex-direction:column;
     align-items:stretch;gap:0;padding:12px var(--pad) 26px;
@@ -95,28 +96,33 @@ nav a:hover{color:var(--mint)}
   }
   nav.open{display:flex}
   nav a{padding:14px 0;font-size:15px;border-bottom:1px solid var(--line-soft)}
-  nav .btn{margin-top:16px;justify-content:center}
+  nav .btn{margin-top:16px}
   .burger{display:block}
 }
 
-/* ── hero ───────────────────────────────────────────────── */
-.hero{position:relative;padding:0;border:0;min-height:min(88vh,760px);display:flex;align-items:flex-end}
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+/* ── hero, with the enquiry form in it ──────────────────── */
+.hero{position:relative;padding:0;border:0;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%}
 .hero::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(9,22,36,.55) 0%,rgba(9,22,36,.35) 35%,rgba(9,22,36,.94) 100%)
+  background:linear-gradient(180deg,rgba(9,22,36,.62) 0%,rgba(9,22,36,.55) 40%,rgba(9,22,36,.96) 100%)
 }
-.hero-in{position:relative;z-index:2;width:100%;padding-block:clamp(40px,7vw,80px)}
-.hero h1{font-size:clamp(38px,7.4vw,82px);text-transform:uppercase;max-width:15ch}
+.hero-in{
+  position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
+  gap:clamp(28px,4.5vw,64px);align-items:center;
+  padding-block:clamp(44px,6vw,78px)
+}
+.hero h1{font-size:clamp(36px,6.2vw,72px);text-transform:uppercase;max-width:14ch}
 .hero h1 .g{color:var(--mint);display:block}
-.hero p.lede{max-width:46ch;color:#cfd8d5;margin:22px 0 30px;font-size:clamp(15px,1.6vw,18px)}
+.hero p.lede{max-width:44ch;color:#cbd5d2;margin:22px 0 28px;font-size:clamp(15px,1.5vw,18px)}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
 .hero-meta{
-  display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;padding-top:22px;
+  display:flex;gap:24px;flex-wrap:wrap;margin-top:32px;padding-top:20px;
   border-top:1px solid var(--line-soft);font-size:12.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--muted);font-weight:600
 }
 .hero-meta b{color:var(--paper);font-weight:700}
+@media(max-width:960px){.hero-in{grid-template-columns:1fr}}
 
 /* ── assurance band ─────────────────────────────────────── */
 .band{background:var(--ink-2);border-top:1px solid var(--line)}
@@ -138,85 +144,74 @@ nav a:hover{color:var(--mint)}
 .head h2{font-size:clamp(28px,4.6vw,50px);text-transform:uppercase;max-width:18ch}
 .head p{color:var(--muted);max-width:44ch;margin:0}
 
-/* ── cards / work ───────────────────────────────────────── */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px}
-.card{
-  text-decoration:none;background:var(--ink-2);border:1px solid var(--line-soft);
-  border-radius:3px;overflow:hidden;transition:.2s;display:block
-}
-.card:hover{border-color:var(--mint);transform:translateY(-3px)}
-.card img{aspect-ratio:4/3;object-fit:cover;width:100%}
-.card-b{padding:16px 18px 20px}
-.card-b h3{font-size:16px;text-transform:uppercase;letter-spacing:.06em}
-.card-b p{margin:8px 0 0;font-size:13.5px;color:var(--muted);line-height:1.5}
+/* ── services: typographic, no stock photography ────────── */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:1px;background:var(--line-soft)}
+.svc article{background:var(--ink);padding:34px 28px 30px;transition:background .2s}
+.svc article:hover{background:var(--ink-2)}
+.svc .n{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--mint-dim);display:block;margin-bottom:26px}
+.svc h3{font-size:clamp(19px,2.2vw,23px);text-transform:uppercase}
+.svc p{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
 
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+/* ── work ───────────────────────────────────────────────── */
+.gallery{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
 .gallery figure{margin:0;position:relative;overflow:hidden;border-radius:3px;background:var(--ink-2)}
-.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;transition:transform .5s}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .gallery figure:hover img{transform:scale(1.04)}
-.gallery .tall{grid-row:span 2}
-.gallery .tall img{aspect-ratio:1/2}
 .gallery figcaption{
-  position:absolute;left:0;right:0;bottom:0;padding:22px 18px 14px;font-size:12px;
+  position:absolute;left:0;right:0;bottom:0;padding:26px 20px 16px;font-size:12px;
   letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  background:linear-gradient(transparent,rgba(9,22,36,.9))
+  background:linear-gradient(transparent,rgba(9,22,36,.92))
 }
-@media(max-width:700px){.gallery .tall{grid-row:span 1}.gallery .tall img{aspect-ratio:1}}
+@media(max-width:760px){.gallery{grid-template-columns:1fr}}
 
-/* ── pricing ────────────────────────────────────────────── */
-.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:16px}
-.price{
-  background:var(--ink-2);border:1px solid var(--line-soft);border-radius:3px;
-  padding:26px 24px 24px;display:flex;flex-direction:column
+/* ── how pricing works ──────────────────────────────────── */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+.steps li{list-style:none;padding-top:22px;border-top:2px solid var(--green-1)}
+.steps li::before{
+  counter-increment:s;content:"0" counter(s);display:block;
+  font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--mint);margin-bottom:14px
 }
-.price h3{font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--mint-dim)}
-.price .fig{font-size:clamp(28px,4vw,38px);font-weight:800;margin:14px 0 2px;letter-spacing:-.03em}
-.price .fig small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0}
-.price ul{list-style:none;margin:18px 0 0;padding:0;font-size:14px;color:var(--muted)}
-.price li{padding:8px 0;border-top:1px solid var(--line-soft)}
-.note{
-  margin-top:26px;padding:16px 18px;border-left:2px solid var(--mint);
-  background:var(--ink-2);color:var(--muted);font-size:14px
-}
+.steps h3{font-size:17px;text-transform:uppercase;letter-spacing:.03em}
+.steps p{margin:10px 0 0;color:var(--muted);font-size:14.5px}
 
-/* ── forms ──────────────────────────────────────────────── */
+/* ── the enquiry form ───────────────────────────────────── */
 .panel{
-  background:linear-gradient(135deg,var(--green-1),var(--green-2));
-  border-radius:4px;padding:clamp(26px,4.5vw,52px)
+  background:linear-gradient(150deg,var(--green-1),var(--green-2));
+  border-radius:4px;padding:clamp(24px,3vw,38px);
+  box-shadow:0 24px 60px rgba(0,0,0,.4)
 }
-.field{margin-bottom:18px}
-label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.panel h2{font-size:clamp(22px,2.6vw,28px);text-transform:uppercase}
+.panel .sub{color:rgba(239,241,239,.72);font-size:14.5px;margin:10px 0 24px}
+.field{margin-bottom:16px}
+label{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:7px}
 input,select,textarea{
   width:100%;font-family:inherit;font-size:15.5px;color:var(--paper);
-  background:rgba(9,22,36,.42);border:1px solid rgba(239,241,239,.2);
-  border-radius:2px;padding:13px 14px
+  background:rgba(9,22,36,.45);border:1px solid rgba(239,241,239,.2);
+  border-radius:2px;padding:12px 13px
 }
 input:focus,select:focus,textarea:focus{outline:2px solid var(--mint);outline-offset:-1px;border-color:transparent}
-textarea{min-height:110px;resize:vertical}
+textarea{min-height:92px;resize:vertical}
 select option{background:var(--ink);color:var(--paper)}
-input[type=file]{padding:11px;font-size:13.5px}
+input[type=file]{padding:10px;font-size:13px}
 input[type=file]::file-selector-button{
-  font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  background:var(--mint);color:var(--ink);border:0;border-radius:2px;padding:8px 13px;margin-right:12px;cursor:pointer
+  font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--mint);color:var(--ink);border:0;border-radius:2px;padding:8px 12px;margin-right:11px;cursor:pointer
 }
-.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-@media(max-width:640px){.row,.row-3{grid-template-columns:1fr}}
-.hint{font-size:12.5px;color:rgba(239,241,239,.62);margin:-8px 0 0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.hint{font-size:12.5px;color:rgba(239,241,239,.62);margin:0}
 .hp{position:absolute;left:-9999px}
-
-/* quote */
-.quote-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(22px,3.5vw,44px);align-items:start}
-@media(max-width:860px){.quote-grid{grid-template-columns:1fr}}
-.quote-out{
-  background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
-  padding:30px 28px;position:sticky;top:86px
+details{border-top:1px solid rgba(239,241,239,.16);margin:6px 0 20px;padding-top:16px}
+summary{
+  cursor:pointer;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;color:var(--mint);list-style:none;display:flex;align-items:center;gap:9px
 }
-.quote-out .amt{font-size:clamp(32px,5.5vw,46px);font-weight:800;color:var(--mint);letter-spacing:-.03em;line-height:1}
-.quote-out .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.quote-lines{list-style:none;margin:22px 0;padding:0;font-size:14px;color:var(--muted)}
-.quote-lines li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line-soft)}
-.quote-lines b{color:var(--paper);font-weight:600;text-align:right}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-size:16px;line-height:1}
+details[open] summary::before{content:"–"}
+details .field{margin-top:18px}
+.submit{width:100%;padding:17px 24px;background:var(--mint);color:var(--ink);font-size:13.5px}
+.submit:hover{background:#9df0c1}
 
 /* ── contact ────────────────────────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:28px}
@@ -224,16 +219,23 @@ input[type=file]::file-selector-button{
 .contact-grid a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--line);display:inline-block}
 .contact-grid a:hover{color:var(--mint);border-color:var(--mint)}
 
+.cta-strip{
+  background:linear-gradient(135deg,var(--green-1),var(--green-2));
+  text-align:center;padding:clamp(40px,6vw,72px) var(--pad);border-radius:4px
+}
+.cta-strip h2{font-size:clamp(24px,4vw,42px);text-transform:uppercase}
+.cta-strip p{color:rgba(239,241,239,.75);max-width:44ch;margin:16px auto 28px}
+
 footer{border-top:1px solid var(--line-soft);padding:44px 0;text-align:center}
 footer .mark{justify-content:center;display:inline-flex}
 footer .tag{color:var(--muted);margin:14px 0 0;font-size:15px}
 footer .fine{color:rgba(154,171,182,.55);font-size:12px;margin-top:22px;letter-spacing:.04em}
 
-/* floating whatsapp */
 .wa-float{
   position:fixed;right:18px;bottom:18px;z-index:60;width:54px;height:54px;border-radius:50%;
-  background:var(--mint);color:var(--ink);display:grid;place-items:center;text-decoration:none;
-  box-shadow:0 8px 26px rgba(0,0,0,.45)
+  background:linear-gradient(135deg,var(--green-1),var(--green-2));color:var(--mint);
+  display:grid;place-items:center;text-decoration:none;
+  border:1px solid rgba(126,227,171,.35);box-shadow:0 8px 26px rgba(0,0,0,.5)
 }
 .wa-float svg{width:27px;height:27px}
 </style>
@@ -242,7 +244,8 @@ footer .fine{color:rgba(154,171,182,.55);font-size:12px;margin-top:22px;letter-s
 
 <!-- ══════════════════════════════════════════════════════════════
      EDIT ME — everything the owner is likely to change lives here.
-     Prices are GUIDE RATES and are currently placeholders.
+     No prices anywhere on the site: enquiries go to the email below
+     and he rings the customer back with a figure.
      ══════════════════════════════════════════════════════════════ -->
 <script id="site-config">
 const CONFIG = {
@@ -252,30 +255,18 @@ const CONFIG = {
   whatsapp:  "https://wa.me/message/4G7BTPDAHQ4GO1",
   instagram: "https://www.instagram.com/decksinterior",
   facebook:  "https://www.facebook.com/share/1BxT58RJzt/",
+  hours:     "09:00 – 18:00",
 
-  // ── Instant quote maths ──────────────────────────────────
-  // estimate = (width m × height m) × rate + extras, then ± spread
-  // ⚠ PLACEHOLDER RATES — replace with your real €/m² before going live.
-  rates: {
-    "Media wall":       650,
-    "Fitted kitchen":   900,
-    "Fitted wardrobe":  700,
-    "Wall panelling":   280,
-    "Bedroom fit-out":  600
-  },
-  finishes: {            // multiplier on the rate
-    "Standard":  1,
-    "Premium":   1.3,
-    "Luxury":    1.6
-  },
-  extras: {              // flat add-ons, €
-    fireplace: 900,
-    led:       350,
-    tvmount:   150
-  },
-  spread: 0.15,          // ± shown as a range
-  minimum: 750,          // smallest job we quote
-  currency: "€"
+  // Options in the "what do you need" dropdown on the enquiry form.
+  services: [
+    "Media wall",
+    "Fitted kitchen",
+    "Fitted wardrobes",
+    "Wall panelling",
+    "Bedroom fit-out",
+    "Full fit-out",
+    "Something else"
+  ]
 };
 </script>
 
@@ -288,35 +279,93 @@ const CONFIG = {
     </a>
     <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
     <nav id="nav">
-      <a href="#work">Work</a>
       <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#quote">Instant quote</a>
-      <a href="#book">Book</a>
+      <a href="#work">Work</a>
+      <a href="#how">How it works</a>
       <a href="#contact">Contact</a>
-      <a class="btn btn-solid nav-cta" href="#book">Free consultation</a>
+      <a class="btn btn-solid nav-cta" href="#enquire">Enquire for a quote</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
 
-<!-- ── HERO ─────────────────────────────────────────────── -->
-<section class="hero">
+<!-- ── HERO + ENQUIRY FORM ──────────────────────────────── -->
+<section class="hero" id="enquire">
   <img class="hero-img" src="images/hero.jpg" alt="Slatted timber media wall with marble TV panel, integrated fire and concealed LED lighting">
   <div class="wrap hero-in">
-    <h1>Bespoke interiors.<span class="g">Built around you.</span></h1>
-    <p class="lede">Media walls, kitchens, bedrooms and wall panelling — designed, built and
-      fitted by one team. Dublin based, covering all Ireland.</p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="#book">Book free consultation</a>
-      <a class="btn btn-ghost" href="#quote">Get an instant quote</a>
+
+    <div>
+      <h1>Bespoke interiors.<span class="g">Built around you.</span></h1>
+      <p class="lede">Media walls, kitchens, bedrooms and wall panelling — designed, built and
+        fitted by one team. Dublin based, covering all Ireland.</p>
+      <div class="hero-cta">
+        <a class="btn btn-ghost" data-link="wa" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn btn-ghost" data-link="tel" href="#"></a>
+      </div>
+      <div class="hero-meta">
+        <span>Consultation <b>free within Dublin</b></span>
+        <span>Open <b id="hours-meta"></b></span>
+      </div>
     </div>
-    <div class="hero-meta">
-      <span>Free consultation <b>within Dublin</b></span>
-      <span>Most builds fitted in <b>one day</b></span>
-      <span>Delivery <b>nationwide</b></span>
-    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FORM DELIVERY — set up once, see README.md § "Turning the
+         form on". Currently wired for Netlify Forms (free, handles
+         the photo uploads and emails every enquiry through).
+         ═══════════════════════════════════════════════════════════ -->
+    <form class="panel" name="quote-request" method="POST" action="/thanks.html"
+          enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="quote-request">
+      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1"></label></p>
+
+      <h2>Enquire for a quote</h2>
+      <p class="sub">Tell us what you're after and we'll ring you back with a price.
+        Free consultation within Dublin.</p>
+
+      <div class="row">
+        <div class="field"><label for="f-name">Your name</label>
+          <input id="f-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="f-phone">Phone number</label>
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="f-eircode">Location / Eircode</label>
+          <input id="f-eircode" name="eircode" placeholder="e.g. D15 XY72" required autocomplete="postal-code"></div>
+      </div>
+      <div class="field">
+        <label for="f-service">What do you need?</label>
+        <select id="f-service" name="service"></select>
+      </div>
+
+      <details>
+        <summary>Add measurements and photos</summary>
+        <p class="hint" style="margin-top:14px">Optional, but it means we can price it
+          faster and more accurately.</p>
+        <div class="field">
+          <label for="f-dims">Dimensions</label>
+          <input id="f-dims" name="dimensions" placeholder="Width × height × depth, e.g. 3.5m × 2.4m × 0.35m">
+        </div>
+        <div class="row">
+          <div class="field"><label for="f-wall">Photo of the wall</label>
+            <input id="f-wall" name="wall_photo" type="file" accept="image/*"></div>
+          <div class="field"><label for="f-design">A design you like</label>
+            <input id="f-design" name="design_photo" type="file" accept="image/*"></div>
+        </div>
+        <div class="field" style="margin-bottom:4px">
+          <label for="f-msg">Anything else</label>
+          <textarea id="f-msg" name="message" placeholder="Colours, timings, budget, when you'd like it done…"></textarea>
+        </div>
+      </details>
+
+      <button class="btn submit" type="submit">Send enquiry</button>
+      <p class="hint" style="margin-top:14px;text-align:center">
+        Or send it all on <a data-link="wa" href="#" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a> —
+        whichever is easier.</p>
+    </form>
+
   </div>
 </section>
 
@@ -332,7 +381,7 @@ const CONFIG = {
       <div class="tick"><i>✓</i><span>Bespoke designs, drawn to your room</span></div>
       <div class="tick"><i>✓</i><span>Quality craftsmanship, made to last</span></div>
       <div class="tick"><i>✓</i><span>Clean, professional installation</span></div>
-      <div class="tick"><i>✓</i><span>Built to suit your space and budget</span></div>
+      <div class="tick"><i>✓</i><span>Built to suit your space</span></div>
     </div>
   </div>
 </section>
@@ -347,33 +396,27 @@ const CONFIG = {
       </div>
       <p>Every job is measured, drawn and built for the room it goes in — nothing is off the shelf.</p>
     </div>
-    <div class="cards">
-      <a class="card" href="#quote">
-        <img src="images/media-walls.jpg" alt="Bespoke media wall with slatted panelling, recessed TV and electric fire">
-        <div class="card-b"><h3>Media walls</h3>
-          <p>Slatted or marble-faced, with integrated fire, concealed lighting and hidden cable runs.</p></div>
-      </a>
-      <a class="card" href="#quote">
-        <img src="images/kitchens.jpg" alt="Fitted kitchen in sage green with timber splashback and island seating">
-        <div class="card-b"><h3>Kitchens</h3>
-          <p>Full fitted kitchens — design, supply and installation, handled start to finish.</p></div>
-      </a>
-      <a class="card" href="#quote">
-        <img src="images/bedrooms.jpg" alt="Bedroom with panelled walls and fitted furniture">
-        <div class="card-b"><h3>Bedrooms</h3>
-          <p>Fitted wardrobes, headboard walls and storage that uses every inch of the room.</p></div>
-      </a>
-      <a class="card" href="#quote">
-        <img src="images/panelling.jpg" alt="Living room with white moulded wall panelling">
-        <div class="card-b"><h3>Wall panelling</h3>
-          <p>Moulded, slatted or fluted panelling for living rooms, halls and stairwells.</p></div>
-      </a>
-    </div>
-
-    <div class="note">
-      <strong>Delivery of products.</strong> Prefer to fit it yourself? We build to your
-      measurements and deliver anywhere in Ireland — free within Dublin, delivery quoted
-      by county elsewhere. Tick “delivery only” on the booking form below.
+    <div class="svc">
+      <article>
+        <span class="n">01</span>
+        <h3>Media walls</h3>
+        <p>Slatted or marble-faced, with integrated fire, concealed lighting and hidden cable runs.</p>
+      </article>
+      <article>
+        <span class="n">02</span>
+        <h3>Kitchens</h3>
+        <p>Fitted kitchens — design, supply and installation, handled start to finish.</p>
+      </article>
+      <article>
+        <span class="n">03</span>
+        <h3>Bedrooms</h3>
+        <p>Fitted wardrobes, headboard walls and storage that uses every inch of the room.</p>
+      </article>
+      <article>
+        <span class="n">04</span>
+        <h3>Wall panelling</h3>
+        <p>Moulded, slatted or fluted panelling for living rooms, halls and stairwells.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -383,225 +426,58 @@ const CONFIG = {
   <div class="wrap">
     <div class="head">
       <div>
-        <p class="eyebrow">Recent work</p>
+        <p class="eyebrow">Our work</p>
         <h2>See the finish up close</h2>
       </div>
-      <p>More on Instagram — new builds go up most weeks.</p>
+      <p>New builds go up on Instagram most weeks — that's the fullest picture of what we do.</p>
     </div>
     <div class="gallery">
-      <figure class="tall">
-        <img src="images/hero.jpg" alt="Slatted media wall with marble panel and integrated fire, Dublin">
-        <figcaption>Media wall · Dublin</figcaption>
+      <figure>
+        <img src="images/hero.jpg" alt="Slatted media wall with marble panel, recessed TV and integrated electric fire">
+        <figcaption>Media wall · slatted timber, marble panel, integrated fire</figcaption>
       </figure>
       <figure>
-        <img src="images/media-walls.jpg" alt="Oak slatted media wall with recessed display niches">
-        <figcaption>Slatted media wall</figcaption>
-      </figure>
-      <figure>
-        <img src="images/kitchens.jpg" alt="Sage green fitted kitchen">
-        <figcaption>Fitted kitchen</figcaption>
-      </figure>
-      <figure>
-        <img src="images/bedrooms.jpg" alt="Panelled bedroom in green with fitted units">
-        <figcaption>Bedroom fit-out</figcaption>
-      </figure>
-      <figure>
-        <img src="images/panelling.jpg" alt="White moulded wall panelling in a period living room">
-        <figcaption>Wall panelling</figcaption>
+        <img src="images/media-walls.jpg" alt="Oak slatted media wall with recessed display niches and electric fire">
+        <figcaption>Media wall · oak slats, recessed niches</figcaption>
       </figure>
     </div>
     <p style="margin-top:26px">
-      <a class="btn btn-ghost" href="https://www.instagram.com/decksinterior" target="_blank" rel="noopener">See more on Instagram</a>
+      <a class="btn btn-ghost" data-link="ig" href="#" target="_blank" rel="noopener">See more on Instagram</a>
     </p>
   </div>
 </section>
 
-<!-- ── PRICING ──────────────────────────────────────────── -->
-<section id="pricing">
+<!-- ── HOW IT WORKS ─────────────────────────────────────── -->
+<section id="how">
   <div class="wrap">
     <div class="head">
       <div>
-        <p class="eyebrow">Price tags</p>
-        <h2>What things cost</h2>
+        <p class="eyebrow">How it works</p>
+        <h2>How you get a price</h2>
       </div>
-      <p>Guide prices, supplied and fitted. Your exact figure depends on size, finish and extras —
-        use the instant quote below.</p>
+      <p>Every job is priced on the room it goes in, so there's no price list —
+        you get a real figure, not a guess.</p>
     </div>
-    <div class="prices">
-      <div class="price">
-        <h3>Media wall</h3>
-        <div class="fig">from €2,400 <small>fitted</small></div>
-        <ul>
-          <li>Slatted or marble-effect face</li>
-          <li>Recessed TV + cable management</li>
-          <li>Fire and LED optional</li>
-        </ul>
-      </div>
-      <div class="price">
-        <h3>Wall panelling</h3>
-        <div class="fig">from €55 <small>per m², fitted</small></div>
-        <ul>
-          <li>Moulded, slatted or fluted</li>
-          <li>Painted to your colour</li>
-          <li>Most rooms in one day</li>
-        </ul>
-      </div>
-      <div class="price">
-        <h3>Fitted wardrobes</h3>
-        <div class="fig">from €1,900 <small>fitted</small></div>
-        <ul>
-          <li>Floor to ceiling, wall to wall</li>
-          <li>Internal shelving and rails</li>
-          <li>Handleless or handled doors</li>
-        </ul>
-      </div>
-      <div class="price">
-        <h3>Fitted kitchen</h3>
-        <div class="fig">from €6,500 <small>fitted</small></div>
-        <ul>
-          <li>Design, supply and installation</li>
-          <li>Worktops and splashbacks</li>
-          <li>Appliance integration</li>
-        </ul>
-      </div>
-    </div>
-    <div class="note">
-      ⚠ <strong>Placeholder figures.</strong> These prices and the instant-quote rates are
-      examples so the page reads correctly — replace them with your real numbers before the
-      site goes live. See <em>README.md</em> for exactly where.
-    </div>
-  </div>
-</section>
-
-<!-- ── INSTANT QUOTE ────────────────────────────────────── -->
-<section id="quote">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <p class="eyebrow">Instant quote</p>
-        <h2>Fill in the details, see a price</h2>
-      </div>
-      <p>An indicative range, worked out from your measurements. No details needed and nothing is sent
-        until you choose to book.</p>
-    </div>
-
-    <div class="quote-grid">
-      <form id="quoteForm" class="panel" novalidate>
-        <div class="field">
-          <label for="q-type">What are you building?</label>
-          <select id="q-type" name="type"></select>
-        </div>
-        <div class="row-3">
-          <div class="field">
-            <label for="q-w">Width (m)</label>
-            <input id="q-w" name="w" type="number" min="0.2" max="20" step="0.1" value="3.5">
-          </div>
-          <div class="field">
-            <label for="q-h">Height (m)</label>
-            <input id="q-h" name="h" type="number" min="0.2" max="6" step="0.1" value="2.4">
-          </div>
-          <div class="field">
-            <label for="q-finish">Finish</label>
-            <select id="q-finish" name="finish"></select>
-          </div>
-        </div>
-        <div class="field">
-          <label>Extras</label>
-          <div class="ticks" style="gap:10px 22px">
-            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
-              <input type="checkbox" id="x-fireplace" style="width:18px;height:18px;accent-color:#7ee3ab"> Electric fireplace</label>
-            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
-              <input type="checkbox" id="x-led" style="width:18px;height:18px;accent-color:#7ee3ab"> Concealed LED lighting</label>
-            <label style="display:flex;gap:10px;align-items:center;font-size:14.5px;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
-              <input type="checkbox" id="x-tvmount" style="width:18px;height:18px;accent-color:#7ee3ab"> TV mounting</label>
-          </div>
-        </div>
-      </form>
-
-      <aside class="quote-out">
-        <div class="lbl">Estimated range</div>
-        <div class="amt" id="q-amount">—</div>
-        <ul class="quote-lines" id="q-lines"></ul>
-        <a class="btn btn-solid" id="q-book" href="#book" style="width:100%;justify-content:center">
-          Book a free consultation</a>
-        <p class="hint" style="margin-top:14px">Indicative only. The final price is confirmed after a
-          site visit or once we see photos of the wall.</p>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ── BOOKING ──────────────────────────────────────────── -->
-<section id="book">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <p class="eyebrow">Book a consultation</p>
-        <h2>Free within Dublin</h2>
-      </div>
-      <p>Send your measurements and a photo of the wall — you'll get a written quote back by email.</p>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         FORM DELIVERY — set up once, see README.md § "Turning the
-         forms on". Currently wired for Netlify Forms (free, handles
-         the photo uploads and emails you every enquiry).
-         ═══════════════════════════════════════════════════════════ -->
-    <form class="panel" name="consultation" method="POST" action="/thanks.html"
-          enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company">
-      <input type="hidden" name="form-name" value="consultation">
-      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1"></label></p>
-
-      <div class="row">
-        <div class="field"><label for="f-name">Your name</label>
-          <input id="f-name" name="name" required autocomplete="name"></div>
-        <div class="field"><label for="f-phone">Phone number</label>
-          <input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" required autocomplete="email"></div>
-        <div class="field"><label for="f-eircode">Location / Eircode</label>
-          <input id="f-eircode" name="eircode" placeholder="e.g. D15 XY72" required autocomplete="postal-code"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label for="f-service">What do you need?</label>
-          <select id="f-service" name="service"></select></div>
-        <div class="field"><label for="f-visit">Consultation or delivery only?</label>
-          <select id="f-visit" name="visit_type">
-            <option>Site visit — free within Dublin</option>
-            <option>Site visit — outside Dublin</option>
-            <option>Delivery only (I'll fit it myself)</option>
-          </select></div>
-      </div>
-      <div class="field">
-        <label for="f-dims">Dimensions</label>
-        <input id="f-dims" name="dimensions" placeholder="Width × height × depth, e.g. 3.5m × 2.4m × 0.35m">
-      </div>
-      <div class="row">
-        <div class="field">
-          <label for="f-wall">Photo of the wall</label>
-          <input id="f-wall" name="wall_photo" type="file" accept="image/*">
-        </div>
-        <div class="field">
-          <label for="f-design">Photo of a design you like</label>
-          <input id="f-design" name="design_photo" type="file" accept="image/*">
-        </div>
-      </div>
-      <p class="hint" style="margin-bottom:18px">One photo each, up to 8&nbsp;MB. Or send them on WhatsApp — whichever is easier.</p>
-
-      <div class="field">
-        <label for="f-msg">Anything else</label>
-        <textarea id="f-msg" name="message" placeholder="Colours, timings, budget, anything you've already been quoted…"></textarea>
-      </div>
-
-      <input type="hidden" name="quote_estimate" id="f-quote">
-
-      <button class="btn btn-solid" type="submit" style="padding:16px 30px">Send enquiry</button>
-      <p class="hint" style="margin-top:16px">
-        Prefer to talk? <a href="#contact" style="color:#fff">Call or WhatsApp us</a> — we usually reply the same day.
-      </p>
-    </form>
+    <ol class="steps">
+      <li>
+        <h3>You enquire</h3>
+        <p>Send your details through the form, or on WhatsApp. Measurements and a photo
+          of the wall help, but they're not essential.</p>
+      </li>
+      <li>
+        <h3>We call you back</h3>
+        <p>We talk through what you're after and give you a price. Usually the same day,
+          always within one working day.</p>
+      </li>
+      <li>
+        <h3>Consultation</h3>
+        <p>If it needs a proper look, we come out and measure up. Free within Dublin.</p>
+      </li>
+      <li>
+        <h3>Build and fit</h3>
+        <p>We build it and fit it, and tidy up after ourselves. Most jobs go in inside a day.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -613,7 +489,7 @@ const CONFIG = {
         <p class="eyebrow">Get in touch</p>
         <h2>Talk to us</h2>
       </div>
-      <p>Dublin based, covering all Ireland. Open 09:00–18:00.</p>
+      <p>Dublin based, covering all Ireland.</p>
     </div>
     <div class="contact-grid">
       <div><h3>Phone / WhatsApp</h3>
@@ -625,7 +501,13 @@ const CONFIG = {
         <p><a href="#" data-link="ig" target="_blank" rel="noopener">@decksinterior</a></p>
         <p><a href="#" data-link="fb" target="_blank" rel="noopener">Facebook</a></p></div>
       <div><h3>Hours</h3>
-        <p style="color:var(--muted);margin:0">Monday – Saturday<br>09:00 – 18:00</p></div>
+        <p style="color:var(--muted);margin:0" id="hours-block"></p></div>
+    </div>
+
+    <div class="cta-strip" style="margin-top:clamp(40px,6vw,72px)">
+      <h2>Get a price for your room</h2>
+      <p>Send us the details and we'll ring you back. Free consultation within Dublin.</p>
+      <a class="btn submit" href="#enquire" style="width:auto;display:inline-flex">Enquire for a quote</a>
     </div>
   </div>
 </section>
@@ -644,9 +526,8 @@ const CONFIG = {
 </a>
 
 <script>
-/* ── wire config into the page ─────────────────────────── */
+/* ── wire CONFIG into the page ─────────────────────────── */
 const $ = (s,r=document)=>r.querySelector(s);
-const money = n => CONFIG.currency + Math.round(n/50)*50;
 
 const links = {
   tel:  ["tel:"+CONFIG.phoneRaw, CONFIG.phone],
@@ -658,8 +539,12 @@ const links = {
 document.querySelectorAll("[data-link]").forEach(a=>{
   const [href,text] = links[a.dataset.link];
   a.href = href;
-  if (text) a.textContent = text;
+  if (text && !a.textContent.trim()) a.textContent = text;
 });
+
+$("#f-service").innerHTML = CONFIG.services.map(s=>`<option>${s}</option>`).join("");
+$("#hours-meta").textContent  = CONFIG.hours;
+$("#hours-block").textContent = CONFIG.hours;
 $("#yr").textContent = new Date().getFullYear();
 
 /* ── mobile nav ────────────────────────────────────────── */
@@ -672,86 +557,6 @@ burger.addEventListener("click", ()=>{
 nav.addEventListener("click", e=>{
   if (e.target.tagName === "A"){ nav.classList.remove("open"); burger.textContent="☰"; }
 });
-
-/* ── populate the two service dropdowns from CONFIG ────── */
-const types = Object.keys(CONFIG.rates);
-$("#q-type").innerHTML = types.map(t=>`<option>${t}</option>`).join("");
-$("#q-finish").innerHTML = Object.keys(CONFIG.finishes).map(f=>`<option>${f}</option>`).join("");
-$("#f-service").innerHTML = types.concat("Something else").map(t=>`<option>${t}</option>`).join("");
-
-/* ── instant quote ─────────────────────────────────────── */
-const extraIds = { fireplace:"#x-fireplace", led:"#x-led", tvmount:"#x-tvmount" };
-
-function estimate(){
-  const type   = $("#q-type").value;
-  const finish = $("#q-finish").value;
-  const w = parseFloat($("#q-w").value);
-  const h = parseFloat($("#q-h").value);
-
-  if (!(w > 0) || !(h > 0)) return null;                 // blank or nonsense input
-
-  const area  = w * h;
-  const base  = area * CONFIG.rates[type] * CONFIG.finishes[finish];
-  const addOn = Object.entries(extraIds)
-    .filter(([k,sel]) => $(sel).checked)
-    .reduce((s,[k]) => s + CONFIG.extras[k], 0);
-
-  const total = Math.max(base + addOn, CONFIG.minimum);
-  return { type, finish, area, base, addOn, total,
-           low: total*(1-CONFIG.spread), high: total*(1+CONFIG.spread) };
-}
-
-function render(){
-  const q = estimate();
-  const amount = $("#q-amount"), lines = $("#q-lines");
-
-  if (!q){
-    amount.textContent = "—";
-    lines.innerHTML = "<li>Enter a width and height</li>";
-    $("#f-quote").value = "";
-    return;
-  }
-  amount.textContent = money(q.low) + " – " + money(q.high);
-  lines.innerHTML = `
-    <li><span>${q.type}</span><b>${q.finish}</b></li>
-    <li><span>Area</span><b>${q.area.toFixed(1)} m²</b></li>
-    <li><span>Build</span><b>${money(q.base)}</b></li>
-    ${q.addOn ? `<li><span>Extras</span><b>${money(q.addOn)}</b></li>` : ""}`;
-
-  // carried into the booking form so the enquiry email has it
-  $("#f-quote").value = `${q.type} · ${q.finish} · ${q.area.toFixed(1)}m² · ${money(q.low)}–${money(q.high)}`;
-}
-
-$("#quoteForm").addEventListener("input", render);
-$("#q-book").addEventListener("click", ()=>{
-  const q = estimate();
-  if (q) $("#f-service").value = q.type;                  // prefill the booking form
-});
-render();
-
-/* ── self-check: open the page with #selftest to run it ── */
-if (location.hash === "#selftest"){
-  const set = (sel,v) => { $(sel).value = v; };
-  set("#q-type","Media wall"); set("#q-finish","Standard");
-  set("#q-w","2"); set("#q-h","2");
-  ["#x-fireplace","#x-led","#x-tvmount"].forEach(s=>$(s).checked=false);
-  console.assert(estimate().total === 4*650, "base maths", estimate().total);
-
-  $("#x-fireplace").checked = true;
-  console.assert(estimate().total === 4*650 + 900, "extras add on");
-
-  set("#q-finish","Premium");
-  console.assert(Math.abs(estimate().base - 4*650*1.3) < 0.01, "finish multiplier");
-
-  set("#q-w","0.2"); set("#q-h","0.2"); $("#x-fireplace").checked=false;
-  console.assert(estimate().total === CONFIG.minimum, "minimum floor");
-
-  set("#q-w","");
-  console.assert(estimate() === null, "blank input returns null");
-
-  console.log("%c✓ quote self-check passed", "color:#7ee3ab;font-weight:700");
-  set("#q-w","3.5"); set("#q-h","2.4"); set("#q-finish","Standard"); render();
-}
 </script>
 </body>
 </html>
