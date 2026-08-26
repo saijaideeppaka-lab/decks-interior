@@ -79,16 +79,31 @@ gallery: [
 - Clips: MP4 (H.264), muted, under ~4 MB and under ~10 seconds each. Anything bigger
   makes the page slow on mobile data.
 
-### Getting frames out of the client's videos
+### Where the current photos and clips came from
 
-`_source-media/` (gitignored — raw phone files never go into the repo) is the drop
-folder. Put the client's `.mov` files there and frames can be pulled straight out of
-them at full resolution, no ffmpeg needed: `scratchpad/vid/grab.m` is a small
-Objective-C tool using AVFoundation that samples frames at given timestamps and scores
-each one for sharpness, so the blurry mid-pan frames can be discarded automatically.
+The client had no photo library, only 78 phone videos. Those were deduplicated to
+39 unique clips, surveyed as contact sheets, and the stills were pulled straight out
+of the video at full resolution.
 
-Exported stills go in `images/work/`, exported clips in `clips/`. Only those get
-committed.
+There is **no ffmpeg on this machine and the Swift toolchain is broken** (SDK/compiler
+mismatch), so the tooling is three small Objective-C programs against AVFoundation,
+in `scratchpad/vid/`:
+
+| Tool | Does |
+|---|---|
+| `grab.m` | Pulls frames at given timestamps, scores each for sharpness |
+| `sheet.m` | Builds labelled contact sheets so a whole batch can be reviewed at once |
+| `export.m` | Trims a clip, drops the audio track, transcodes to streaming MP4 |
+
+Sharpness scoring matters more than it sounds: handheld phone video is motion-blurred
+through most of a pan, so frames are sampled around each chosen moment and the
+crispest one wins automatically.
+
+The raw `.mov` files live in `_source-media/` and are gitignored — only the exports
+are committed.
+
+**Clips are 640px, muted, 4–5 seconds, 0.7–2 MB each.** They carry `preload="metadata"`,
+so a visitor downloads a few KB until they actually hover one.
 
 ## 3b. Logo
 
@@ -224,7 +239,7 @@ point anywhere — you just change its DNS records.
 | Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
 | Why choose us | The 70% stat (counts up on scroll) and four assurances |
 | Services | Four categories, typographic — no stock photography |
-| Work | Filterable gallery with lightbox, driven by `CONFIG.gallery` |
+| Work | 14 items across Media walls / Shelving / Wardrobes — 10 stills, 4 hover-play clips |
 | How it works | Enquire → we call you back → consultation → build and fit |
 | **Founder** | **Placeholder — see below** |
 | Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + closing CTA |
