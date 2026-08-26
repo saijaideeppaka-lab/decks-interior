@@ -1,11 +1,4 @@
-<!-- PLACEHOLDER — approximation drawn by eye. NOT the real artwork.
-     Replace with a trace of the original: see README "Logo". -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 120" role="img" aria-label="Decks Interior">
-  <g fill="currentColor" fill-rule="evenodd">
-    <path d="M14 20 L34 60 L14 100 L4 84 L16 60 L4 36 Z"/>
-    <path d="M50 8 L96 8 L128 60 L96 112 L50 112 L42 97 L42 23 Z
-             M62 24 L88 24 L110 60 L88 96 L62 96 L57 87 L57 33 Z"/>
-    <path d="M68 33 L85 33 L102 60 L85 87 L68 87 L64 79 L64 41 Z
-             M76 47 L80 47 L88 60 L80 73 L76 73 L74 69 L74 51 Z"/>
-  </g>
-</svg>
+<!-- Decks Interior mark — traced from _source-media/decks-logo-new.PNG
+     (alpha channel -> contour trace -> Douglas-Peucker, eps 2.0).
+     currentColor so it inherits mint / paper / ink from its container. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200.0 198.8"><path fill="currentColor" fill-rule="evenodd" d="M30.52 0.0 L136.55 0.0 L143.78 2.01 L149.4 7.23 L196.79 89.16 L200.0 98.39 L198.8 105.62 L150.6 189.56 L148.19 193.17 L142.97 197.19 L137.75 198.8 L30.52 198.8 L25.3 190.36 L24.5 187.15 L76.71 100.0 L76.71 98.39 L24.9 11.24 L24.9 9.24 Z M57.83 21.29 L57.83 23.69 L67.87 40.56 L115.66 40.56 L122.49 43.78 L126.51 48.19 L150.6 89.96 L153.01 95.98 L153.01 102.41 L151.81 106.83 L127.71 148.59 L122.49 155.02 L114.86 158.23 L67.47 158.23 L56.63 177.51 L126.51 177.51 L131.33 175.9 L137.35 170.28 L173.09 108.43 L175.5 102.01 L174.7 93.57 L138.15 29.72 L131.33 22.89 L126.51 21.29 Z M12.45 28.92 L14.46 30.52 L47.39 88.35 L51.0 96.79 L51.0 101.61 L48.19 108.84 L13.65 168.67 L12.45 168.67 L9.24 163.45 L0.4 146.99 L23.69 108.84 L26.1 103.61 L26.51 97.19 L24.5 91.16 L0.0 50.2 Z M81.12 61.45 L80.72 63.86 L97.99 93.57 L98.8 102.01 L97.19 106.83 L79.92 137.35 L105.62 136.55 L109.64 134.54 L113.65 130.52 L127.71 106.43 L128.92 102.01 L128.51 94.78 L115.26 70.68 L109.64 64.26 L102.41 61.45 Z"/></svg>

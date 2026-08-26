@@ -107,22 +107,19 @@ so a visitor downloads a few KB until they actually hover one.
 
 ## 3b. Logo
 
-`images/logo.svg` is the mark. It's applied as a **CSS mask**, not an `<img>` —
-that way the single file recolours to mint, paper or ink wherever it sits
-(header, footer, thanks page), and it's also the browser-tab favicon.
+`images/logo.svg` is the real mark, **traced from the client's original**
+(`_source-media/decks-logo-new.PNG`). That PNG is black on a transparent
+background — the shape lives entirely in its alpha channel — so it was
+thresholded, contour-traced along the pixel boundary, and simplified with
+Douglas-Peucker at a 2px tolerance. 72 points, 1.3 KB, and visually identical
+to the original at any size.
 
-⚠ **The current file is a hand-drawn approximation**, traced by eye from a
-screenshot of the logo. It is close in spirit — nested right-pointing chevrons
-forming a D — but it is **not** the real artwork and should not ship.
+It's applied as a **CSS mask**, not an `<img>`, so the single file recolours
+to mint, paper or ink wherever it sits — header, footer, thanks page — and it
+also serves as the SVG favicon. The mark is very close to square (200 × 198.8),
+so keep boxes square when placing it.
 
-**To fix it properly**, put the original in `_source-media/` (an `.svg`, `.ai`,
-`.eps` or `.pdf` is ideal — a PNG at 1000px+ also works) and it can be traced
-exactly. Then it's a one-file replace: overwrite `images/logo.svg` and every
-placement updates at once. Nothing else needs editing.
-
-If the real logo is only ever available as a PNG, drop it in as
-`images/logo.png` and change the two `mask:url(images/logo.svg)` lines to point
-at it — masks work with PNGs too, as long as the mark is solid on transparent.
+To change it, overwrite `images/logo.svg` and every placement updates at once.
 
 ## 4. Turning the form on
 
