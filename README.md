@@ -58,30 +58,37 @@ Before the site goes live, remove this line from `<head>` so Google can list it:
 
 ---
 
-## 3. Photos
+## 3. Photos, video clips and the gallery
 
-`images/` holds two photos, both taken out of the client's flyer PDF, and both
-genuinely his own work:
+The gallery on the Work section is driven by one list in the `CONFIG` block — add a
+line per item and it appears, with a filter chip, a lightbox and lazy loading:
 
-| File | Used for | Resolution |
-|---|---|---|
-| `hero.jpg` | Hero background + first gallery slot | 1200 × 1200 |
-| `media-walls.jpg` | Second gallery slot | 342 × 342 |
+```js
+gallery: [
+  {src:"images/work/wardrobe-oak.jpg", cat:"Wardrobes", feature:true,
+   caption:"Fitted wardrobe · oak, brass handles"},
+  {video:"clips/media-wall.mp4", poster:"images/work/media-wall.jpg",
+   cat:"Media walls", caption:"Media wall · marble and slats"}
+]
+```
 
-⚠ **This is as sharp as these two can get.** They were pulled out of the flyer
-PDF, and 1200px and 342px are the full size of the files the flyer designer
-embedded — there is no larger version to recover. They've been re-saved at high
-JPEG quality, but `media-walls.jpg` in particular is soft, which is why it sits
-in the smaller gallery slot.
+- `cat` groups items. Filter buttons appear automatically once there are 2+ categories.
+- `feature: true` makes a tile double-size — use it for the best two or three shots.
+- Video items play on hover in the grid and with sound controls in the lightbox.
+- Photos: roughly 4:5 or landscape, at least 1400px on the long edge.
+- Clips: MP4 (H.264), muted, under ~4 MB and under ~10 seconds each. Anything bigger
+  makes the page slow on mobile data.
 
-**The only real fix is originals from the client** — straight off his phone, not
-Instagram downloads and not screenshots of the flyer. Ask for the full camera
-roll of finished jobs. When they land, drop them into `images/` and add a
-`<figure>` to `<section id="work">`, copying the two already there.
+### Getting frames out of the client's videos
 
-The flyer's kitchen, bedroom and panelling images were **stock renders the
-flyer designer used, not his work**, so they aren't on the site — the services
-section is typographic instead of illustrated.
+`_source-media/` (gitignored — raw phone files never go into the repo) is the drop
+folder. Put the client's `.mov` files there and frames can be pulled straight out of
+them at full resolution, no ffmpeg needed: `scratchpad/vid/grab.m` is a small
+Objective-C tool using AVFoundation that samples frames at given timestamps and scores
+each one for sharpness, so the blurry mid-pan frames can be discarded automatically.
+
+Exported stills go in `images/work/`, exported clips in `clips/`. Only those get
+committed.
 
 ## 4. Turning the form on
 
@@ -198,7 +205,7 @@ point anywhere — you just change its DNS records.
 | Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
 | Why choose us | The 70% stat (counts up on scroll) and four assurances |
 | Services | Four categories, typographic — no stock photography |
-| Work | The two real photos, links out to Instagram |
+| Work | Filterable gallery with lightbox, driven by `CONFIG.gallery` |
 | How it works | Enquire → we call you back → consultation → build and fit |
 | **Founder** | **Placeholder — see below** |
 | Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + closing CTA |

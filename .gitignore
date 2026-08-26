@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+
+# raw phone videos/photos — too big for git, only the exports go in
+_source-media/

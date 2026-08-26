@@ -253,23 +253,81 @@ nav a:not(.btn):hover::after{transform:scaleX(1)}
 .svc h3{font-size:clamp(19px,2.2vw,23px);text-transform:uppercase}
 .svc p{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
 
-/* ── work ───────────────────────────────────────────────── */
-.gallery{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
+/* ── work / gallery ─────────────────────────────────────── */
+.filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
+.chip{
+  font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);background:none;border:1px solid var(--line-soft);border-radius:100px;
+  padding:9px 17px;cursor:pointer;transition:.32s var(--spring)
+}
+.chip:hover{color:var(--mint);border-color:var(--mint);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{
+  background:linear-gradient(135deg,var(--green-1),var(--green-2));
+  border-color:transparent;color:var(--paper)
+}
+.gallery{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  grid-auto-flow:dense;gap:12px
+}
 .gallery figure{
   margin:0;position:relative;overflow:hidden;border-radius:3px;background:var(--ink-2);
-  transition:transform .5s var(--spring),box-shadow .4s var(--ease)
+  cursor:zoom-in;aspect-ratio:4/5;
+  transition:transform .5s var(--spring),box-shadow .4s var(--ease),opacity .4s var(--ease)
 }
-.gallery figure:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.5)}
-.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.gallery figure:hover img{transform:scale(1.07)}
+.gallery figure.feature{grid-column:span 2;grid-row:span 2}
+.gallery figure:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.5);z-index:2}
+.gallery img,.gallery video{
+  width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)
+}
+.gallery figure:hover img,.gallery figure:hover video{transform:scale(1.06)}
 .gallery figcaption{
-  position:absolute;left:0;right:0;bottom:0;padding:30px 20px 16px;font-size:12px;
-  letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  position:absolute;left:0;right:0;bottom:0;padding:30px 16px 14px;font-size:11.5px;
+  letter-spacing:.13em;text-transform:uppercase;font-weight:700;line-height:1.35;
   background:linear-gradient(transparent,rgba(9,22,36,.94));
   transform:translateY(6px);opacity:.86;transition:.4s var(--spring)
 }
 .gallery figure:hover figcaption{transform:none;opacity:1}
-@media(max-width:760px){.gallery{grid-template-columns:1fr}}
+.gallery .play{
+  position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;
+  background:rgba(9,22,36,.72);border:1px solid var(--line);color:var(--mint);
+  display:grid;place-items:center;font-size:11px;padding-left:2px
+}
+.gallery figure.hide{display:none}
+@media(max-width:560px){.gallery figure.feature{grid-column:span 2;grid-row:span 1}}
+
+.gallery-empty{
+  border:1px dashed rgba(126,227,171,.35);border-radius:4px;padding:44px 26px;text-align:center;
+  color:var(--mint-dim);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700
+}
+
+/* lightbox */
+.lb{
+  position:fixed;inset:0;z-index:200;background:rgba(4,10,17,.94);backdrop-filter:blur(8px);
+  display:none;place-items:center;padding:clamp(12px,4vw,48px)
+}
+.lb.open{display:grid;animation:rise .35s var(--ease) both}
+.lb figure{margin:0;max-width:min(1200px,100%);max-height:100%;display:flex;flex-direction:column;gap:14px}
+.lb img,.lb video{
+  max-width:100%;max-height:calc(100vh - 150px);width:auto;height:auto;
+  object-fit:contain;border-radius:3px;margin:0 auto
+}
+.lb figcaption{
+  text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--muted)
+}
+.lb button{
+  position:absolute;background:rgba(9,22,36,.8);border:1px solid var(--line);color:var(--paper);
+  width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:19px;font-family:inherit;
+  display:grid;place-items:center;transition:.3s var(--spring)
+}
+.lb button:hover{border-color:var(--mint);color:var(--mint);transform:scale(1.1)}
+.lb .lb-prev{left:14px;top:50%;margin-top:-23px}
+.lb .lb-next{right:14px;top:50%;margin-top:-23px}
+.lb .lb-close{right:14px;top:14px}
+.lb .lb-count{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:700
+}
 
 /* ── how it works ───────────────────────────────────────── */
 .steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;padding:0;margin:0}
@@ -449,6 +507,17 @@ const CONFIG = {
     "Bedroom fit-out",
     "Full fit-out",
     "Something else"
+  ],
+
+  // ── THE GALLERY ────────────────────────────────────────────────
+  // Add a line per photo. `cat` drives the filter buttons.
+  // `feature: true` makes a tile double-size.
+  // For a video clip:  {video:"clips/x.mp4", poster:"images/work/x.jpg", ...}
+  gallery: [
+    {src:"images/hero.jpg",        cat:"Media walls", feature:true,
+     caption:"Media wall · slatted timber, marble panel, integrated fire"},
+    {src:"images/media-walls.jpg", cat:"Media walls",
+     caption:"Media wall · oak slats, recessed niches"}
   ]
 };
 </script>
@@ -620,19 +689,14 @@ const CONFIG = {
         <p class="eyebrow">Our work</p>
         <h2>See the finish up close</h2>
       </div>
-      <p>New builds go up on Instagram most weeks — that's the fullest picture of what we do.</p>
+      <p>Every one of these is a real job, finished and handed over. New builds go up on
+        Instagram most weeks.</p>
     </div>
-    <div class="gallery">
-      <figure data-reveal style="--i:0">
-        <img src="images/hero.jpg" alt="Slatted media wall with marble panel, recessed TV and integrated electric fire">
-        <figcaption>Media wall · slatted timber, marble panel, integrated fire</figcaption>
-      </figure>
-      <figure data-reveal style="--i:1">
-        <img src="images/media-walls.jpg" alt="Oak slatted media wall with recessed display niches and electric fire">
-        <figcaption>Media wall · oak slats, recessed niches</figcaption>
-      </figure>
-    </div>
-    <p style="margin-top:26px" data-reveal style="--i:2">
+
+    <div class="filters" id="filters" role="group" aria-label="Filter work by type"></div>
+    <div class="gallery" id="gallery"></div>
+
+    <p style="margin-top:26px" data-reveal>
       <a class="btn btn-ghost" data-link="ig" href="#" target="_blank" rel="noopener">See more on Instagram</a>
     </p>
   </div>
@@ -779,6 +843,100 @@ const words = CONFIG.services.filter(s=>s!=="Something else");
 $("#ticker").innerHTML = [...words,...words]
   .map(w=>`<span>${w}</span>`).join("");
 
+/* ── gallery + lightbox ────────────────────────────────── */
+const gal = $("#gallery"), filters = $("#filters");
+const items = CONFIG.gallery || [];
+
+function tile(item, i){
+  const media = item.video
+    ? `<video src="${item.video}" ${item.poster ? `poster="${item.poster}"` : ""}
+              muted loop playsinline preload="metadata"></video><span class="play">▶</span>`
+    : `<img src="${item.src}" alt="${item.caption || ""}" loading="lazy">`;
+  return `<figure data-i="${i}" data-cat="${item.cat || ""}" data-reveal
+                  style="--i:${Math.min(i,6)}"${item.feature ? ' class="feature"' : ""}>
+            ${media}<figcaption>${item.caption || ""}</figcaption>
+          </figure>`;
+}
+
+if (!items.length){
+  gal.outerHTML = `<div class="gallery-empty">Photos coming soon</div>`;
+} else {
+  gal.innerHTML = items.map(tile).join("");
+
+  // filter chips, built from whatever categories the items actually use
+  const cats = ["All", ...new Set(items.map(i=>i.cat).filter(Boolean))];
+  if (cats.length > 2){
+    filters.innerHTML = cats.map((c,n)=>
+      `<button class="chip" type="button" aria-pressed="${n===0}">${c}</button>`).join("");
+    filters.addEventListener("click", e=>{
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
+      $$(".chip", filters).forEach(c=>c.setAttribute("aria-pressed", c === chip));
+      const want = chip.textContent;
+      $$("figure", gal).forEach(f=>
+        f.classList.toggle("hide", want !== "All" && f.dataset.cat !== want));
+    });
+  }
+
+  // hovering a clip plays it; leaving stops it
+  gal.addEventListener("pointerover", e=>{
+    const v = e.target.closest("figure")?.querySelector("video");
+    if (v) v.play().catch(()=>{});
+  });
+  gal.addEventListener("pointerout", e=>{
+    const v = e.target.closest("figure")?.querySelector("video");
+    if (v){ v.pause(); v.currentTime = 0; }
+  });
+
+  /* lightbox */
+  const lb = document.createElement("div");
+  lb.className = "lb";
+  lb.innerHTML = `<button class="lb-close" aria-label="Close">✕</button>
+    <button class="lb-prev" aria-label="Previous">‹</button>
+    <button class="lb-next" aria-label="Next">›</button>
+    <figure><div class="lb-media"></div><figcaption></figcaption></figure>
+    <span class="lb-count"></span>`;
+  document.body.appendChild(lb);
+
+  let at = 0;
+  const visible = () => $$("figure:not(.hide)", gal).map(f=>+f.dataset.i);
+
+  function show(i){
+    const list = visible();
+    if (!list.length) return;
+    at = (i + list.length) % list.length;
+    const item = items[list[at]];
+    $(".lb-media", lb).innerHTML = item.video
+      ? `<video src="${item.video}" controls autoplay loop playsinline></video>`
+      : `<img src="${item.src}" alt="${item.caption || ""}">`;
+    $(".lb figcaption", lb).textContent = item.caption || "";
+    $(".lb-count", lb).textContent = `${at+1} / ${list.length}`;
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function close(){
+    lb.classList.remove("open");
+    $(".lb-media", lb).innerHTML = "";      // stops a playing clip
+    document.body.style.overflow = "";
+  }
+
+  gal.addEventListener("click", e=>{
+    const fig = e.target.closest("figure");
+    if (fig) show(visible().indexOf(+fig.dataset.i));
+  });
+  lb.addEventListener("click", e=>{
+    if (e.target === lb || e.target.closest(".lb-close")) return close();
+    if (e.target.closest(".lb-prev")) show(at - 1);
+    if (e.target.closest(".lb-next")) show(at + 1);
+  });
+  addEventListener("keydown", e=>{
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape")     close();
+    if (e.key === "ArrowLeft")  show(at - 1);
+    if (e.key === "ArrowRight") show(at + 1);
+  });
+}
+
 /* ── mobile nav ────────────────────────────────────────── */
 const nav = $("#nav"), burger = $(".burger");
 burger.addEventListener("click", ()=>{
@@ -836,6 +994,9 @@ if (location.hash === "#selftest"){
   if ($("#f-service").options.length !== CONFIG.services.length) problems.push("service options wrong");
   if (!$(".detail-block").open)                     problems.push("measurements block not open by default");
   if ($$("[data-reveal]").length < 10)              problems.push("reveals missing");
+  if (items.length && $$("#gallery figure").length !== items.length) problems.push("gallery did not render");
+  if (items.length && !document.querySelector(".lb"))               problems.push("lightbox missing");
+  items.forEach((it,n)=>{ if (!it.src && !it.video) problems.push("gallery item "+n+" has no src"); });
   $$("img").forEach(i=>{ if (!i.getAttribute("alt")) problems.push("image missing alt: "+i.src); });
 
   console.log(problems.length
