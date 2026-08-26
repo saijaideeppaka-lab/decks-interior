@@ -13,6 +13,9 @@
 <meta property="og:image" content="images/hero.jpg">
 <meta property="og:type" content="website">
 
+<link rel="icon" href="images/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="images/logo.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@1,8..60,300..400&display=swap" rel="stylesheet">
@@ -111,11 +114,18 @@ header.stuck{background:rgba(9,22,36,.94);border-bottom-color:var(--line-soft)}
 .bar{display:flex;align-items:center;gap:24px;height:76px;transition:height .35s var(--ease)}
 header.stuck .bar{height:60px}
 .mark{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto}
-.mark-dot{
-  width:14px;height:14px;border-radius:50%;background:var(--mint);flex:0 0 auto;
-  transition:transform .5s var(--spring)
+.mark-logo{
+  width:31px;height:27px;flex:0 0 auto;color:var(--mint);
+  /* masked, not <img>, so the one SVG recolours to mint / paper / ink */
+  background:currentColor;
+  -webkit-mask:url(images/logo.svg) center/contain no-repeat;
+          mask:url(images/logo.svg) center/contain no-repeat;
+  transition:transform .5s var(--spring),color .3s var(--ease)
 }
-.mark:hover .mark-dot{transform:scale(1.45)}
+.mark:hover .mark-logo{color:var(--paper)}
+.mark:hover .mark-logo{transform:translateX(3px) scale(1.06)}
+header.stuck .mark-logo{width:26px;height:23px}
+footer .mark-logo{width:34px;height:30px}
 .mark-txt{font-weight:800;letter-spacing:.2em;font-size:14px;text-transform:uppercase;white-space:nowrap}
 .mark-city{font-size:11px;letter-spacing:.22em;color:var(--mint-dim);font-weight:700;margin-left:2px}
 nav{margin-left:auto;display:flex;gap:26px;align-items:center}
@@ -525,7 +535,7 @@ const CONFIG = {
 <header>
   <div class="wrap bar">
     <a class="mark" href="#top">
-      <span class="mark-dot"></span>
+      <span class="mark-logo" aria-hidden="true"></span>
       <span class="mark-txt">Decks Interior</span>
       <span class="mark-city">Dublin</span>
     </a>
@@ -805,7 +815,7 @@ const CONFIG = {
 
 <footer>
   <div class="wrap">
-    <span class="mark"><span class="mark-dot"></span><span class="mark-txt">Decks Interior</span></span>
+    <span class="mark"><span class="mark-logo" aria-hidden="true"></span><span class="mark-txt">Decks Interior</span></span>
     <p class="tag serif">Luxury is in the details.</p>
     <p class="fine">© <span id="yr"></span> Decks Interior · Dublin, Ireland</p>
   </div>

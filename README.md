@@ -90,6 +90,25 @@ each one for sharpness, so the blurry mid-pan frames can be discarded automatica
 Exported stills go in `images/work/`, exported clips in `clips/`. Only those get
 committed.
 
+## 3b. Logo
+
+`images/logo.svg` is the mark. It's applied as a **CSS mask**, not an `<img>` —
+that way the single file recolours to mint, paper or ink wherever it sits
+(header, footer, thanks page), and it's also the browser-tab favicon.
+
+⚠ **The current file is a hand-drawn approximation**, traced by eye from a
+screenshot of the logo. It is close in spirit — nested right-pointing chevrons
+forming a D — but it is **not** the real artwork and should not ship.
+
+**To fix it properly**, put the original in `_source-media/` (an `.svg`, `.ai`,
+`.eps` or `.pdf` is ideal — a PNG at 1000px+ also works) and it can be traced
+exactly. Then it's a one-file replace: overwrite `images/logo.svg` and every
+placement updates at once. Nothing else needs editing.
+
+If the real logo is only ever available as a PNG, drop it in as
+`images/logo.png` and change the two `mask:url(images/logo.svg)` lines to point
+at it — masks work with PNGs too, as long as the mark is solid on transparent.
+
 ## 4. Turning the form on
 
 The enquiry form is plain HTML and doesn't send anywhere until it's pointed at

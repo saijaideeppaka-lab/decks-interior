@@ -1,0 +1,10 @@
+<!-- PLACEHOLDER — hand-traced approximation of the Decks Interior mark.
+     Replace with the real vector: see README "Logo". Uses currentColor so it
+     inherits mint / paper / ink from whatever it sits in. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 110" role="img" aria-label="Decks Interior">
+  <g fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-linecap="butt">
+    <path d="M8 26 L24 55 L8 84" stroke-width="12"/>
+    <path d="M48 12 H86 L112 55 L86 98 H48 L42 86 V24 Z" stroke-width="13"/>
+    <path d="M64 33 H79 L93 55 L79 77 H64 L61 71 V39 Z" stroke-width="10"/>
+  </g>
+</svg>
