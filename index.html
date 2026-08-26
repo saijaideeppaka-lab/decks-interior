@@ -281,7 +281,7 @@ nav a:not(.btn):hover::after{transform:scaleX(1)}
 }
 .gallery figure{
   margin:0;position:relative;overflow:hidden;border-radius:3px;background:var(--ink-2);
-  cursor:zoom-in;aspect-ratio:4/5;
+  cursor:zoom-in;aspect-ratio:3/4;
   transition:transform .5s var(--spring),box-shadow .4s var(--ease),opacity .4s var(--ease)
 }
 .gallery figure.feature{grid-column:span 2;grid-row:span 2}
@@ -524,10 +524,34 @@ const CONFIG = {
   // `feature: true` makes a tile double-size.
   // For a video clip:  {video:"clips/x.mp4", poster:"images/work/x.jpg", ...}
   gallery: [
-    {src:"images/hero.jpg",        cat:"Media walls", feature:true,
-     caption:"Media wall · slatted timber, marble panel, integrated fire"},
-    {src:"images/media-walls.jpg", cat:"Media walls",
-     caption:"Media wall · oak slats, recessed niches"}
+    {src:"images/work/mediawall-marble-slat.jpg",      cat:"Media walls", feature:true,
+     caption:"Media wall · marble panel, oak slats, linear fire"},
+    {src:"images/work/mediawall-chandelier.jpg",       cat:"Media walls",
+     caption:"Media wall · dark slats, lit display niches"},
+    {src:"images/work/mediawall-red-led.jpg",          cat:"Media walls",
+     caption:"Media wall · slatted timber, red LED, drinks display"},
+    {src:"images/work/mediawall-marble-shelving.jpg",  cat:"Media walls",
+     caption:"Media wall · marble, oak shelving, linear fire"},
+    {src:"images/work/mediawall-led-display.jpg",      cat:"Media walls",
+     caption:"Media wall · glass display cabinets, concealed LED"},
+    {src:"images/work/mediawall-woven-fire.jpg",       cat:"Media walls", feature:true,
+     caption:"Media wall · textured panel, oak underlight, full-width fire"},
+    {src:"images/work/mediawall-dark-slat.jpg",        cat:"Media walls",
+     caption:"Media wall · dark slats, recessed niches"},
+    {src:"images/work/mediawall-marble-wide.jpg",      cat:"Media walls",
+     caption:"Media wall · marble and slats, lit oak shelving"},
+    {src:"images/work/shelving-lit-oak.jpg",           cat:"Shelving",
+     caption:"Lit oak shelving · concealed LED to every shelf"},
+    {src:"images/work/wardrobe-oak-drawers.jpg",       cat:"Wardrobes", feature:true,
+     caption:"Fitted wardrobe · oak, integrated drawer bank"},
+    {src:"images/work/wardrobe-oak-three.jpg",         cat:"Wardrobes",
+     caption:"Fitted wardrobe · oak, floor to ceiling"},
+    {src:"images/work/wardrobe-white-oak-shelf.jpg",   cat:"Wardrobes",
+     caption:"Fitted wardrobe · white doors, open oak shelving"},
+    {src:"images/work/wardrobe-interior-rails.jpg",    cat:"Wardrobes",
+     caption:"Wardrobe interior · hanging rails, adjustable shelving"},
+    {src:"images/work/wardrobe-cream-black.jpg",       cat:"Wardrobes",
+     caption:"Fitted wardrobe · cream doors, black handles"}
   ]
 };
 </script>
