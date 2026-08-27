@@ -242,26 +242,39 @@ nav a:not(.btn):hover::after{transform:scaleX(1)}
 .head h2{font-size:clamp(28px,4.6vw,50px);text-transform:uppercase;max-width:18ch}
 .head p{color:var(--muted);max-width:44ch;margin:0}
 
-/* ── services ───────────────────────────────────────────── */
-.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:1px;background:var(--line-soft)}
-.svc article{
-  background:var(--ink);padding:34px 28px 30px;position:relative;overflow:hidden;
-  transition:background .3s var(--ease),transform .45s var(--spring)
+/* ── services: image + list, so the row is not four thin columns ── */
+.split{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(28px,4.5vw,64px);align-items:start}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.split-media{position:sticky;top:96px;border-radius:4px;overflow:hidden;background:var(--ink-2)}
+.split-media img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.split-media figcaption{
+  padding:14px 16px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--mint-dim);border-top:1px solid var(--line-soft)
 }
-.svc article::before{
-  content:"";position:absolute;left:0;right:0;top:0;height:3px;
-  background:var(--mint);transform:scaleX(0);transform-origin:left;
-  transition:transform .45s var(--spring)
+@media(max-width:860px){.split-media{position:static}.split-media img{aspect-ratio:16/10}}
+
+.svc-list{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-soft)}
+.svc-list li{
+  display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:baseline;
+  padding:26px 4px;border-bottom:1px solid var(--line-soft);position:relative;
+  transition:padding .4s var(--spring)
 }
-.svc article:hover{background:var(--ink-2);transform:translateY(-8px)}
-.svc article:hover::before{transform:scaleX(1)}
-.svc .n{
-  font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--mint-dim);
-  display:block;margin-bottom:26px;transition:color .3s var(--ease),transform .45s var(--spring)
+.svc-list li::before{
+  content:"";position:absolute;left:-4px;right:-4px;top:0;bottom:0;
+  background:var(--ink-2);opacity:0;transition:opacity .3s var(--ease);z-index:-1;border-radius:3px
 }
-.svc article:hover .n{color:var(--mint);transform:translateX(4px)}
-.svc h3{font-size:clamp(19px,2.2vw,23px);text-transform:uppercase}
-.svc p{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
+.svc-list li:hover::before{opacity:1}
+.svc-list li:hover{padding-left:16px;padding-right:16px}
+.svc-list .n{font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--mint-dim);transition:color .3s var(--ease)}
+.svc-list li:hover .n{color:var(--mint)}
+.svc-list h3{font-size:clamp(19px,2.3vw,25px);text-transform:uppercase;margin-bottom:9px}
+.svc-list p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55;max-width:46ch}
+.svc-list .go{
+  font-size:19px;color:var(--mint);opacity:0;transform:translateX(-8px);
+  transition:.4s var(--spring);align-self:center
+}
+.svc-list li:hover .go{opacity:1;transform:none}
+@media(max-width:560px){.svc-list li{grid-template-columns:auto 1fr}.svc-list .go{display:none}}
 
 /* ── work / gallery ─────────────────────────────────────── */
 .filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
@@ -339,21 +352,42 @@ nav a:not(.btn):hover::after{transform:scaleX(1)}
   font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:700
 }
 
-/* ── how it works ───────────────────────────────────────── */
-.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;padding:0;margin:0}
-.steps li{list-style:none;padding-top:22px;position:relative;transition:transform .45s var(--spring)}
-.steps li::after{
-  content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--green-1);
-  transform:scaleX(0);transform-origin:left
+/* ── how it works: vertical timeline beside a contact card ── */
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;position:relative}
+.steps::before{
+  content:"";position:absolute;left:19px;top:14px;bottom:26px;width:2px;
+  background:linear-gradient(var(--green-1),var(--green-1) 70%,transparent)
 }
-.steps li.in::after{animation:wipe .8s var(--ease) forwards;animation-delay:calc(var(--i,0) * 85ms + .1s)}
-.steps li:hover{transform:translateY(-6px)}
+.steps li{
+  position:relative;padding:0 0 34px 60px;
+  transition:transform .4s var(--spring)
+}
+.steps li:last-child{padding-bottom:0}
+.steps li:hover{transform:translateX(5px)}
 .steps li::before{
-  counter-increment:s;content:"0" counter(s);display:block;
-  font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--mint);margin-bottom:14px
+  counter-increment:s;content:"0" counter(s);
+  position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--green-1);color:var(--mint);
+  display:grid;place-items:center;font-size:12px;font-weight:800;letter-spacing:.06em;
+  transition:.4s var(--spring)
 }
-.steps h3{font-size:17px;text-transform:uppercase;letter-spacing:.03em}
-.steps p{margin:10px 0 0;color:var(--muted);font-size:14.5px}
+.steps li:hover::before{border-color:var(--mint);transform:scale(1.08)}
+.steps h3{font-size:17px;text-transform:uppercase;letter-spacing:.03em;padding-top:8px}
+.steps p{margin:9px 0 0;color:var(--muted);font-size:14.5px;max-width:52ch}
+
+.talk{
+  background:linear-gradient(150deg,var(--green-1),var(--green-2));
+  border-radius:4px;padding:clamp(24px,3vw,34px);position:sticky;top:96px
+}
+.talk h3{font-size:clamp(19px,2.2vw,23px);text-transform:uppercase}
+.talk p{color:rgba(239,241,239,.75);font-size:14.5px;margin:12px 0 22px}
+.talk .btn{width:100%;margin-bottom:10px}
+.talk .note{
+  margin:16px 0 0;padding-top:16px;border-top:1px solid rgba(239,241,239,.18);
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:rgba(239,241,239,.7)
+}
+@media(max-width:860px){.talk{position:static}}
 
 /* ── founder ────────────────────────────────────────────── */
 .founder{
@@ -474,6 +508,33 @@ input[type=file]:hover::file-selector-button{transform:scale(1.05)}
 .cta-strip h2{font-size:clamp(24px,4vw,42px);text-transform:uppercase}
 .cta-strip p{color:rgba(239,241,239,.75);max-width:44ch;margin:16px auto 28px}
 
+.social{display:flex;gap:11px;flex-wrap:wrap}
+.social a{
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line-soft);color:var(--muted);text-decoration:none;
+  transition:.4s var(--spring)
+}
+.social a:hover{border-color:var(--mint);color:var(--mint);transform:translateY(-4px) scale(1.06)}
+.social svg{width:20px;height:20px}
+footer .social{justify-content:center;margin-top:24px}
+
+.ig-card{
+  display:flex;align-items:center;gap:clamp(16px,3vw,28px);text-decoration:none;
+  background:var(--ink-2);border:1px solid var(--line-soft);border-radius:4px;
+  padding:clamp(20px,3vw,28px) clamp(20px,3vw,30px);margin-top:26px;
+  transition:.4s var(--spring)
+}
+.ig-card:hover{border-color:var(--mint);transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.ig-card .glyph{
+  flex:0 0 auto;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--green-1),var(--green-2));color:var(--mint)
+}
+.ig-card .glyph svg{width:26px;height:26px}
+.ig-card b{display:block;font-size:clamp(16px,2vw,19px);text-transform:uppercase;letter-spacing:.04em}
+.ig-card span{display:block;color:var(--muted);font-size:14px;margin-top:5px}
+.ig-card .arrow{margin-left:auto;font-size:22px;color:var(--mint);transition:transform .4s var(--spring)}
+.ig-card:hover .arrow{transform:translateX(6px)}
+
 footer{border-top:1px solid var(--line-soft);padding:44px 0;text-align:center}
 footer .mark{justify-content:center;display:inline-flex}
 footer .tag{color:var(--muted);margin:14px 0 0;font-size:15px}
@@ -583,7 +644,13 @@ const CONFIG = {
 
 <!-- ── HERO + ENQUIRY FORM ──────────────────────────────── -->
 <section class="hero" id="enquire">
-  <img class="hero-img" src="images/hero.jpg" alt="Slatted timber media wall with marble TV panel, integrated fire and concealed LED lighting">
+  <!-- his footage is all 9:16, which composes beautifully on a phone and badly
+       on a wide screen — so each viewport gets the shot that suits it -->
+  <picture>
+    <source media="(max-width:860px)" srcset="images/hero-portrait.jpg">
+    <img class="hero-img" src="images/hero.jpg"
+         alt="Slatted timber media wall with marble TV panel, integrated fire and concealed LED lighting">
+  </picture>
   <div class="wrap hero-in">
 
     <div>
@@ -694,27 +761,36 @@ const CONFIG = {
       </div>
       <p>Every job is measured, drawn and built for the room it goes in — nothing is off the shelf.</p>
     </div>
-    <div class="svc">
-      <article data-reveal style="--i:0">
-        <span class="n">01</span>
-        <h3>Media walls</h3>
-        <p>Slatted or marble-faced, with integrated fire, concealed lighting and hidden cable runs.</p>
-      </article>
-      <article data-reveal style="--i:1">
-        <span class="n">02</span>
-        <h3>Kitchens</h3>
-        <p>Fitted kitchens — design, supply and installation, handled start to finish.</p>
-      </article>
-      <article data-reveal style="--i:2">
-        <span class="n">03</span>
-        <h3>Bedrooms</h3>
-        <p>Fitted wardrobes, headboard walls and storage that uses every inch of the room.</p>
-      </article>
-      <article data-reveal style="--i:3">
-        <span class="n">04</span>
-        <h3>Wall panelling</h3>
-        <p>Moulded, slatted or fluted panelling for living rooms, halls and stairwells.</p>
-      </article>
+
+    <div class="split">
+      <figure class="split-media" data-reveal style="margin:0">
+        <img src="images/work/mediawall-marble-slat.jpg" loading="lazy"
+             alt="Bespoke media wall in marble and oak slats with a full-width linear fire">
+        <figcaption>Media wall · marble, oak slats, linear fire</figcaption>
+      </figure>
+
+      <ul class="svc-list">
+        <li data-reveal style="--i:0"><span class="n">01</span>
+          <div><h3>Media walls</h3>
+            <p>Slatted or marble-faced, with integrated fire, concealed lighting and hidden
+               cable runs. Most go in inside a day.</p></div>
+          <span class="go">→</span></li>
+        <li data-reveal style="--i:1"><span class="n">02</span>
+          <div><h3>Kitchens</h3>
+            <p>Fitted kitchens — design, supply and installation, handled start to finish
+               by the same team.</p></div>
+          <span class="go">→</span></li>
+        <li data-reveal style="--i:2"><span class="n">03</span>
+          <div><h3>Bedrooms</h3>
+            <p>Fitted wardrobes, headboard walls and storage that uses every inch of the
+               room, right up to the ceiling.</p></div>
+          <span class="go">→</span></li>
+        <li data-reveal style="--i:3"><span class="n">04</span>
+          <div><h3>Wall panelling</h3>
+            <p>Moulded, slatted or fluted panelling for living rooms, halls and stairwells,
+               painted to your colour.</p></div>
+          <span class="go">→</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -734,9 +810,11 @@ const CONFIG = {
     <div class="filters" id="filters" role="group" aria-label="Filter work by type"></div>
     <div class="gallery" id="gallery"></div>
 
-    <p style="margin-top:26px" data-reveal>
-      <a class="btn btn-ghost" data-link="ig" href="#" target="_blank" rel="noopener">See more on Instagram</a>
-    </p>
+    <a class="ig-card" data-link="ig" href="#" target="_blank" rel="noopener" data-reveal>
+      <span class="glyph"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.68a4.16 4.16 0 1 0 0 8.32 4.16 4.16 0 0 0 0-8.32Zm0 6.86a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Zm5.3-7.02a.97.97 0 1 1-1.94 0 .97.97 0 0 1 1.94 0Z"/></svg></span>
+      <span><b>@decksinterior</b><span>New builds go up most weeks — the fullest picture of what we do</span></span>
+      <span class="arrow">→</span>
+    </a>
   </div>
 </section>
 
@@ -751,26 +829,39 @@ const CONFIG = {
       <p>Every job is priced on the room it goes in, so there's no price list —
         you get a real figure, not a guess.</p>
     </div>
-    <ol class="steps">
-      <li data-reveal style="--i:0">
-        <h3>You enquire</h3>
-        <p>Send your details through the form, or on WhatsApp. Measurements and a photo
-          of the wall help us price it properly.</p>
-      </li>
-      <li data-reveal style="--i:1">
-        <h3>We call you back</h3>
-        <p>We talk through what you're after and give you a price. Usually the same day,
-          always within one working day.</p>
-      </li>
-      <li data-reveal style="--i:2">
-        <h3>Consultation</h3>
-        <p>If it needs a proper look, we come out and measure up. Free within Dublin.</p>
-      </li>
-      <li data-reveal style="--i:3">
-        <h3>Build and fit</h3>
-        <p>We build it and fit it, and tidy up after ourselves. Most jobs go in inside a day.</p>
-      </li>
-    </ol>
+
+    <div class="split">
+      <div class="talk" data-reveal>
+        <h3>Prefer to talk?</h3>
+        <p>Some jobs are easier explained than typed. Ring us or send a photo on
+          WhatsApp and we'll take it from there.</p>
+        <a class="btn submit" data-link="tel" href="#"></a>
+        <a class="btn btn-ghost" data-link="wa" href="#" target="_blank" rel="noopener"
+           style="border-color:rgba(239,241,239,.3)">Message on WhatsApp</a>
+        <p class="note">Consultation free within Dublin</p>
+      </div>
+
+      <ol class="steps">
+        <li data-reveal style="--i:0">
+          <h3>You enquire</h3>
+          <p>Send your details through the form, or on WhatsApp. Measurements and a photo
+            of the wall help us price it properly.</p>
+        </li>
+        <li data-reveal style="--i:1">
+          <h3>We call you back</h3>
+          <p>We talk through what you're after and give you a price. Usually the same day,
+            always within one working day.</p>
+        </li>
+        <li data-reveal style="--i:2">
+          <h3>Consultation</h3>
+          <p>If it needs a proper look, we come out and measure up. Free within Dublin.</p>
+        </li>
+        <li data-reveal style="--i:3">
+          <h3>Build and fit</h3>
+          <p>We build it and fit it, and tidy up after ourselves. Most jobs go in inside a day.</p>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -825,9 +916,12 @@ const CONFIG = {
         <p><a href="#" data-link="wa" target="_blank" rel="noopener">Message on WhatsApp</a></p></div>
       <div data-reveal style="--i:1"><h3>Email</h3>
         <p><a href="#" data-link="mail"></a></p></div>
-      <div data-reveal style="--i:2"><h3>Social</h3>
-        <p><a href="#" data-link="ig" target="_blank" rel="noopener">@decksinterior</a></p>
-        <p><a href="#" data-link="fb" target="_blank" rel="noopener">Facebook</a></p></div>
+      <div data-reveal style="--i:2"><h3>Follow the work</h3>
+        <div class="social">
+          <a data-link="ig" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.68a4.16 4.16 0 1 0 0 8.32 4.16 4.16 0 0 0 0-8.32Zm0 6.86a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Zm5.3-7.02a.97.97 0 1 1-1.94 0 .97.97 0 0 1 1.94 0Z"/></svg></a>
+          <a data-link="fb" href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg></a>
+          <a data-link="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 8.24 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z"/></svg></a>
+        </div></div>
       <div data-reveal style="--i:3"><h3>Hours</h3>
         <p style="color:var(--muted);margin:0" id="hours-block"></p></div>
     </div>
@@ -845,6 +939,11 @@ const CONFIG = {
   <div class="wrap">
     <span class="mark"><span class="mark-logo" aria-hidden="true"></span><span class="mark-txt">Decks Interior</span></span>
     <p class="tag serif">Luxury is in the details.</p>
+    <div class="social">
+      <a data-link="ig" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.68a4.16 4.16 0 1 0 0 8.32 4.16 4.16 0 0 0 0-8.32Zm0 6.86a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Zm5.3-7.02a.97.97 0 1 1-1.94 0 .97.97 0 0 1 1.94 0Z"/></svg></a>
+      <a data-link="fb" href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg></a>
+      <a data-link="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 8.24 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z"/></svg></a>
+    </div>
     <p class="fine">© <span id="yr"></span> Decks Interior · Dublin, Ireland</p>
   </div>
 </footer>

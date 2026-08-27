@@ -105,6 +105,18 @@ are committed.
 **Clips are 640px, muted, 4–5 seconds, 0.7–2 MB each.** They carry `preload="metadata"`,
 so a visitor downloads a few KB until they actually hover one.
 
+### Why the hero is two images
+
+Every clip the client supplied is 9:16 portrait, shot handheld and close in. Cropped
+to a wide desktop hero, a portrait frame becomes a narrow horizontal band that lands
+on a television or a doorway rather than the joinery — four candidates were tested
+and all failed the same way.
+
+So `<picture>` serves `hero-portrait.jpg` (his footage, composes perfectly on a phone)
+below 860px, and `hero.jpg` above it. `hero.jpg` came from the flyer PDF but **is
+his own work** — the same media wall — and is the only well-composed wide shot that
+exists. Replace it the moment he takes a landscape photo of a finished job.
+
 ## 3b. Logo
 
 `images/logo.svg` is the real mark, **traced from the client's original**
@@ -232,12 +244,12 @@ point anywhere — you just change its DNS records.
 
 | Section | Notes |
 |---|---|
-| Hero | Flyer headline + **the enquiry form, above the fold** |
+| Hero | Headline + enquiry form above the fold. `<picture>` serves a portrait shot to phones and the wide shot to desktop |
 | Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
 | Why choose us | The 70% stat (counts up on scroll) and four assurances |
-| Services | Four categories, typographic — no stock photography |
+| Services | Photo beside a four-row list, so the row isn't four thin sparse columns |
 | Work | 14 items across Media walls / Shelving / Wardrobes — 10 stills, 4 hover-play clips |
-| How it works | Enquire → we call you back → consultation → build and fit |
+| How it works | Vertical timeline beside a sticky "Prefer to talk?" card |
 | **Founder** | **Placeholder — see below** |
 | Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + closing CTA |
 
