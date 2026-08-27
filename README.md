@@ -133,52 +133,57 @@ so keep boxes square when placing it.
 
 To change it, overwrite `images/logo.svg` and every placement updates at once.
 
-## 4. Turning the form on
+## 4. Where enquiries go
 
-The enquiry form is plain HTML and doesn't send anywhere until it's pointed at
-a form service. It's currently wired for **Netlify Forms** — free, handles the
-two optional photo uploads, and gives the client a dashboard as well as email.
+The enquiry form **opens WhatsApp with the message pre-filled**. Nothing is
+emailed and there is no form service, account or backend to maintain — which is
+also why there is nothing to break or pay for.
 
-### Option A — Netlify (recommended, handles photo uploads)
+The destination is one line in `CONFIG`:
 
-1. Push this repo to GitHub (already done, see §5).
-2. <https://app.netlify.com> → **Add new site → Import an existing project** →
-   pick the `decks-interior` repo. Build command: *(leave empty)*.
-   Publish directory: `.`
-3. Deploy. Netlify finds the form automatically — no code change needed.
-4. Site settings → **Forms → Form notifications → Email notification** →
-   enter `decksandfurnitures@gmail.com`.
-
-Free tier: 100 enquiries a month, file uploads included. Submissions are also
-listed in the dashboard, so nothing is lost if an email is missed.
-
-### Option B — any other host (Vercel, Cloudflare Pages, GitHub Pages)
-
-Those hosts have no built-in form handling, so use **Web3Forms** (free, no
-account — you give an email address and they send you an access key):
-
-1. Get a key at <https://web3forms.com>.
-2. In `index.html`, find the `<form>` in the hero and change:
-
-```html
-<!-- from -->
-<form class="panel" name="quote-request" method="POST" action="/thanks.html"
-      enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company">
-  <input type="hidden" name="form-name" value="quote-request">
-
-<!-- to -->
-<form class="panel" method="POST" action="https://api.web3forms.com/submit"
-      enctype="multipart/form-data">
-  <input type="hidden" name="access_key" value="YOUR-KEY-HERE">
-  <input type="hidden" name="redirect" value="https://decksinterior.ie/thanks.html">
+```js
+enquiryWhatsapp: "353892203068",   // TEST HANDSET
 ```
 
-Check Web3Forms' current file-size limit before relying on the photo uploads.
-If attachments aren't on their free plan, delete the two `<input type="file">`
-fields — the "send it all on WhatsApp" line under the button already covers it.
+⚠ **That is a test number. Change it to the builder's before the site goes
+live.** International format, no `+` and no spaces — Ireland is `353` and you
+drop the leading `0`, so `089 220 3068` becomes `353892203068`.
 
-**Either way: send yourself a test enquiry before telling the client it's live.**
-Check it arrives in his inbox with the phone number and Eircode readable.
+It is deliberately **separate** from `phone` and `whatsapp` above, which are
+what the site *displays*. Pointing enquiries at a test handset therefore
+changes nothing visible on the page.
+
+### What the customer gets
+
+Pressing "Send enquiry" validates the form, then opens WhatsApp — the app on a
+phone, WhatsApp Web on a desktop — with a message like:
+
+```
+New enquiry from decksinterior.ie
+
+Name: Aoife Byrne
+Phone: 087 123 4567
+Email: aoife@example.ie
+Location: D15 XY72
+Looking for: Media wall
+Dimensions: 3.5m x 2.4m x 0.35m
+
+Notes: Slats with a fire underneath, ideally before Christmas.
+```
+
+They still have to press send in WhatsApp — a browser cannot send on someone's
+behalf, and that's a good thing: they see exactly what's going.
+
+### The catch: photos
+
+**A `wa.me` link carries text only.** The two photo fields cannot ride along.
+If files are attached the message ends with a "Photos to follow in this chat"
+line, and a note appears under the button telling the visitor to attach them in
+the chat. That is the honest limit of this approach.
+
+If losing photos becomes a real problem, switch to a form service that takes
+uploads (Netlify Forms handles them free) and treat WhatsApp as the second
+option rather than the only one.
 
 ---
 
@@ -247,7 +252,7 @@ point anywhere — you just change its DNS records.
 | Hero | Headline + enquiry form above the fold. `<picture>` serves a portrait shot to phones and the wide shot to desktop |
 | Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
 | Why choose us | The 70% stat (counts up on scroll) and four assurances |
-| Services | Photo beside a four-row list, so the row isn't four thin sparse columns |
+| Services | Full-width four-row index — number, title, description, hover arrow |
 | Work | 14 items across Media walls / Shelving / Wardrobes — 10 stills, 4 hover-play clips |
 | How it works | Vertical timeline beside a sticky "Prefer to talk?" card |
 | **Founder** | **Placeholder — see below** |
