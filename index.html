@@ -680,10 +680,7 @@ const CONFIG = {
          form on". Currently wired for Netlify Forms (free, handles
          the photo uploads and emails every enquiry through).
          ═══════════════════════════════════════════════════════════ -->
-    <form class="panel" name="quote-request" method="POST" action="/thanks.html"
-          enctype="multipart/form-data" data-netlify="true" netlify-honeypot="company">
-      <input type="hidden" name="form-name" value="quote-request">
-      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1"></label></p>
+    <form class="panel" name="quote-request">
 
       <h2>Enquire for a quote</h2>
       <p class="sub">Tell us what you're after and we'll ring you back with a price.
@@ -729,6 +726,13 @@ const CONFIG = {
       </details>
 
       <button class="btn submit" type="submit">Send enquiry</button>
+      <noscript>
+        <p class="hint sent-note" style="display:block">
+          This form needs JavaScript. Please
+          <a data-link="wa" href="#" style="color:#fff">message us on WhatsApp</a>
+          or ring <b id="ns-phone"></b> instead.
+        </p>
+      </noscript>
       <p class="hint sent-note" id="sent-note" hidden></p>
       <p class="hint" style="margin-top:14px;text-align:center">
         Or send it all on <a data-link="wa" href="#" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a> —
