@@ -174,16 +174,31 @@ Notes: Slats with a fire underneath, ideally before Christmas.
 They still have to press send in WhatsApp — a browser cannot send on someone's
 behalf, and that's a good thing: they see exactly what's going.
 
-### The catch: photos
+### Photos
 
-**A `wa.me` link carries text only.** The two photo fields cannot ride along.
-If files are attached the message ends with a "Photos to follow in this chat"
-line, and a note appears under the button telling the visitor to attach them in
-the chat. That is the honest limit of this approach.
+A `wa.me` link carries text only, so photos ride in through the **Web Share
+API** instead: on a phone, "Send enquiry" opens the native share sheet with the
+message *and* the photo files attached, and the visitor picks WhatsApp. The
+photos arrive in the chat with the enquiry.
 
-If losing photos becomes a real problem, switch to a form service that takes
-uploads (Netlify Forms handles them free) and treat WhatsApp as the second
-option rather than the only one.
+Phone cameras produce 4 MB+ files, so each one is resized to 2000px and
+re-encoded at JPEG 85 in the browser before sharing — big files make the share
+sheet flaky.
+
+Four paths, all tested:
+
+| Situation | What happens |
+|---|---|
+| Phone, photos attached | Share sheet with message + photos → WhatsApp |
+| Desktop (no file sharing) | `wa.me` text link, note tells them to attach in the chat |
+| Share sheet cancelled | Nothing — no double-send, no link opened |
+| Share fails for any other reason | Falls back to the `wa.me` link |
+
+⚠ **Check this on a real phone during the test run.** Some versions of WhatsApp
+drop the accompanying text when files are shared, keeping only the images. If
+that happens on his handset, the enquiry details would be lost and the form
+should switch to a service that accepts uploads (Netlify Forms handles them
+free) with WhatsApp as the second option.
 
 ---
 
