@@ -491,6 +491,7 @@ input[type=file]:hover::file-selector-button{transform:scale(1.05)}
 
 .submit{width:100%;padding:15px 24px;background:var(--mint);color:var(--ink);font-size:13.5px}
 .submit:hover{background:#9df0c1;box-shadow:0 14px 32px rgba(126,227,171,.28)}
+.submit:disabled{opacity:.65;cursor:progress;transform:none}
 
 /* ── contact ────────────────────────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:28px}
@@ -708,7 +709,7 @@ const CONFIG = {
            `required` — nobody gets blocked from enquiring. -->
       <details class="detail-block" open>
         <summary>Measurements and photos</summary>
-        <p class="hint" style="margin-top:14px">The more you send, the faster we can price it. On a phone your photos are sent along with the message.</p>
+        <p class="hint" style="margin-top:14px">The more you send, the faster we can price it. Your photos are uploaded and linked in the message automatically.</p>
         <div class="field">
           <label for="f-dims">Dimensions</label>
           <input id="f-dims" name="dimensions" placeholder="Width × height × depth, e.g. 3.5m × 2.4m × 0.35m">
@@ -1159,37 +1160,68 @@ function note(html){
   el.scrollIntoView({block:"nearest"});
 }
 
-function waFallback(text, hadFiles){
-  window.open("https://wa.me/" + CONFIG.enquiryWhatsapp +
-              "?text=" + encodeURIComponent(text), "_blank", "noopener");
-  note(hadFiles
-    ? "WhatsApp is opening with your details filled in — press send there, then " +
-      "<b>attach your photos in the chat</b>. This browser can't pass them across."
-    : "WhatsApp is opening with your details filled in — press send there.");
+const waLink = text => "https://wa.me/" + CONFIG.enquiryWhatsapp +
+                       "?text=" + encodeURIComponent(text);
+
+/* Phone photos run 3-8 MB and the upload endpoint caps at 5 MB, so shrink
+   first. Safe to await here — unlike navigator.share(), a plain navigation
+   does not need the tap to still be live. */
+function shrink(file, max = 1600){
+  return new Promise(resolve => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width  = Math.round(img.width  * scale);
+      c.height = Math.round(img.height * scale);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      c.toBlob(b => resolve(b || file), "image/jpeg", 0.82);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
 }
 
-/* ⚠ navigator.share() must be called while the tap is still "live".
-   Any await before it (resizing, reading files, a fetch) spends the browser's
-   transient user activation and iOS Safari then throws NotAllowedError.
-   So: no async work above the share() call. The files go as they are —
-   WhatsApp re-compresses them on send anyway. */
-form.addEventListener("submit", e => {
+async function uploadPhoto(file){
+  const body = await shrink(file);
+  const res = await fetch("/api/upload", {
+    method: "POST",
+    headers: { "content-type": "image/jpeg" },
+    body
+  });
+  if (!res.ok) throw new Error("upload " + res.status);
+  return (await res.json()).url;
+}
+
+const button = form.querySelector("button[type=submit]");
+
+form.addEventListener("submit", async e => {
   e.preventDefault();
   if (!form.reportValidity()) return;
 
-  const text  = enquiryText();
   const files = chosenFiles();
-
-  if (files.length && navigator.canShare && navigator.canShare({files})){
-    navigator.share({files, text})
-      .then(()  => note("Sent. <b>Your photos went with it.</b>"))
-      .catch(err => {
-        if (err && err.name === "AbortError") return;   // sheet dismissed
-        waFallback(text, true);
-      });
+  if (!files.length){
+    location.href = waLink(enquiryText());
     return;
   }
-  waFallback(text, files.length > 0);
+
+  button.disabled = true;
+  button.textContent = files.length > 1 ? "Uploading photos…" : "Uploading photo…";
+  try {
+    const urls = await Promise.all(files.map(uploadPhoto));
+    const text = enquiryText() + "\n\n" +
+      urls.map((u,i) => `Photo ${i+1}: ${u}`).join("\n");
+    location.href = waLink(text);           // straight into WhatsApp, no picker
+  } catch (err){
+    // never strand the enquiry: send the details, ask for the photos in-chat
+    location.href = waLink(enquiryText());
+    note("Your details are on their way, but the photos wouldn't upload — " +
+         "please <b>attach them in the chat</b>.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Send enquiry";
+  }
 });
 
 /* ── #diag : what this actual handset supports ─────────────

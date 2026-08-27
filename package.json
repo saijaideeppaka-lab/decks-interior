@@ -1,0 +1,8 @@
+{
+  "name": "decks-interior",
+  "private": true,
+  "description": "Static site. The only dependency is for the two Netlify Functions that store enquiry photos.",
+  "dependencies": {
+    "@netlify/blobs": "^11.0.1"
+  }
+}

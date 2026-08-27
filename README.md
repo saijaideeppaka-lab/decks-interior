@@ -176,35 +176,38 @@ behalf, and that's a good thing: they see exactly what's going.
 
 ### Photos
 
-A `wa.me` link carries text only, so photos ride in through the **Web Share
-API** instead: on a phone, "Send enquiry" opens the native share sheet with the
-message *and* the photo files attached, and the visitor picks WhatsApp. The
-photos arrive in the chat with the enquiry.
+**A website cannot attach a photo into WhatsApp.** `wa.me` links carry text
+only, and the Web Share API always shows the iOS share sheet — there is no way
+to target WhatsApp directly with a file. So photos are *uploaded and linked*
+instead:
 
-⚠ **`navigator.share()` must be called while the tap is still "live".** Any
-`await` before it — resizing, reading a file, a fetch — spends the browser's
-*transient user activation*, and iOS Safari then throws `NotAllowedError`. An
-earlier version resized the photos first and silently fell back to a text-only
-link on every iPhone. There must be **no async work above the `share()` call**.
-Files go as-is; WhatsApp re-compresses on send anyway.
+1. Each photo is resized to 1600px / JPEG 82 in the browser (phone originals
+   run 3–8 MB; the endpoint caps at 5 MB)
+2. It's POSTed to `/api/upload`, a Netlify Function that stores it in Netlify
+   Blobs and returns a public URL
+3. WhatsApp opens with the enquiry text **and a tappable link per photo**
 
-Open the live site with **`#diag`** on a phone to print exactly what that
-handset supports.
+No picker, no scrolling to find WhatsApp — it goes straight there.
 
-Four paths, all tested:
-
-| Situation | What happens |
+| File | Does |
 |---|---|
-| Phone, photos attached | Share sheet with message + photos → WhatsApp |
-| Desktop (no file sharing) | `wa.me` text link, note tells them to attach in the chat |
-| Share sheet cancelled | Nothing — no double-send, no link opened |
-| Share fails for any other reason | Falls back to the `wa.me` link |
+| `netlify/functions/upload.mjs` | `POST /api/upload` — stores one image, returns its URL |
+| `netlify/functions/photo.mjs` | `GET /p/:id` — serves a stored image |
 
-⚠ **Check this on a real phone during the test run.** Some versions of WhatsApp
-drop the accompanying text when files are shared, keeping only the images. If
-that happens on his handset, the enquiry details would be lost and the form
-should switch to a service that accepts uploads (Netlify Forms handles them
-free) with WhatsApp as the second option.
+`package.json` exists solely for these two functions' one dependency. The site
+itself still has no build step.
+
+**Privacy:** photo URLs are random UUIDs — unguessable, so unlisted rather than
+secret. That is the right level for "here's a photo of my living room wall".
+Don't reuse this for anything sensitive.
+
+**If an upload fails** the enquiry still goes: WhatsApp opens with the details
+and a note asks the customer to attach the photos in the chat. An enquiry is
+never lost because a photo didn't make it.
+
+⚠ `/api/upload` only exists on Netlify. Against the local `python3 -m
+http.server` it 404s and you'll get the fallback — that's expected, not a bug.
+Use `netlify dev` if you need to test uploads locally.
 
 ---
 
