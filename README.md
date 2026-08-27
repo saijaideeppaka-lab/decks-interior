@@ -181,9 +181,15 @@ API** instead: on a phone, "Send enquiry" opens the native share sheet with the
 message *and* the photo files attached, and the visitor picks WhatsApp. The
 photos arrive in the chat with the enquiry.
 
-Phone cameras produce 4 MB+ files, so each one is resized to 2000px and
-re-encoded at JPEG 85 in the browser before sharing — big files make the share
-sheet flaky.
+⚠ **`navigator.share()` must be called while the tap is still "live".** Any
+`await` before it — resizing, reading a file, a fetch — spends the browser's
+*transient user activation*, and iOS Safari then throws `NotAllowedError`. An
+earlier version resized the photos first and silently fell back to a text-only
+link on every iPhone. There must be **no async work above the `share()` call**.
+Files go as-is; WhatsApp re-compresses on send anyway.
+
+Open the live site with **`#diag`** on a phone to print exactly what that
+handset supports.
 
 Four paths, all tested:
 

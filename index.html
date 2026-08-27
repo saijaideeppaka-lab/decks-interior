@@ -1146,26 +1146,6 @@ function enquiryText(){
   return lines.join("\n");
 }
 
-/* phone cameras produce 4 MB+ files; shrink so the share sheet stays reliable */
-function shrink(file, max = 2000){
-  return new Promise(resolve => {
-    const img = new Image(), url = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      const scale = Math.min(1, max / Math.max(img.width, img.height));
-      if (scale === 1 && file.size < 3e6) return resolve(file);
-      const c = document.createElement("canvas");
-      c.width  = Math.round(img.width  * scale);
-      c.height = Math.round(img.height * scale);
-      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      c.toBlob(b => resolve(b ? new File([b], file.name.replace(/\.\w+$/,"") + ".jpg",
-                {type:"image/jpeg"}) : file), "image/jpeg", 0.85);
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
-    img.src = url;
-  });
-}
-
 function chosenFiles(){
   return ["wall_photo","design_photo"]
     .map(n => form.elements[n]?.files?.[0])
@@ -1179,37 +1159,60 @@ function note(html){
   el.scrollIntoView({block:"nearest"});
 }
 
-async function sendEnquiry(){
-  const text = enquiryText();
-  const picked = chosenFiles();
-
-  if (picked.length){
-    const files = await Promise.all(picked.map(f => shrink(f)));
-    // canShare must be asked about the actual files — support varies by type
-    if (navigator.canShare && navigator.canShare({files})){
-      try {
-        await navigator.share({files, text});
-        note("Sent. <b>Your photos went with it.</b>");
-        return;
-      } catch (err){
-        if (err.name === "AbortError") return;    // they closed the sheet
-        /* anything else: fall through to the link */
-      }
-    }
-  }
-
+function waFallback(text, hadFiles){
   window.open("https://wa.me/" + CONFIG.enquiryWhatsapp +
               "?text=" + encodeURIComponent(text), "_blank", "noopener");
-  note(picked.length
+  note(hadFiles
     ? "WhatsApp is opening with your details filled in — press send there, then " +
       "<b>attach your photos in the chat</b>. This browser can't pass them across."
     : "WhatsApp is opening with your details filled in — press send there.");
 }
 
+/* ⚠ navigator.share() must be called while the tap is still "live".
+   Any await before it (resizing, reading files, a fetch) spends the browser's
+   transient user activation and iOS Safari then throws NotAllowedError.
+   So: no async work above the share() call. The files go as they are —
+   WhatsApp re-compresses them on send anyway. */
 form.addEventListener("submit", e => {
   e.preventDefault();
-  if (form.reportValidity()) sendEnquiry();
+  if (!form.reportValidity()) return;
+
+  const text  = enquiryText();
+  const files = chosenFiles();
+
+  if (files.length && navigator.canShare && navigator.canShare({files})){
+    navigator.share({files, text})
+      .then(()  => note("Sent. <b>Your photos went with it.</b>"))
+      .catch(err => {
+        if (err && err.name === "AbortError") return;   // sheet dismissed
+        waFallback(text, true);
+      });
+    return;
+  }
+  waFallback(text, files.length > 0);
 });
+
+/* ── #diag : what this actual handset supports ─────────────
+   Open the site with #diag on a phone to see why sharing did or didn't run. */
+if (location.hash === "#diag"){
+  const probe = new File([new Blob(["x"],{type:"image/jpeg"})], "probe.jpg", {type:"image/jpeg"});
+  const rows = {
+    "Secure context (https)": window.isSecureContext,
+    "navigator.share":        typeof navigator.share === "function",
+    "navigator.canShare":     typeof navigator.canShare === "function",
+    "canShare files":         !!navigator.canShare && navigator.canShare({files:[probe]}),
+    "canShare files + text":  !!navigator.canShare && navigator.canShare({files:[probe], text:"hi"}),
+    "Browser":                navigator.userAgent
+  };
+  const box = document.createElement("pre");
+  box.style.cssText = "position:fixed;inset:auto 8px 8px 8px;z-index:999;background:#0d1e30;" +
+    "color:#7ee3ab;border:1px solid #7ee3ab;border-radius:4px;padding:14px;font:600 12px/1.6 Menlo,monospace;" +
+    "white-space:pre-wrap;max-height:60vh;overflow:auto";
+  box.textContent = Object.entries(rows)
+    .map(([k,v]) => `${v === true ? "YES" : v === false ? "NO " : "   "}  ${k}${typeof v === "string" ? "\n     " + v : ""}`)
+    .join("\n");
+  document.body.appendChild(box);
+}
 
 /* ── self-check: open the page with #selftest ──────────── */
 if (location.hash === "#selftest"){
