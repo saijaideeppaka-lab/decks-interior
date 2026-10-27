@@ -117,6 +117,22 @@ below 860px, and `hero.jpg` above it. `hero.jpg` came from the flyer PDF but **i
 his own work** — the same media wall — and is the only well-composed wide shot that
 exists. Replace it the moment he takes a landscape photo of a finished job.
 
+### Replacing the hero photo
+
+`images/hero.jpg` is referenced as `images/hero.jpg?v=2`. **When you replace
+that photo, bump the number** — `?v=3`, `?v=4` — in both the `<img>` and the
+`og:image` meta tag.
+
+Why: a browser that has cached an image keeps it for the lifetime it was given
+*when it was stored*. Shortening `Cache-Control` afterwards does nothing for
+copies already on people's machines. The only reliable way to force a refetch
+is to change the URL, and a query string is enough.
+
+(The original config cached `/images/*` for a year. Anyone who loaded the site
+in that window would have kept the old hero until 2027. The header is fixed
+now, so this bump is a one-time escape — but bumping it on every photo change
+costs nothing and removes all doubt.)
+
 ### One hero photo, not two
 
 The hero used to serve a portrait photo under 860px and a landscape one above,
