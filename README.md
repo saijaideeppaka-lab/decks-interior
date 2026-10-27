@@ -39,7 +39,7 @@ All of it is in **one block at the top of `index.html`**, marked `EDIT ME`
 const CONFIG = {
   phone:     "+353 89 976 0153",
   email:     "decksandfurnitures@gmail.com",
-  whatsapp:  "https://wa.me/message/4G7BTPDAHQ4GO1",
+  whatsapp:  "https://wa.me/353899760153",   // same number as `phone`
   instagram: "...",
   facebook:  "...",
   hours:     "09:00 – 18:00",
@@ -310,24 +310,15 @@ point anywhere — you just change its DNS records.
 | **Founder** | **Placeholder — see below** |
 | Contact | Phone, WhatsApp, email, Instagram, Facebook, hours + closing CTA |
 
-### The founder box needs filling in
+### The founder section
 
-`<section id="founder">` is a placeholder. Every bit of copy waiting on the
-client is wrapped in square brackets — search `index.html` for `[` or for the
-class `tbd` and you'll find all of them:
+Filled in: Muez Azeez, founder and second-fix carpenter, six years in the
+trade, Dublin born and raised.
 
-- a one-line quote from him
-- his name
-- three or four sentences of background
-- the three pills: years' experience, based in, specialises in
-
-There's also a dashed photo slot. When he sends a headshot, save it as
-`images/founder.jpg` and swap the placeholder div for a real image — the exact
-line to paste is in an HTML comment directly above that section.
-
-Until it's filled in the brackets are visible on the page, which is deliberate:
-it's obvious at a glance that it's unfinished, so it can't be published by
-accident looking half-done.
+**Still missing: a headshot.** There's a dashed photo slot in its place. When
+one arrives, save it as `images/founder.jpg` and swap the placeholder div for
+a real image — the exact line to paste is in an HTML comment directly above
+that section.
 
 ## 8. Motion
 
@@ -369,6 +360,15 @@ so an unchanged file costs a 304 and nothing more.
 **If you replace a photo and still see the old one**, it is your own browser
 cache: hard-refresh (⌘⇧R on Mac, Ctrl+F5 on Windows), or load the page with
 `?v=1` on the end.
+
+## 9c. The "Talk to us" widget
+
+Bottom-right pill, styled after mida.com.ng. It opens a panel with every way
+of getting in touch — phone, WhatsApp (same number), email, request a quote,
+Instagram, Facebook. The phone and email rows print the real values from
+`CONFIG`, so changing a number there changes it here too.
+
+It closes on a click outside, on Escape, and when any row is used.
 
 ## 10. Navigation
 
