@@ -329,6 +329,20 @@ It logs `✓ page self-check passed` or lists what's wrong.
 - Delivery of products was on his wish-list but nothing on the page promises
   it yet, because the terms were never specified.
 
+## 9b. A caching trap worth knowing
+
+`netlify.toml` originally cached `/images/*` for a year as "immutable". That is
+correct only when filenames change whenever content changes — which this site
+does **not** do: `hero.jpg` stays `hero.jpg` when the photo is swapped. The
+result was that a replaced photo never reached anyone who had already visited.
+
+Images and clips now use `max-age=600, must-revalidate`. Netlify sends an ETag,
+so an unchanged file costs a 304 and nothing more.
+
+**If you replace a photo and still see the old one**, it is your own browser
+cache: hard-refresh (⌘⇧R on Mac, Ctrl+F5 on Windows), or load the page with
+`?v=1` on the end.
+
 ## 10. Navigation
 
 The header carries the logo, a **Request a quote** button and a menu button at
