@@ -117,6 +117,17 @@ below 860px, and `hero.jpg` above it. `hero.jpg` came from the flyer PDF but **i
 his own work** — the same media wall — and is the only well-composed wide shot that
 exists. Replace it the moment he takes a landscape photo of a finished job.
 
+### One hero photo, not two
+
+The hero used to serve a portrait photo under 860px and a landscape one above,
+via `<picture>`. That bit hard: replacing `hero.jpg` changed the desktop hero
+only, and the old photo kept appearing on phones — which reads exactly like a
+caching problem and is not one.
+
+There is now a single `hero.jpg` at every width, cropped by
+`object-position:42% center` on narrow screens so the crop lands on the wall
+rather than the ceiling. **Replace that one file and every screen updates.**
+
 ## 3b. Logo
 
 `images/logo.svg` is the real mark, **traced from the client's original**

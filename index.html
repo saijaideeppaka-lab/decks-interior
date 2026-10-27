@@ -250,7 +250,11 @@ body.menu-open .menu-list a{
   opacity:0;animation:rise 1s var(--spring) 1s both
 }
 .hero-rail::after{content:"";width:1px;height:58px;background:linear-gradient(var(--mint),transparent)}
-@media(max-width:860px){.hero-rail{display:none}}
+@media(max-width:860px){
+  .hero-rail{display:none}
+  /* one landscape photo for every width, so the crop is aimed at the wall */
+  .hero-img{object-position:42% center}
+}
 
 /* ── ticker ─────────────────────────────────────────────── */
 .ticker{
@@ -734,11 +738,8 @@ const CONFIG = {
 <section class="hero">
   <!-- his footage is all 9:16, which composes beautifully on a phone and badly
        on a wide screen — so each viewport gets the shot that suits it -->
-  <picture>
-    <source media="(max-width:860px)" srcset="images/hero-portrait.jpg">
-    <img class="hero-img" src="images/hero.jpg"
-         alt="Media wall with red-backlit timber slats, recessed TV panel, lit display shelving and a linear fire">
-  </picture>
+  <img class="hero-img" src="images/hero.jpg"
+       alt="Media wall with red-backlit timber slats, recessed TV panel, lit display shelving and a linear fire">
 
   <span class="hero-rail">Scroll</span>
 
