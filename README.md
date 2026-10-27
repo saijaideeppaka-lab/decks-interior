@@ -315,10 +315,9 @@ point anywhere — you just change its DNS records.
 Filled in: Muez Azeez, founder and second-fix carpenter, six years in the
 trade, Dublin born and raised.
 
-**Still missing: a headshot.** There's a dashed photo slot in its place. When
-one arrives, save it as `images/founder.jpg` and swap the placeholder div for
-a real image — the exact line to paste is in an HTML comment directly above
-that section.
+No photo — the client asked for it out. The section runs as two text columns
+instead: the pull quote, name and role on the left against a mint rule, the
+background, fact pills and motto on the right.
 
 ## 8. Motion
 
