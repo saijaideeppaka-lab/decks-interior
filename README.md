@@ -372,10 +372,20 @@ cache: hard-refresh (⌘⇧R on Mac, Ctrl+F5 on Windows), or load the page with
 
 ## 10. Navigation
 
-The header carries the logo, a **Request a quote** button and a menu button at
-every width — there is no inline nav bar. The menu button opens a full-screen
-overlay with numbered rows, styled after mida.com.ng at the client's request,
-in the existing palette.
+Above 1060px the header carries an **inline nav bar with hover dropdowns**
+(Services and Our work have panels), styled after mida.com.ng in the existing
+palette. Below 1060px that is replaced by the menu button, which opens the
+full-screen overlay with numbered rows.
+
+The **Our work** dropdown entries carry `data-filter`; clicking one jumps to the
+gallery and presses the matching filter chip, so "Wardrobes" lands on the
+wardrobes.
+
+Dropdowns open on hover *and* `:focus-within`, so they work by keyboard. They
+have a 10px padding bridge above the panel, otherwise the pointer loses hover
+crossing the gap. `visibility` flips instantly on open and only after the fade
+on close — transitioning it symmetrically leaves the panel non-interactive for
+a quarter second.
 
 Menu items live in one array in the markup (`<ul class="menu-list">`). The
 numbers are typed, not generated, so renumber them if you add a row.

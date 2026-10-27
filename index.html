@@ -170,6 +170,51 @@ body.menu-open .menu-btn{border-color:var(--mint);color:var(--mint)}
 }
 @media(max-width:380px){.bar .mark-txt{display:none}}
 
+/* ── inline nav bar with dropdowns (desktop) ─────────── */
+.nav{margin-left:auto;display:flex;align-items:center}
+.nav-list{list-style:none;display:flex;align-items:center;gap:4px;margin:0;padding:0}
+.nav-list > li{position:relative}
+.nav-list > li > a{
+  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  padding:12px 14px;border-radius:3px;
+  font-size:13.5px;font-weight:600;letter-spacing:.03em;color:var(--paper);
+  transition:color .25s var(--ease),background .25s var(--ease)
+}
+.nav-list > li > a:hover,
+.nav-list > li:focus-within > a{color:var(--mint);background:rgba(126,227,171,.08)}
+.has-sub > a::after{
+  content:"";width:5px;height:5px;margin-top:-2px;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg);transition:transform .3s var(--spring);opacity:.7
+}
+.has-sub:hover > a::after,.has-sub:focus-within > a::after{transform:rotate(225deg) translate(-1px,-1px)}
+
+.sub{
+  position:absolute;top:100%;left:0;min-width:248px;
+  padding-top:10px;                       /* bridge, so the pointer can travel */
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  /* visibility flips instantly on open, and only after the fade on close */
+  transition:opacity .25s var(--ease),transform .3s var(--spring),visibility 0s linear .25s
+}
+.has-sub:hover .sub,.has-sub:focus-within .sub{
+  opacity:1;visibility:visible;transform:none;
+  transition:opacity .25s var(--ease),transform .3s var(--spring),visibility 0s
+}
+.sub-in{
+  background:var(--ink-2);border:1px solid var(--line-soft);border-radius:4px;
+  padding:8px;box-shadow:0 24px 54px rgba(0,0,0,.55)
+}
+.sub a{
+  display:block;text-decoration:none;padding:11px 13px;border-radius:3px;
+  font-size:14px;color:var(--paper);transition:.25s var(--ease)
+}
+.sub a small{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.sub a:hover{background:rgba(126,227,171,.1);color:var(--mint)}
+.sub a:hover small{color:var(--mint-dim)}
+
+@media(max-width:1060px){.nav{display:none}}
+@media(min-width:1061px){.menu-btn{display:none}}
+
 /* ── the overlay menu ─────────────────────────────────── */
 .menu{
   position:fixed;inset:0;z-index:85;background:var(--ink);
@@ -698,6 +743,31 @@ const CONFIG = {
       <span class="mark-txt">Decks Interior</span>
       <span class="mark-city">Dublin</span>
     </a>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="has-sub">
+          <a href="#services">Services</a>
+          <div class="sub"><div class="sub-in">
+            <a href="#services">Media walls<small>Slats, marble, fire, concealed LED</small></a>
+            <a href="#services">Bespoke kitchens<small>Design, supply and installation</small></a>
+            <a href="#services">Wardrobes &amp; bedrooms<small>Fitted, floor to ceiling</small></a>
+            <a href="#services">Wall panelling<small>Moulded, slatted or fluted</small></a>
+          </div></div>
+        </li>
+        <li class="has-sub">
+          <a href="#work">Our work</a>
+          <div class="sub"><div class="sub-in">
+            <a href="#work" data-filter="All">Everything<small>The full gallery</small></a>
+            <a href="#work" data-filter="Media walls">Media walls</a>
+            <a href="#work" data-filter="Wardrobes">Wardrobes</a>
+            <a href="#work" data-filter="Shelving">Shelving</a>
+          </div></div>
+        </li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#founder">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
     <a class="btn btn-solid nav-cta" href="#quote"><span class="cta-long">Request a quote</span><span class="cta-short">Quote</span></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="menu">
       <span class="mb-open">Menu</span><span class="mb-close">Close</span>
@@ -1160,6 +1230,18 @@ if (!items.length){
     if (e.key === "ArrowRight") show(at + 1);
   });
 }
+
+/* ── nav dropdown links that filter the gallery ────────── */
+document.querySelectorAll(".sub a[data-filter]").forEach(a => {
+  a.addEventListener("click", () => {
+    const want = a.dataset.filter;
+    const chip = [...$$("#gallery-filters .chip, .chip")]
+      .find(c => c.textContent.trim() === want);
+    if (chip) chip.click();
+    // let go of :hover so the panel does not hang open over the page
+    a.blur();
+  });
+});
 
 /* ── full-screen menu ──────────────────────────────────── */
 const menu = $("#menu"), menuBtn = $(".menu-btn");
