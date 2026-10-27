@@ -443,6 +443,13 @@ body.menu-open .menu-list a{
   font-size:12px;letter-spacing:.16em;color:var(--muted);font-weight:700
 }
 
+/* ── two columns: used by "How you get a price" ───────── */
+.split{
+  display:grid;grid-template-columns:0.9fr 1.1fr;
+  gap:clamp(28px,4.5vw,64px);align-items:start
+}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+
 /* ── how it works: vertical timeline beside a contact card ── */
 .steps{counter-reset:s;list-style:none;margin:0;padding:0;position:relative}
 .steps::before{
@@ -1428,6 +1435,20 @@ if (location.hash === "#selftest"){
   if (!$("#quote"))                                 problems.push("quote section missing");
   if ($(".hero").querySelector("form"))             problems.push("form still in the hero");
   if ($$(".menu-list a").length !== 5)              problems.push("menu rows wrong");
+
+  // layout rules that other sections depend on — deleting these has broken
+  // the page before, and it is silent until someone scrolls past it
+  if (innerWidth > 860){
+    const sp = $("#how .split");
+    if (sp && getComputedStyle(sp).display !== "grid")
+      problems.push("#how .split lost its grid — two-column layout is gone");
+    const solid = $(".btn-solid");
+    if (solid && getComputedStyle(solid).display === "inline")
+      problems.push(".btn rules missing — buttons render as plain links");
+  }
+  if (getComputedStyle($(".talk")).position === "sticky" &&
+      getComputedStyle($("#how .split")).display !== "grid")
+    problems.push(".talk is sticky outside a grid — it will float over the steps");
   if ($$("[data-reveal]").length < 10)              problems.push("reveals missing");
   if (items.length && $$("#gallery figure").length !== items.length) problems.push("gallery did not render");
   if (items.length && !document.querySelector(".lb"))               problems.push("lightbox missing");
