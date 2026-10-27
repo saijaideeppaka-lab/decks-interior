@@ -369,6 +369,30 @@ Instagram, Facebook. The phone and email rows print the real values from
 
 It closes on a click outside, on Escape, and when any row is used.
 
+## 9d. Preloader
+
+A 3-second sheet on every load: the logo draws itself in as an outline, fills,
+the wordmark fades up and a mint bar runs along the bottom, then the sheet
+lifts.
+
+The drawing works by rendering the traced logo path **twice** — once stroked
+with `pathLength="1"` so `stroke-dashoffset` animates from 1 to 0 regardless
+of the path's real length, and once filled, faded in behind it as the outline
+completes.
+
+**It is pure CSS.** The fade-out is a keyframe on `.preloader`, so the sheet
+clears even if the script fails — a preloader that can trap people behind a
+blank screen is worse than no preloader. The script only locks scrolling while
+it plays and removes the element afterwards.
+
+It runs on **every** refresh, as asked. To show it once per visit instead,
+gate it on `sessionStorage`. Under `prefers-reduced-motion` it collapses to a
+brief static fade.
+
+Timings live in one place — the `.preloader` CSS block. The sheet lifts at
+2.9s and the script clears it at 3.4s; keep the script's timeout longer than
+the CSS delay.
+
 ## 10. Navigation
 
 Above 1060px the header carries an **inline nav bar with hover dropdowns**
