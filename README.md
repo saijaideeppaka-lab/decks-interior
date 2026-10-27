@@ -273,8 +273,9 @@ point anywhere — you just change its DNS records.
 
 | Section | Notes |
 |---|---|
-| Hero | Headline + enquiry form above the fold. `<picture>` serves a portrait shot to phones and the wide shot to desktop |
-| Ticker | Scrolling band of the service names, generated from `CONFIG.services` |
+| Hero | The photograph, headline and two buttons — nothing else |
+| Request a quote | The form, on its own, below How it works |
+| Ticker | Scrolling band of the project types, generated from `CONFIG.services` |
 | Why choose us | The 70% stat (counts up on scroll) and four assurances |
 | Services | Full-width four-row index — number, title, description, hover arrow |
 | Work | 14 items across Media walls / Shelving / Wardrobes — 10 stills, 4 hover-play clips |
@@ -327,3 +328,18 @@ It logs `✓ page self-check passed` or lists what's wrong.
 - "Covering all Ireland" came from his Instagram/WhatsApp profile.
 - Delivery of products was on his wish-list but nothing on the page promises
   it yet, because the terms were never specified.
+
+## 10. Navigation
+
+The header carries the logo, a **Request a quote** button and a menu button at
+every width — there is no inline nav bar. The menu button opens a full-screen
+overlay with numbered rows, styled after mida.com.ng at the client's request,
+in the existing palette.
+
+Menu items live in one array in the markup (`<ul class="menu-list">`). The
+numbers are typed, not generated, so renumber them if you add a row.
+
+On screens under 620px the quote button shortens to "Quote" by hiding
+`.cta-long`; under 380px the wordmark hides and the logo mark carries the
+brand. Those rules need `.bar` in front of them — `.btn` sets `display` later
+in the stylesheet and would otherwise win.

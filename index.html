@@ -104,43 +104,48 @@ section{padding:clamp(56px,9vw,110px) 0;border-top:1px solid var(--line-soft)}
   [data-reveal]{opacity:1!important}
 }
 
-/* ── header ─────────────────────────────────────────────── */
+/* ── header: logo, one CTA, and a menu button at every width ── */
 header{
-  position:sticky;top:0;z-index:50;background:rgba(9,22,36,.72);
-  backdrop-filter:blur(14px);border-bottom:1px solid transparent;
-  transition:background .35s var(--ease),border-color .35s var(--ease)
+  position:fixed;top:0;left:0;right:0;z-index:90;
+  background:linear-gradient(rgba(9,22,36,.72),transparent);
+  transition:background .35s var(--ease),backdrop-filter .35s var(--ease)
 }
-header.stuck{background:rgba(9,22,36,.94);border-bottom-color:var(--line-soft)}
-.bar{display:flex;align-items:center;gap:24px;height:76px;transition:height .35s var(--ease)}
-header.stuck .bar{height:60px}
-.mark{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto}
+header.stuck{
+  background:rgba(9,22,36,.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft)
+}
+.bar{display:flex;align-items:center;gap:16px;height:84px;transition:height .35s var(--ease)}
+header.stuck .bar{height:64px}
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto;margin-right:auto}
 .mark-logo{
-  width:28px;height:28px;flex:0 0 auto;color:var(--mint);
-  /* masked, not <img>, so the one SVG recolours to mint / paper / ink */
+  width:30px;height:30px;flex:0 0 auto;color:var(--mint);
   background:currentColor;
   -webkit-mask:url(images/logo.svg) center/contain no-repeat;
           mask:url(images/logo.svg) center/contain no-repeat;
   transition:transform .5s var(--spring),color .3s var(--ease)
 }
-.mark:hover .mark-logo{color:var(--paper)}
-.mark:hover .mark-logo{transform:translateX(3px) scale(1.06)}
-header.stuck .mark-logo{width:24px;height:24px}
+.mark:hover .mark-logo{color:var(--paper);transform:translateX(3px) scale(1.06)}
+header.stuck .mark-logo{width:26px;height:26px}
 footer .mark-logo{width:34px;height:34px}
 .mark-txt{font-weight:800;letter-spacing:.2em;font-size:14px;text-transform:uppercase;white-space:nowrap}
 .mark-city{font-size:11px;letter-spacing:.22em;color:var(--mint-dim);font-weight:700;margin-left:2px}
-nav{margin-left:auto;display:flex;gap:26px;align-items:center}
-nav a:not(.btn){
-  text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--muted);position:relative;
-  transition:color .22s var(--ease),transform .35s var(--spring)
-}
-nav a:not(.btn)::after{
-  content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--mint);
-  transform:scaleX(0);transform-origin:left;transition:transform .35s var(--spring)
-}
-nav a:not(.btn):hover{color:var(--mint);transform:translateY(-2px)}
-nav a:not(.btn):hover::after{transform:scaleX(1)}
+@media(max-width:560px){.mark-city{display:none}.mark-txt{font-size:12px}}
 
+.menu-btn{
+  width:48px;height:48px;flex:0 0 auto;border-radius:3px;cursor:pointer;
+  background:rgba(239,241,239,.07);border:1px solid var(--line-soft);
+  display:grid;place-items:center;gap:5px;padding:0;
+  transition:.35s var(--spring)
+}
+.menu-btn:hover{border-color:var(--mint);background:rgba(126,227,171,.1)}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--paper);transition:.35s var(--spring)}
+.menu-btn span:nth-child(1){transform:translateY(-3.5px)}
+.menu-btn span:nth-child(2){transform:translateY(3.5px)}
+body.menu-open .menu-btn span:nth-child(1){transform:rotate(45deg)}
+body.menu-open .menu-btn span:nth-child(2){transform:rotate(-45deg)}
+
+
+/* ── buttons ─────────────────────────────────────────── */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;
   font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
@@ -155,54 +160,96 @@ nav a:not(.btn):hover::after{transform:scaleX(1)}
 .btn-solid:hover{background:var(--green-lift);box-shadow:0 12px 28px rgba(21,77,52,.5)}
 .btn-ghost{border-color:var(--line);color:var(--paper);background:none}
 .btn-ghost:hover{border-color:var(--mint);color:var(--mint);box-shadow:0 10px 24px rgba(0,0,0,.35)}
-.nav-cta{padding:11px 18px}
-.burger{display:none;margin-left:auto;background:none;border:0;color:var(--paper);font-size:22px;cursor:pointer;padding:6px}
-@media(max-width:960px){
-  nav{
-    position:fixed;inset:60px 0 auto;background:var(--ink);flex-direction:column;
-    align-items:stretch;gap:0;padding:12px var(--pad) 26px;
-    border-bottom:1px solid var(--line-soft);display:none
-  }
-  nav.open{display:flex;animation:rise .4s var(--spring) both}
-  nav a:not(.btn){padding:14px 0;font-size:15px;border-bottom:1px solid var(--line-soft)}
-  nav .btn{margin-top:16px}
-  .burger{display:block}
+.nav-cta{padding:12px 20px}
+/* .btn sets display later in the sheet, so these need the extra specificity */
+@media(max-width:620px){
+  .bar .nav-cta{padding:11px 14px;font-size:11.5px;letter-spacing:.06em}
+  .bar .cta-long{display:none}            /* "Request a quote" -> "Quote" */
+  .bar{gap:10px}
 }
+@media(max-width:380px){.bar .mark-txt{display:none}}
 
-/* ── hero ───────────────────────────────────────────────── */
-.hero{position:relative;padding:0;border:0;overflow:hidden}
+/* ── the overlay menu ─────────────────────────────────── */
+.menu{
+  position:fixed;inset:0;z-index:85;background:var(--ink);
+  padding:104px var(--pad) 40px;overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s
+}
+body.menu-open .menu{opacity:1;visibility:visible}
+.menu-in{max-width:var(--max);margin:0 auto}
+.menu-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-soft)}
+.menu-list a{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,34px);
+  align-items:center;text-decoration:none;
+  padding:clamp(18px,2.6vw,28px) 4px;border-bottom:1px solid var(--line-soft);
+  transition:padding .4s var(--spring),background .3s var(--ease);
+  opacity:0;transform:translateY(18px)
+}
+body.menu-open .menu-list a{
+  animation:rise .55s var(--spring) forwards;
+  animation-delay:calc(var(--i) * 60ms + 80ms)
+}
+.menu-list a:hover{padding-left:18px;background:var(--ink-2)}
+.menu-list .n{font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--mint-dim);transition:color .3s}
+.menu-list a:hover .n{color:var(--mint)}
+.menu-list .t{
+  font-size:clamp(26px,5vw,50px);font-weight:800;text-transform:uppercase;
+  letter-spacing:-.02em;line-height:1;transition:color .3s var(--ease)
+}
+.menu-list a:hover .t{color:var(--mint)}
+.menu-list .c{font-size:20px;color:var(--mint-dim);transition:.4s var(--spring)}
+.menu-list a:hover .c{color:var(--mint);transform:translateX(6px)}
+.menu-foot{
+  display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+  margin-top:clamp(26px,4vw,44px)
+}
+.menu-foot .social{margin-left:auto}
+
+/* ── hero: the photograph, and as little else as possible ── */
+.hero{position:relative;padding:0;border:0;overflow:hidden;
+  min-height:min(100svh,920px);display:flex;align-items:flex-end}
 .hero-img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;
-  image-rendering:auto;transform:scale(1.06);animation:heroZoom 14s var(--ease) forwards
+  transform:scale(1.06);animation:heroZoom 16s var(--ease) forwards
 }
 @keyframes heroZoom{to{transform:scale(1)}}
 .hero::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(9,22,36,.62) 0%,rgba(9,22,36,.55) 40%,rgba(9,22,36,.96) 100%)
+  background:linear-gradient(180deg,rgba(9,22,36,.52) 0%,rgba(9,22,36,.3) 38%,rgba(9,22,36,.93) 100%)
 }
-.hero-in{
-  position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
-  gap:clamp(28px,4.5vw,64px);align-items:center;
-  padding-block:clamp(32px,4.2vw,50px)
-}
-.hero h1{font-size:clamp(36px,6.2vw,72px);text-transform:uppercase;max-width:14ch}
+.hero-in{position:relative;z-index:2;width:100%;padding-block:clamp(44px,7vw,86px)}
+.hero .eyebrow{margin-bottom:18px;opacity:0;animation:rise .8s var(--spring) .1s both}
+.hero h1{font-size:clamp(40px,7.6vw,88px);text-transform:uppercase;max-width:16ch}
 .hero h1 span{display:block;opacity:0;animation:rise .9s var(--spring) both}
-.hero h1 .l1{animation-delay:.15s}
-.hero h1 .l2{animation-delay:.28s}
-.hero h1 .g{color:var(--mint);animation-delay:.41s}
-.hero p.lede{
-  max-width:44ch;color:#cbd5d2;margin:22px 0 28px;font-size:clamp(15px,1.5vw,18px);
-  opacity:0;animation:rise .8s var(--spring) .56s both
+.hero h1 .l1{animation-delay:.2s}
+.hero h1 .g{
+  color:var(--mint);animation-delay:.34s;
+  font-family:"Source Serif 4",Georgia,serif;font-style:italic;font-weight:300;
+  text-transform:none;letter-spacing:-.01em;font-size:1.04em
 }
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:rise .8s var(--spring) .68s both}
+.hero p.lede{
+  max-width:48ch;color:#cbd5d2;margin:24px 0 30px;font-size:clamp(15px,1.6vw,19px);
+  opacity:0;animation:rise .8s var(--spring) .5s both
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:rise .8s var(--spring) .62s both}
 .hero-meta{
-  display:flex;gap:24px;flex-wrap:wrap;margin-top:32px;padding-top:20px;
+  display:flex;gap:26px;flex-wrap:wrap;margin-top:36px;padding-top:22px;
   border-top:1px solid var(--line-soft);font-size:12.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--muted);font-weight:600;
-  opacity:0;animation:rise .8s var(--spring) .8s both
+  opacity:0;animation:rise .8s var(--spring) .74s both
 }
 .hero-meta b{color:var(--paper);font-weight:700}
-@media(max-width:960px){.hero-in{grid-template-columns:1fr}}
+
+/* the vertical rail down the right edge */
+.hero-rail{
+  position:absolute;right:clamp(14px,2.4vw,30px);top:50%;transform:translateY(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;
+  font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:700;
+  color:var(--muted);writing-mode:vertical-rl;
+  opacity:0;animation:rise 1s var(--spring) 1s both
+}
+.hero-rail::after{content:"";width:1px;height:58px;background:linear-gradient(var(--mint),transparent)}
+@media(max-width:860px){.hero-rail{display:none}}
 
 /* ── ticker ─────────────────────────────────────────────── */
 .ticker{
@@ -493,6 +540,15 @@ input[type=file]:hover::file-selector-button{transform:scale(1.05)}
 .submit:hover{background:#9df0c1;box-shadow:0 14px 32px rgba(126,227,171,.28)}
 .submit:disabled{opacity:.65;cursor:progress;transform:none}
 
+/* ── request a quote ─────────────────────────────────── */
+.quote-wrap{max-width:860px;margin:0 auto}
+.quote-wrap .panel{padding:clamp(26px,4vw,48px)}
+.quote-head{text-align:center;margin-bottom:clamp(26px,4vw,40px)}
+.quote-head h2{font-size:clamp(30px,5.4vw,58px);text-transform:uppercase}
+.quote-head p{color:var(--muted);max-width:52ch;margin:18px auto 0;font-size:clamp(15px,1.6vw,17px)}
+.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+@media(max-width:640px){.row-3{grid-template-columns:1fr}}
+
 /* ── contact ────────────────────────────────────────────── */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:28px}
 .contact-grid h3{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-dim);margin-bottom:12px}
@@ -581,11 +637,11 @@ const CONFIG = {
   // Options in the "what do you need" dropdown on the enquiry form.
   services: [
     "Media wall",
-    "Fitted kitchen",
-    "Fitted wardrobes",
+    "Bespoke kitchen",
+    "Bespoke wardrobe",
     "Wall panelling",
     "Bedroom fit-out",
-    "Full fit-out",
+    "New home fit-out",
     "Something else"
   ],
 
@@ -637,22 +693,44 @@ const CONFIG = {
       <span class="mark-txt">Decks Interior</span>
       <span class="mark-city">Dublin</span>
     </a>
-    <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
-    <nav id="nav">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#how">How it works</a>
-      <a href="#founder">About</a>
-      <a href="#contact">Contact</a>
-      <a class="btn btn-solid nav-cta" href="#enquire">Enquire for a quote</a>
-    </nav>
+    <a class="btn btn-solid nav-cta" href="#quote"><span class="cta-long">Request a&nbsp;</span>Quote</a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
   </div>
 </header>
 
+<!-- ── FULL-SCREEN MENU ─────────────────────────────────── -->
+<div class="menu" id="menu" hidden>
+  <div class="menu-in">
+    <ul class="menu-list">
+        <li><a href="#services" data-close style="--i:0">
+          <span class="n">01</span><span class="t">Services</span><span class="c">›</span></a></li>
+        <li><a href="#work" data-close style="--i:1">
+          <span class="n">02</span><span class="t">Our work</span><span class="c">›</span></a></li>
+        <li><a href="#how" data-close style="--i:2">
+          <span class="n">03</span><span class="t">How it works</span><span class="c">›</span></a></li>
+        <li><a href="#founder" data-close style="--i:3">
+          <span class="n">04</span><span class="t">About</span><span class="c">›</span></a></li>
+        <li><a href="#contact" data-close style="--i:4">
+          <span class="n">05</span><span class="t">Contact</span><span class="c">›</span></a></li>
+    </ul>
+    <div class="menu-foot">
+      <a class="btn btn-solid" href="#quote" data-close>Request a quote &nbsp;↗</a>
+      <a class="btn btn-ghost" data-link="tel" href="#"></a>
+      <div class="social">
+        <a data-link="ig" href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 5.68a4.16 4.16 0 1 0 0 8.32 4.16 4.16 0 0 0 0-8.32Zm0 6.86a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Zm5.3-7.02a.97.97 0 1 1-1.94 0 .97.97 0 0 1 1.94 0Z"/></svg></a>
+        <a data-link="fb" href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg></a>
+        <a data-link="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 8.24 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29Z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <main id="top">
 
-<!-- ── HERO + ENQUIRY FORM ──────────────────────────────── -->
-<section class="hero" id="enquire">
+<!-- ── HERO — picture, headline, nothing else ───────────── -->
+<section class="hero">
   <!-- his footage is all 9:16, which composes beautifully on a phone and badly
        on a wide screen — so each viewport gets the shot that suits it -->
   <picture>
@@ -660,86 +738,22 @@ const CONFIG = {
     <img class="hero-img" src="images/hero.jpg"
          alt="Slatted timber media wall with marble TV panel, integrated fire and concealed LED lighting">
   </picture>
+
+  <span class="hero-rail">Scroll</span>
+
   <div class="wrap hero-in">
-
-    <div>
-      <h1><span class="l1">Bespoke</span><span class="l2">interiors.</span><span class="g">Built around you.</span></h1>
-      <p class="lede">Media walls, kitchens, bedrooms and wall panelling — designed, built and
-        fitted by one team. Dublin based, covering all Ireland.</p>
-      <div class="hero-cta">
-        <a class="btn btn-ghost" data-link="wa" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
-        <a class="btn btn-ghost" data-link="tel" href="#"></a>
-      </div>
-      <div class="hero-meta">
-        <span>Consultation <b>free within Dublin</b></span>
-        <span>Open <b id="hours-meta"></b></span>
-      </div>
+    <p class="eyebrow">Design · Build · Fit</p>
+    <h1><span class="l1">Bespoke interiors.</span><span class="g">Built around you.</span></h1>
+    <p class="lede">Media walls, kitchens, bedrooms and wall panelling — designed, built and
+      fitted by one team. Dublin based, covering all Ireland.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#quote">Request a quote</a>
+      <a class="btn btn-ghost" href="#work">See our work</a>
     </div>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         FORM DELIVERY — set up once, see README.md § "Turning the
-         form on". Currently wired for Netlify Forms (free, handles
-         the photo uploads and emails every enquiry through).
-         ═══════════════════════════════════════════════════════════ -->
-    <form class="panel" name="quote-request">
-
-      <h2>Enquire for a quote</h2>
-      <p class="sub">Tell us what you're after and we'll ring you back with a price.
-        Free consultation within Dublin.</p>
-
-      <div class="row">
-        <div class="field"><label for="f-name">Your name</label>
-          <input id="f-name" name="name" required autocomplete="name"></div>
-        <div class="field"><label for="f-phone">Phone number</label>
-          <input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" required autocomplete="email"></div>
-        <div class="field"><label for="f-eircode">Location / Eircode</label>
-          <input id="f-eircode" name="eircode" placeholder="e.g. D15 XY72" required autocomplete="postal-code"></div>
-      </div>
-      <div class="field">
-        <label for="f-service">What do you need?</label>
-        <select id="f-service" name="service"></select>
-      </div>
-
-      <!-- open by default and styled like the rest of the form, so it reads as
-           part of the enquiry rather than an optional extra. Deliberately NOT
-           `required` — nobody gets blocked from enquiring. -->
-      <details class="detail-block" open>
-        <summary>Measurements and photos</summary>
-        <p class="hint" style="margin-top:14px">The more you send, the faster we can price it. Your photos are uploaded and linked in the message automatically.</p>
-        <div class="field">
-          <label for="f-dims">Dimensions</label>
-          <input id="f-dims" name="dimensions" placeholder="Width × height × depth, e.g. 3.5m × 2.4m × 0.35m">
-        </div>
-        <div class="row">
-          <div class="field"><label for="f-wall">Photo of the wall</label>
-            <input id="f-wall" name="wall_photo" type="file" accept="image/*"></div>
-          <div class="field"><label for="f-design">A design you like</label>
-            <input id="f-design" name="design_photo" type="file" accept="image/*"></div>
-        </div>
-        <div class="field" style="margin-bottom:0">
-          <label for="f-msg">Anything else</label>
-          <textarea id="f-msg" name="message" placeholder="Colours, timings, budget, when you'd like it done…"></textarea>
-        </div>
-      </details>
-
-      <button class="btn submit" type="submit">Send enquiry</button>
-      <noscript>
-        <p class="hint sent-note" style="display:block">
-          This form needs JavaScript. Please
-          <a data-link="wa" href="#" style="color:#fff">message us on WhatsApp</a>
-          or ring <b id="ns-phone"></b> instead.
-        </p>
-      </noscript>
-      <p class="hint sent-note" id="sent-note" hidden></p>
-      <p class="hint" style="margin-top:14px;text-align:center">
-        Or send it all on <a data-link="wa" href="#" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a> —
-        whichever is easier.</p>
-    </form>
-
+    <div class="hero-meta">
+      <span>Consultation <b>free within Dublin</b></span>
+      <span>Open <b id="hours-meta"></b></span>
+    </div>
   </div>
 </section>
 
@@ -868,6 +882,74 @@ const CONFIG = {
   </div>
 </section>
 
+<!-- ── REQUEST A QUOTE ──────────────────────────────────── -->
+<section id="quote">
+  <div class="wrap quote-wrap">
+    <div class="quote-head" data-reveal>
+      <p class="eyebrow">Start here</p>
+      <h2>Request a quote</h2>
+      <p>Tell us about your project and we'll get back to you with a quote.
+        Enjoy a complimentary consultation in Dublin.</p>
+    </div>
+
+    <form class="panel" name="quote-request" data-reveal>
+      <div class="row">
+        <div class="field"><label for="f-name">Full Name</label>
+          <input id="f-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="f-phone">Phone Number</label>
+          <input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-email">Email Address</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="f-eircode">Address (Eircode)</label>
+          <input id="f-eircode" name="eircode" placeholder="e.g. D15 XY72" required autocomplete="postal-code"></div>
+      </div>
+      <div class="field">
+        <label for="f-service">Project Type</label>
+        <select id="f-service" name="service"></select>
+      </div>
+
+      <details class="detail-block" open>
+        <summary>Measurements and photos</summary>
+        <p class="hint" style="margin-top:14px">Share your measurements and photos to help us
+          understand your project and provide an accurate quote. Your uploads will be included
+          with your enquiry.</p>
+
+        <div class="row">
+          <div class="field"><label for="f-height">Wall Height</label>
+            <input id="f-height" name="wall_height" placeholder="e.g. 2.4m"></div>
+          <div class="field"><label for="f-width">Wall Width</label>
+            <input id="f-width" name="wall_width" placeholder="e.g. 3.5m"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="f-wall">Upload a Photo of Your Space</label>
+            <input id="f-wall" name="wall_photo" type="file" accept="image/*"></div>
+          <div class="field"><label for="f-design">Design Reference Image</label>
+            <input id="f-design" name="design_photo" type="file" accept="image/*"></div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label for="f-msg">Additional Information</label>
+          <textarea id="f-msg" name="message" placeholder="Colours, timings, budget, when you'd like it done…"></textarea>
+        </div>
+      </details>
+
+      <button class="btn submit" type="submit">Send enquiry</button>
+      <noscript>
+        <p class="hint sent-note" style="display:block">
+          This form needs JavaScript. Please
+          <a data-link="wa" href="#" style="color:#fff">message us on WhatsApp</a>
+          or ring <b id="ns-phone"></b> instead.
+        </p>
+      </noscript>
+      <p class="hint sent-note" id="sent-note" hidden></p>
+      <p class="hint" style="margin-top:14px;text-align:center">
+        Or send it all on <a data-link="wa" href="#" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a> —
+        whichever is easier.</p>
+    </form>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════════════════════════════
      FOUNDER — PLACEHOLDER. Every [ … ] below is waiting for real
      copy. Drop a photo at images/founder.jpg and swap the
@@ -932,7 +1014,7 @@ const CONFIG = {
     <div class="cta-strip" data-reveal style="margin-top:clamp(40px,6vw,72px)">
       <h2>Get a price for your room</h2>
       <p>Send us the details and we'll ring you back. Free consultation within Dublin.</p>
-      <a class="btn submit" href="#enquire" style="width:auto;display:inline-flex">Enquire for a quote</a>
+      <a class="btn submit" href="#quote" style="width:auto;display:inline-flex">Enquire for a quote</a>
     </div>
   </div>
 </section>
@@ -1077,16 +1159,19 @@ if (!items.length){
   });
 }
 
-/* ── mobile nav ────────────────────────────────────────── */
-const nav = $("#nav"), burger = $(".burger");
-burger.addEventListener("click", ()=>{
-  const open = nav.classList.toggle("open");
-  burger.setAttribute("aria-expanded", open);
-  burger.textContent = open ? "✕" : "☰";
-});
-nav.addEventListener("click", e=>{
-  if (e.target.tagName === "A"){ nav.classList.remove("open"); burger.textContent="☰"; }
-});
+/* ── full-screen menu ──────────────────────────────────── */
+const menu = $("#menu"), menuBtn = $(".menu-btn");
+
+function setMenu(open){
+  document.body.classList.toggle("menu-open", open);
+  menuBtn.setAttribute("aria-expanded", open);
+  if (open) menu.hidden = false;
+  else setTimeout(() => { if (!document.body.classList.contains("menu-open")) menu.hidden = true; }, 400);
+  document.body.style.overflow = open ? "hidden" : "";
+}
+menuBtn.addEventListener("click", () => setMenu(!document.body.classList.contains("menu-open")));
+menu.addEventListener("click", e => { if (e.target.closest("[data-close]")) setMenu(false); });
+addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
 
 /* ── header shrinks once you're past the top ───────────── */
 const head = document.querySelector("header");
@@ -1142,7 +1227,8 @@ function enquiryText(){
     `Location: ${v("eircode")}`,
     `Looking for: ${v("service")}`
   ];
-  if (v("dimensions")) lines.push(`Dimensions: ${v("dimensions")}`);
+  const h = v("wall_height"), w = v("wall_width");
+  if (h || w) lines.push(`Wall size: ${[w && "W " + w, h && "H " + h].filter(Boolean).join("  ")}`);
   if (v("message"))    lines.push("", `Notes: ${v("message")}`);
   return lines.join("\n");
 }
@@ -1255,6 +1341,9 @@ if (location.hash === "#selftest"){
   if (!$("#ticker").children.length)                problems.push("ticker empty");
   if ($("#f-service").options.length !== CONFIG.services.length) problems.push("service options wrong");
   if (!$(".detail-block").open)                     problems.push("measurements block not open by default");
+  if (!$("#quote"))                                 problems.push("quote section missing");
+  if ($(".hero").querySelector("form"))             problems.push("form still in the hero");
+  if ($$(".menu-list a").length !== 5)              problems.push("menu rows wrong");
   if ($$("[data-reveal]").length < 10)              problems.push("reveals missing");
   if (items.length && $$("#gallery figure").length !== items.length) problems.push("gallery did not render");
   if (items.length && !document.querySelector(".lb"))               problems.push("lightbox missing");
