@@ -339,7 +339,14 @@ in the existing palette.
 Menu items live in one array in the markup (`<ul class="menu-list">`). The
 numbers are typed, not generated, so renumber them if you add a row.
 
-On screens under 620px the quote button shortens to "Quote" by hiding
-`.cta-long`; under 380px the wordmark hides and the logo mark carries the
-brand. Those rules need `.bar` in front of them — `.btn` sets `display` later
-in the stylesheet and would otherwise win.
+The menu button is the word **Menu**, switching to **Close** while the overlay
+is open — not an icon.
+
+On screens under 620px the quote button swaps `.cta-long` ("Request a quote")
+for `.cta-short` ("Quote"); under 380px the wordmark hides and the logo mark
+carries the brand. Those rules need `.bar` in front of them — `.btn` sets
+`display` later in the stylesheet and would otherwise win.
+
+Two whole labels rather than one split label, because `.btn` is `inline-flex`
+with `gap:9px`: a label split across a span and a bare text node gets the flex
+gap *plus* the literal space, which reads as a double space.

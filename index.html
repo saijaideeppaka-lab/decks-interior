@@ -132,18 +132,18 @@ footer .mark-logo{width:34px;height:34px}
 @media(max-width:560px){.mark-city{display:none}.mark-txt{font-size:12px}}
 
 .menu-btn{
-  width:48px;height:48px;flex:0 0 auto;border-radius:3px;cursor:pointer;
-  background:rgba(239,241,239,.07);border:1px solid var(--line-soft);
-  display:grid;place-items:center;gap:5px;padding:0;
+  flex:0 0 auto;cursor:pointer;font-family:inherit;
+  padding:13px 20px;border-radius:2px;
+  background:rgba(239,241,239,.06);border:1px solid var(--line-soft);color:var(--paper);
+  font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   transition:.35s var(--spring)
 }
-.menu-btn:hover{border-color:var(--mint);background:rgba(126,227,171,.1)}
-.menu-btn span{display:block;width:18px;height:2px;background:var(--paper);transition:.35s var(--spring)}
-.menu-btn span:nth-child(1){transform:translateY(-3.5px)}
-.menu-btn span:nth-child(2){transform:translateY(3.5px)}
-body.menu-open .menu-btn span:nth-child(1){transform:rotate(45deg)}
-body.menu-open .menu-btn span:nth-child(2){transform:rotate(-45deg)}
-
+.menu-btn:hover{border-color:var(--mint);color:var(--mint);background:rgba(126,227,171,.08);transform:translateY(-2px)}
+.menu-btn .mb-close{display:none}
+body.menu-open .menu-btn .mb-open{display:none}
+body.menu-open .menu-btn .mb-close{display:inline}
+body.menu-open .menu-btn{border-color:var(--mint);color:var(--mint)}
+@media(max-width:620px){.menu-btn{padding:12px 14px;font-size:11.5px;letter-spacing:.1em}}
 
 /* ── buttons ─────────────────────────────────────────── */
 .btn{
@@ -161,10 +161,11 @@ body.menu-open .menu-btn span:nth-child(2){transform:rotate(-45deg)}
 .btn-ghost{border-color:var(--line);color:var(--paper);background:none}
 .btn-ghost:hover{border-color:var(--mint);color:var(--mint);box-shadow:0 10px 24px rgba(0,0,0,.35)}
 .nav-cta{padding:12px 20px}
-/* .btn sets display later in the sheet, so these need the extra specificity */
+.cta-short{display:none}
 @media(max-width:620px){
   .bar .nav-cta{padding:11px 14px;font-size:11.5px;letter-spacing:.06em}
-  .bar .cta-long{display:none}            /* "Request a quote" -> "Quote" */
+  .bar .cta-long{display:none}
+  .bar .cta-short{display:inline}
   .bar{gap:10px}
 }
 @media(max-width:380px){.bar .mark-txt{display:none}}
@@ -693,9 +694,9 @@ const CONFIG = {
       <span class="mark-txt">Decks Interior</span>
       <span class="mark-city">Dublin</span>
     </a>
-    <a class="btn btn-solid nav-cta" href="#quote"><span class="cta-long">Request a&nbsp;</span>Quote</a>
-    <button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu">
-      <span></span><span></span>
+    <a class="btn btn-solid nav-cta" href="#quote"><span class="cta-long">Request a quote</span><span class="cta-short">Quote</span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">
+      <span class="mb-open">Menu</span><span class="mb-close">Close</span>
     </button>
   </div>
 </header>
