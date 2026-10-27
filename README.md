@@ -371,27 +371,46 @@ It closes on a click outside, on Escape, and when any row is used.
 
 ## 9d. Preloader
 
-A 3-second sheet on every load: the logo draws itself in as an outline, fills,
-the wordmark fades up and a mint bar runs along the bottom, then the sheet
-lifts.
+A ~3.6s sheet on every load: a stick figure walks in, raises an arm three
+times, and the logo assembles a piece at a time above him. He finishes with a
+thumbs-up and a hop, the wordmark fades up, and the sheet lifts.
 
-The drawing works by rendering the traced logo path **twice** — once stroked
-with `pathLength="1"` so `stroke-dashoffset` animates from 1 to 0 regardless
-of the path's real length, and once filled, faded in behind it as the outline
-completes.
+**The three pieces are the real logo**, split out of `images/logo.svg`. That
+path has four subpaths; they group into three things a figure can carry:
 
-**It is pure CSS.** The fade-out is a keyframe on `.preloader`, so the sheet
-clears even if the script fails — a preloader that can trap people behind a
-blank screen is worse than no preloader. The script only locks scrolling while
-it plays and removes the element afterwards.
+| Piece | Subpaths | What it is |
+|---|---|---|
+| a | 0 + 1, `fill-rule="evenodd"` | the outer D with its counter |
+| b | 3 | the inner D |
+| c | 2 | the detached chevron |
 
-It runs on **every** refresh, as asked. To show it once per visit instead,
-gate it on `sessionStorage`. Under `prefers-reduced-motion` it collapses to a
-brief static fade.
+### Customising it
 
-Timings live in one place — the `.preloader` CSS block. The sheet lifts at
-2.9s and the script clears it at 3.4s; keep the script's timeout longer than
-the CSS delay.
+- **Colours** come from `--mint`, `--paper` and `--ink`. Nothing is hardcoded.
+- **Timing** lives in one CSS block, listed as a comment at the top of it. The
+  script's removal timeout must stay *longer* than the CSS fade delay.
+- **A different mark**: replace the three `<path class="piece">` shapes. Any
+  number works — give each its own delay.
+
+### Two traps, both hit while building this
+
+1. **A CSS `transform` replaces an SVG `transform` attribute, it does not add
+   to it.** The walker had `transform="translate(112 228)"` for position and a
+   CSS `translateX` for the walk — so the CSS wiped the positioning and drew
+   him at the viewBox origin, floating off the ground. Position and animation
+   must sit on different elements.
+2. **`transform-origin` on an SVG element resolves against the viewBox, not
+   the element**, so rotating a limb about its joint pivoted it from the
+   canvas corner. The limbs use SMIL `animateTransform type="rotate"` instead,
+   which takes the pivot explicitly as `"angle cx cy"`.
+
+**The fade-out is pure CSS**, so the sheet clears even if the script fails —
+a preloader that can strand someone behind a blank screen is worse than none.
+The script only holds the scroll and removes the element afterwards.
+
+It runs on every refresh. To show it once per visit, gate it on
+`sessionStorage`. Under `prefers-reduced-motion` it collapses to a brief fade
+with the logo already assembled.
 
 ## 10. Navigation
 

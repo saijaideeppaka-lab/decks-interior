@@ -104,53 +104,70 @@ section{padding:clamp(56px,9vw,110px) 0;border-top:1px solid var(--line-soft)}
   [data-reveal]{opacity:1!important}
 }
 
-/* ── preloader ──────────────────────────────────────────
-   Pure CSS so it clears itself even if the script fails. The mark draws
-   itself in as an outline, fills, then the sheet lifts. ~3s all in. */
+/* ── preloader: a stick figure builds the logo ───────────
+   Timeline lives here and nowhere else. Pure CSS, so the sheet clears
+   even if the script never runs.
+     0.00–0.80  figure walks in
+     0.90 1.45 2.00  the three pieces arrive and settle
+     2.45–3.00  thumbs up
+     3.10–3.60  sheet lifts
+   To use a different mark: swap the three <path class="piece"> shapes. */
 .preloader{
   position:fixed;inset:0;z-index:200;background:var(--ink);
   display:grid;place-items:center;
-  animation:preOut .5s var(--ease) 2.9s forwards
+  animation:preOut .5s var(--ease) 3.1s forwards
 }
 @keyframes preOut{to{opacity:0;visibility:hidden}}
 
-.pre-mark{width:min(132px,28vw);color:var(--mint)}
-.pre-mark svg{width:100%;height:auto;overflow:visible}
-.pre-mark .draw{
-  fill:none;stroke:currentColor;stroke-width:3;
-  stroke-dasharray:1;stroke-dashoffset:1;          /* pathLength="1" normalises it */
-  animation:preDraw 1.5s var(--ease) .15s forwards
+.pre-stage{width:min(460px,86vw)}
+.pre-stage svg{width:100%;height:auto;overflow:visible}
+
+/* the logo, assembled one piece at a time */
+.piece{fill:var(--mint);opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.piece.a{animation:pieceIn .55s var(--spring) .90s forwards}
+.piece.b{animation:pieceIn .55s var(--spring) 1.45s forwards}
+.piece.c{animation:pieceIn .55s var(--spring) 2.00s forwards}
+@keyframes pieceIn{
+  from{opacity:0;transform:translate(-120px,26px) rotate(-14deg) scale(.86)}
+  60% {opacity:1}
+  to  {opacity:1;transform:none}
 }
-.pre-mark .solid{fill:currentColor;opacity:0;animation:preFill .6s var(--ease) 1.5s forwards}
-@keyframes preDraw{to{stroke-dashoffset:0}}
-@keyframes preFill{to{opacity:1}}
+
+/* ground + figure */
+.pre-ground{stroke:var(--line-soft);stroke-width:2}
+.walker{
+  stroke:var(--paper);stroke-width:4;stroke-linecap:round;fill:none;
+  animation:walkIn .8s var(--ease) forwards
+}
+@keyframes walkIn{from{transform:translateX(-210px)}to{transform:translateX(0)}}
+.walker circle{fill:var(--paper);stroke:none}
+
+.thumb{opacity:0;animation:thumbUp .3s var(--ease) 2.45s forwards}
+@keyframes thumbUp{to{opacity:1}}
+.walker-hop{animation:hop .45s var(--spring) 2.45s}
+@keyframes hop{0%,100%{transform:translateY(0)}45%{transform:translateY(-9px)}}
 
 .pre-word{
-  margin-top:26px;text-align:center;
+  margin-top:24px;text-align:center;
   font-size:12px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--paper);opacity:0;animation:preWord .6s var(--ease) 1.8s forwards
+  color:var(--paper);opacity:0;animation:preWord .5s var(--ease) 2.5s forwards
 }
 .pre-word span{display:block;margin-top:9px;font-size:10px;letter-spacing:.24em;color:var(--mint-dim)}
 @keyframes preWord{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-.pre-bar{
-  position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(239,241,239,.08)
-}
-.pre-bar::after{
-  content:"";display:block;height:100%;width:0;background:var(--mint);
-  animation:preBar 2.8s var(--ease) forwards
-}
+.pre-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(239,241,239,.08)}
+.pre-bar::after{content:"";display:block;height:100%;width:0;background:var(--mint);animation:preBar 3s var(--ease) forwards}
 @keyframes preBar{to{width:100%}}
 
 @media (prefers-reduced-motion:reduce){
   .preloader{animation:preOut .3s linear .4s forwards}
-  .pre-mark .draw{display:none}
-  .pre-mark .solid{opacity:1;animation:none}
+  .piece{opacity:1;animation:none}
+  .walker,.limb,.arm-r,.arm-l,.walker-hop,.pre-bar::after{animation:none}
+  .thumb{opacity:1;animation:none}
   .pre-word{opacity:1;animation:none}
-  .pre-bar{display:none}
 }
 
-/* ── header: logo, one CTA, and a menu button at every width ── */
+/* ── header: logo/* ── header: logo, one CTA, and a menu button at every width ── */
 header{
   position:fixed;top:0;left:0;right:0;z-index:90;
   background:linear-gradient(rgba(9,22,36,.72),transparent);
@@ -829,10 +846,55 @@ const CONFIG = {
 
 <div class="preloader" id="preloader" aria-hidden="true">
   <div>
-    <div class="pre-mark">
-      <svg viewBox="0 0 200.0 198.8" xmlns="http://www.w3.org/2000/svg">
-        <path class="draw"  pathLength="1" fill-rule="evenodd" d="M30.52 0.0 L136.55 0.0 L143.78 2.01 L149.4 7.23 L196.79 89.16 L200.0 98.39 L198.8 105.62 L150.6 189.56 L148.19 193.17 L142.97 197.19 L137.75 198.8 L30.52 198.8 L25.3 190.36 L24.5 187.15 L76.71 100.0 L76.71 98.39 L24.9 11.24 L24.9 9.24 Z M57.83 21.29 L57.83 23.69 L67.87 40.56 L115.66 40.56 L122.49 43.78 L126.51 48.19 L150.6 89.96 L153.01 95.98 L153.01 102.41 L151.81 106.83 L127.71 148.59 L122.49 155.02 L114.86 158.23 L67.47 158.23 L56.63 177.51 L126.51 177.51 L131.33 175.9 L137.35 170.28 L173.09 108.43 L175.5 102.01 L174.7 93.57 L138.15 29.72 L131.33 22.89 L126.51 21.29 Z M12.45 28.92 L14.46 30.52 L47.39 88.35 L51.0 96.79 L51.0 101.61 L48.19 108.84 L13.65 168.67 L12.45 168.67 L9.24 163.45 L0.4 146.99 L23.69 108.84 L26.1 103.61 L26.51 97.19 L24.5 91.16 L0.0 50.2 Z M81.12 61.45 L80.72 63.86 L97.99 93.57 L98.8 102.01 L97.19 106.83 L79.92 137.35 L105.62 136.55 L109.64 134.54 L113.65 130.52 L127.71 106.43 L128.92 102.01 L128.51 94.78 L115.26 70.68 L109.64 64.26 L102.41 61.45 Z"/>
-        <path class="solid" fill-rule="evenodd" d="M30.52 0.0 L136.55 0.0 L143.78 2.01 L149.4 7.23 L196.79 89.16 L200.0 98.39 L198.8 105.62 L150.6 189.56 L148.19 193.17 L142.97 197.19 L137.75 198.8 L30.52 198.8 L25.3 190.36 L24.5 187.15 L76.71 100.0 L76.71 98.39 L24.9 11.24 L24.9 9.24 Z M57.83 21.29 L57.83 23.69 L67.87 40.56 L115.66 40.56 L122.49 43.78 L126.51 48.19 L150.6 89.96 L153.01 95.98 L153.01 102.41 L151.81 106.83 L127.71 148.59 L122.49 155.02 L114.86 158.23 L67.47 158.23 L56.63 177.51 L126.51 177.51 L131.33 175.9 L137.35 170.28 L173.09 108.43 L175.5 102.01 L174.7 93.57 L138.15 29.72 L131.33 22.89 L126.51 21.29 Z M12.45 28.92 L14.46 30.52 L47.39 88.35 L51.0 96.79 L51.0 101.61 L48.19 108.84 L13.65 168.67 L12.45 168.67 L9.24 163.45 L0.4 146.99 L23.69 108.84 L26.1 103.61 L26.51 97.19 L24.5 91.16 L0.0 50.2 Z M81.12 61.45 L80.72 63.86 L97.99 93.57 L98.8 102.01 L97.19 106.83 L79.92 137.35 L105.62 136.55 L109.64 134.54 L113.65 130.52 L127.71 106.43 L128.92 102.01 L128.51 94.78 L115.26 70.68 L109.64 64.26 L102.41 61.45 Z"/>
+    <div class="pre-stage">
+      <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg">
+        <!-- the mark, built from the three pieces of images/logo.svg -->
+        <g transform="translate(150 34) scale(0.62)">
+          <path class="piece a" fill-rule="evenodd" d="M30.52 0.0 L136.55 0.0 L143.78 2.01 L149.4 7.23 L196.79 89.16 L200.0 98.39 L198.8 105.62 L150.6 189.56 L148.19 193.17 L142.97 197.19 L137.75 198.8 L30.52 198.8 L25.3 190.36 L24.5 187.15 L76.71 100.0 L76.71 98.39 L24.9 11.24 L24.9 9.24 Z M57.83 21.29 L57.83 23.69 L67.87 40.56 L115.66 40.56 L122.49 43.78 L126.51 48.19 L150.6 89.96 L153.01 95.98 L153.01 102.41 L151.81 106.83 L127.71 148.59 L122.49 155.02 L114.86 158.23 L67.47 158.23 L56.63 177.51 L126.51 177.51 L131.33 175.9 L137.35 170.28 L173.09 108.43 L175.5 102.01 L174.7 93.57 L138.15 29.72 L131.33 22.89 L126.51 21.29 Z"/>
+          <path class="piece b" d="M81.12 61.45 L80.72 63.86 L97.99 93.57 L98.8 102.01 L97.19 106.83 L79.92 137.35 L105.62 136.55 L109.64 134.54 L113.65 130.52 L127.71 106.43 L128.92 102.01 L128.51 94.78 L115.26 70.68 L109.64 64.26 L102.41 61.45 Z"/>
+          <path class="piece c" d="M12.45 28.92 L14.46 30.52 L47.39 88.35 L51.0 96.79 L51.0 101.61 L48.19 108.84 L13.65 168.67 L12.45 168.67 L9.24 163.45 L0.4 146.99 L23.69 108.84 L26.1 103.61 L26.51 97.19 L24.5 91.16 L0.0 50.2 Z"/>
+        </g>
+
+        <line class="pre-ground" x1="20" y1="228" x2="400" y2="228"/>
+
+        <g class="walker-hop">
+         <g transform="translate(112 228)">
+          <g class="walker">
+            <circle cx="0" cy="-70" r="10"/>
+            <line x1="0" y1="-60" x2="0" y2="-28"/>
+
+            <g transform="translate(0 -52)">
+              <line x1="0" y1="0" x2="0" y2="24">
+                <animateTransform attributeName="transform" type="rotate" dur="3.1s" fill="freeze"
+                  values="-26 0 0;-26 0 0;18 0 0;18 0 0" keyTimes="0;0.22;0.30;1"/>
+              </line>
+            </g>
+
+            <g transform="translate(0 -52)">
+              <g>
+                <animateTransform attributeName="transform" type="rotate" dur="3.1s" fill="freeze"
+                  values="28 0 0;28 0 0;-58 0 0;-58 0 0;28 0 0;-58 0 0;-58 0 0;28 0 0;-58 0 0;-58 0 0;-96 0 0;-96 0 0"
+                  keyTimes="0;0.22;0.27;0.32;0.37;0.42;0.47;0.52;0.57;0.62;0.70;1"/>
+                <line x1="0" y1="0" x2="0" y2="24"/>
+                <line class="thumb" x1="0" y1="24" x2="7" y2="30"/>
+              </g>
+            </g>
+
+            <g transform="translate(0 -28)">
+              <line x1="0" y1="0" x2="0" y2="28">
+                <animateTransform attributeName="transform" type="rotate" dur="0.9s" fill="freeze"
+                  values="22 0 0;-22 0 0;22 0 0;-22 0 0;7 0 0" keyTimes="0;0.25;0.5;0.75;1"/>
+              </line>
+            </g>
+            <g transform="translate(0 -28)">
+              <line x1="0" y1="0" x2="0" y2="28">
+                <animateTransform attributeName="transform" type="rotate" dur="0.9s" fill="freeze"
+                  values="-22 0 0;22 0 0;-22 0 0;22 0 0;-7 0 0" keyTimes="0;0.25;0.5;0.75;1"/>
+              </line>
+            </g>
+          </g>
+         </g>
+        </g>
       </svg>
     </div>
     <p class="pre-word">Decks Interior<span>Dublin</span></p>
@@ -1355,7 +1417,7 @@ if (!items.length){
   setTimeout(() => {
     document.body.style.overflow = "";
     pre.remove();
-  }, quick ? 800 : 3400);
+  }, quick ? 800 : 3650);
 })();
 
 /* ── "Talk to us" widget ───────────────────────────────── */
@@ -1577,7 +1639,8 @@ if (location.hash === "#selftest"){
   if ($(".hero").querySelector("form"))             problems.push("form still in the hero");
   if ($$(".menu-list a").length !== 5)              problems.push("menu rows wrong");
   if ($$("#talk-panel a").length !== 6)             problems.push("talk panel rows wrong");
-  if (!$(".pre-mark .draw") && !!$("#preloader"))   problems.push("preloader mark missing");
+  if ($("#preloader") && $$("#preloader .piece").length !== 3)
+                                                    problems.push("preloader pieces wrong");
   if (!$(".tp-phone").textContent.trim())           problems.push("talk panel phone not filled");
 
   // layout rules that other sections depend on — deleting these has broken
